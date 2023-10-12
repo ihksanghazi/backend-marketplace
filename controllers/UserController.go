@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
@@ -33,16 +34,15 @@ func (u *userControllerImpl) Register(c *gin.Context) {
 	}
 
 	res,err:=u.service.Register(req)
-	// jika error duplikat
-	var duplicateEntryError = &pgconn.PgError{Code: "23505"}
-	if errors.As(err, &duplicateEntryError) {
-		c.JSON(409,gin.H{"error":"email or phone number has already exist"})
-		return
-	}
-	// jika error lainnya
-	if err!= nil {
-		c.JSON(500,gin.H{"error":err.Error()})
-		return
+	if err != nil {
+		var duplicateEntryError = &pgconn.PgError{Code: "23505"}
+		if errors.As(err, &duplicateEntryError) {
+			c.JSON(409,gin.H{"error":"email or phone number has already exist"})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
 	}
 	
 	response:= web.BasicResponse{
@@ -62,7 +62,20 @@ func (u *userControllerImpl) Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200,gin.H{"msg":req})
+	refreshToken,accessToken,err:=u.service.Login(req)
+	if err != nil {
+		if err.Error() == "wrong password"{
+			c.JSON(401,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	c.SetCookie("tkn_ck",refreshToken,int(time.Until(time.Now().Add(24 * time.Hour)).Seconds()),"/","localhost",false,true)
+
+	c.JSON(200,gin.H{"your_access_token":accessToken})
 }
 
 func (u *userControllerImpl) Logout(c *gin.Context){
