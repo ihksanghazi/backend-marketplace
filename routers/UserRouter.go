@@ -15,4 +15,7 @@ func UserRouter(r *gin.RouterGroup){
 	controller := controllers.NewUserController(service)
 
 	r.POST("/register",controller.Register)
+	r.POST("/login",controller.Login)
+	r.DELETE("/logout",controller.Logout)
+	
 }

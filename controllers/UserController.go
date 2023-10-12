@@ -11,6 +11,8 @@ import (
 
 type UserController interface{
 	Register(c *gin.Context)
+	Login(c *gin.Context)
+	Logout(c *gin.Context)
 }
 
 type userControllerImpl struct{
@@ -50,4 +52,20 @@ func (u *userControllerImpl) Register(c *gin.Context) {
 	}
 
 	c.JSON(201,response)
+}
+
+func (u *userControllerImpl) Login(c *gin.Context) {
+	
+	var req web.LoginRequest
+	if err:=c.ShouldBindJSON(&req);err!= nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	c.JSON(200,gin.H{"msg":req})
+}
+
+func (u *userControllerImpl) Logout(c *gin.Context){
+	c.SetCookie("tkn_ck","",-1,"/","localhost",false,true)
+	c.JSON(200,gin.H{"msg":"berhasil logout"})
 }

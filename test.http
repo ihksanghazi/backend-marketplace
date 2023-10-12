@@ -9,3 +9,14 @@ POST http://localhost:5000/api/user/register
   "address":"",
   "image_url":""
 }
+
+### Login User
+POST http://localhost:5000/api/user/login
+
+{
+  "email":"person@gmail.com",
+  "password":"123"
+}
+
+### Logout User
+DELETE http://localhost:5000/api/user/logout
