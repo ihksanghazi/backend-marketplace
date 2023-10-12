@@ -11,12 +11,13 @@ import (
 func main() {
 	r := gin.Default()
 
+	
 	err := godotenv.Load()
   if err != nil {
     log.Fatal("Error loading .env file")
   }
 
-	routers.TestRouter(r.Group("/api"))
+	routers.UserRouter(r.Group("/api/user"))
 
 	r.Run(":5000")
 }
