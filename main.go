@@ -4,6 +4,8 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ihksanghazi/backend-marketplace/database"
+	"github.com/ihksanghazi/backend-marketplace/model/domain"
 	"github.com/ihksanghazi/backend-marketplace/routers"
 	"github.com/joho/godotenv"
 )
@@ -16,7 +18,10 @@ func main() {
     log.Fatal("Error loading .env file")
   }
 
-	routers.TestRouter(r.Group("/api"))
+	database.ConnectDB()
+	database.DB.AutoMigrate(domain.User{})
+
+	routers.UserRouter(r.Group("/api/user"))
 
 	r.Run(":5000")
 }
