@@ -8,11 +8,13 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/services"
 	"github.com/jackc/pgx/v5/pgconn"
+	"gorm.io/gorm"
 )
 
 type UserController interface{
 	Register(c *gin.Context)
 	Login(c *gin.Context)
+	GetToken(c *gin.Context)
 	Logout(c *gin.Context)
 }
 
@@ -74,6 +76,28 @@ func (u *userControllerImpl) Login(c *gin.Context) {
 	}
 
 	c.SetCookie("tkn_ck",refreshToken,int(time.Until(time.Now().Add(24 * time.Hour)).Seconds()),"/","localhost",false,true)
+
+	c.JSON(200,gin.H{"your_access_token":accessToken})
+}
+
+func (u *userControllerImpl) GetToken(c *gin.Context){
+	// get token
+	refreshToken,err:=c.Cookie("tkn_ck")
+	if err != nil || refreshToken == "" {
+		c.JSON(401,gin.H{"error":"Unauthorize"})
+		return
+	}
+
+	accessToken,err:=u.service.GetToken(refreshToken)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(401,gin.H{"error":"Unauthorize"})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
 
 	c.JSON(200,gin.H{"your_access_token":accessToken})
 }

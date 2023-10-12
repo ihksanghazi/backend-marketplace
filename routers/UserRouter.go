@@ -16,6 +16,7 @@ func UserRouter(r *gin.RouterGroup){
 
 	r.POST("/register",controller.Register)
 	r.POST("/login",controller.Login)
+	r.GET("/token",controller.GetToken)
 	r.DELETE("/logout",controller.Logout)
 	
 }

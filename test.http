@@ -18,6 +18,9 @@ POST http://localhost:5000/api/user/login
   "password":"123"
 }
 
+### Get Token
+GET http://localhost:5000/api/user/token
+
 ### Logout User
 DELETE http://localhost:5000/api/user/logout
 
