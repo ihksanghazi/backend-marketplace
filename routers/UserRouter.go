@@ -1,9 +1,13 @@
 package routers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/ihksanghazi/backend-marketplace/controllers"
+)
 
 func UserRouter(r *gin.RouterGroup){
-	r.POST("/register",func(c *gin.Context) {
-		c.JSON(200,gin.H{"msg":"berhasil"})
-	})
+
+	controller := controllers.NewUserController()
+
+	r.POST("/register",controller.Register)
 }
