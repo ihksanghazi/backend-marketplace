@@ -1,2 +1,11 @@
 ### Register User
 POST http://localhost:5000/api/user/register
+
+{
+  "username":"person",
+  "email":"person@gmail.com",
+  "password":"123",
+  "phone_number":"",
+  "address":"",
+  "image_url":""
+}
