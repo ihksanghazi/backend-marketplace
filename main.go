@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/database"
-	"github.com/ihksanghazi/backend-marketplace/model/domain"
 	"github.com/ihksanghazi/backend-marketplace/routers"
 	"github.com/joho/godotenv"
 )
@@ -22,10 +21,11 @@ func main() {
   }
 
 	database.ConnectDB()
-	database.DB.AutoMigrate(domain.User{})
+	// database.DB.AutoMigrate(domain.User{},domain.Store{})
 
-	routers.UserRouter(r.Group("/api/user"))
 	routers.TestRouter(r.Group("/api/test"))
+	routers.UserRouter(r.Group("/api/user"))
+	routers.StoreRouter(r.Group("/api/store"))
 
 	r.Run(":5000")
 }
