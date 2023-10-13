@@ -12,7 +12,7 @@ type User struct {
 	Username string `gorm:"index;not null"`
 	Email string `gorm:"unique;index;not null"`
 	Password string `gorm:"not null"`
-	RefreshToken string `gorm:"index"`
+	RefreshToken string
 	Role string `gorm:"default:user;index"`
 	PhoneNumber string `gorm:"unique;default:NULL"`
 	Address string
