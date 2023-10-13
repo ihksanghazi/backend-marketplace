@@ -2,8 +2,8 @@
 POST http://localhost:5000/api/user/register
 
 {
-  "username":"sandy",
-  "email":"sandy@gmail.com",
+  "username":"sendi",
+  "email":"sendi@gmail.com",
   "password":"123",
   "phone_number":"",
   "address":"",
@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"sandy@gmail.com",
+  "email":"azhi@gmail.com",
   "password":"123"
 }
 
@@ -61,7 +61,7 @@ POST http://localhost:5000/api/store/create
 
 {
   "store_name":"Toko Buku",
-	"description":"blablabla",
+	"description":"contoh deskripsi",
 	"category":"pendidikan",
 	"image_url":""
 }

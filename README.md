@@ -40,15 +40,12 @@ POST http://localhost:5000/api/user/register
 	"code": 201,
 	"status": "Successful user registration",
 	"data": {
-		"id": "1d7828b5-594a-4648-815d-ecd89b3e79b8",
 		"username": "person",
 		"email": "person@gmail.com",
 		"password": "$2a$10$UbHxmNYQYPwDSk2rcKA1KeAY8vHywEpgSysxD61OvlB8JLszO4IwS",
 		"phone_number": "",
 		"address": "",
-		"image_url": "",
-		"created_at": "2023-10-12T18:26:01.950373+07:00",
-		"updated_at": "2023-10-12T18:26:01.950373+07:00"
+		"image_url": ""
 	}
 }
 ```
