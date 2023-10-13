@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"azhi@gmail.com",
+  "email":"sendi@gmail.com",
   "password":"123"
 }
 
@@ -61,8 +61,19 @@ POST http://localhost:5000/api/store/create
 Access-Token:
 
 {
-  "store_name":"Toko Buku",
+  "store_name":"Toko Game",
 	"description":"contoh deskripsi",
-	"category":"pendidikan",
+	"category":"hiburan",
+	"image_url":""
+}
+
+### Update Store
+PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+Access-Token:
+
+{
+  "store_name":"Toko Game",
+	"description":"contoh deskripsi",
+	"category":"hiburan",
 	"image_url":""
 }

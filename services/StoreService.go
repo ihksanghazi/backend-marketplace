@@ -12,6 +12,7 @@ import (
 
 type StoreService interface{
 	Create(userId string,req web.CreateStoreRequest) (web.CreateStoreRequest,error)
+	Update(storeId string,req web.UpdateStoreRequest) (web.UpdateStoreRequest,error)
 }
 
 type storeServiceImpl struct {
@@ -38,7 +39,22 @@ func (s *storeServiceImpl) Create(userId string,req web.CreateStoreRequest) (web
 		store.Category = req.Category
 		store.ImageUrl = req.ImageUrl
 		
-		if err:= tx.Model(store).WithContext(s.ctx).Create(&store).First(&req).Error; err!=nil {
+		if err:= tx.Model(store).WithContext(s.ctx).Create(&store).First(&req,"id = ?",store.Id).Error; err!=nil {
+			return err
+		}
+		return nil
+	})
+	return req,err
+}
+
+func (s *storeServiceImpl) Update(storeId string,req web.UpdateStoreRequest) (web.UpdateStoreRequest,error) {
+	err:=database.DB.Transaction(func(tx *gorm.DB) error {
+		var store domain.Store
+		store.StoreName = req.StoreName
+		store.Description = req.Description
+		store.Category = req.Category
+		store.ImageUrl = req.ImageUrl
+		if err:= tx.Model(store).WithContext(s.ctx).Where("id = ?",storeId).Updates(store).First(&req).Error; err != nil {
 			return err
 		}
 		return nil
