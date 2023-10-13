@@ -20,7 +20,8 @@ func UserRouter(r *gin.RouterGroup){
 	r.POST("/login",controller.Login)
 	r.GET("/token",controller.GetToken)
 	r.DELETE("/logout",controller.Logout)
-
+	r.DELETE("/:id",controller.Delete)
+	
 	// must login
 	r.Use(middleware.MustLogin())
 	r.PUT("/:id",controller.Update)

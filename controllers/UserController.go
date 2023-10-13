@@ -17,6 +17,7 @@ type UserController interface{
 	GetToken(c *gin.Context)
 	Logout(c *gin.Context)
 	Update(c *gin.Context)
+	Delete(c *gin.Context)
 }
 
 type userControllerImpl struct{
@@ -136,4 +137,10 @@ func (u *userControllerImpl) Update(c *gin.Context){
 	}
 
 	c.JSON(200,response)
+}
+
+func (u *userControllerImpl) Delete(c *gin.Context){
+	id := c.Param("id")
+
+	c.JSON(200,gin.H{"id":id})
 }
