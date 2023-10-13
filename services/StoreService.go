@@ -13,6 +13,7 @@ import (
 type StoreService interface{
 	Create(userId string,req web.CreateStoreRequest) (web.CreateStoreRequest,error)
 	Update(storeId string,req web.UpdateStoreRequest) (web.UpdateStoreRequest,error)
+	Delete(storeId string) error
 }
 
 type storeServiceImpl struct {
@@ -60,4 +61,18 @@ func (s *storeServiceImpl) Update(storeId string,req web.UpdateStoreRequest) (we
 		return nil
 	})
 	return req,err
+}
+
+func (s *storeServiceImpl) Delete(storeId string) error {
+	err:=database.DB.Transaction(func(tx *gorm.DB) error {
+		var store domain.Store
+		if err:= tx.Model(store).WithContext(s.ctx).Where("id = ?",storeId).First(&store).Error; err!=nil {
+			return err
+		}
+		if err:= tx.Model(store).WithContext(s.ctx).Where("id = ?",storeId).Delete(&store).Error; err!=nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }

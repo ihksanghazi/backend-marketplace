@@ -100,5 +100,15 @@ func (s *storeControllerImpl) Update(c *gin.Context) {
 func (s *storeControllerImpl) Delete(c *gin.Context){
 	id:=c.Param("id")
 
-	c.JSON(200,gin.H{"id":id})
+	if err:=s.service.Delete(id); err != nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	c.JSON(200,gin.H{"msg":"Success Delete Store with id '"+id+"'"})
 }

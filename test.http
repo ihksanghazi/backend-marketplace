@@ -79,5 +79,5 @@ Access-Token:
 }
 
 ### Delete Store
-DELETE http://localhost:5000/api/store/storeId
+DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 Access-Token:
