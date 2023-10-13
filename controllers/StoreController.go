@@ -13,6 +13,7 @@ import (
 
 type StoreController interface{
 	Create(c *gin.Context)
+	Update(c *gin.Context)
 }
 
 type storeControllerImpl struct{
@@ -63,4 +64,16 @@ func (s *storeControllerImpl) Create(c *gin.Context) {
 	}
 
 	c.JSON(201,response)
+}
+
+func (s *storeControllerImpl) Update(c *gin.Context) {
+	id:=c.Param("id")
+
+	var req web.UpdateStoreRequest
+	if err:=c.ShouldBindJSON(&req);err != nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	c.JSON(200,gin.H{"id":id,"data":req})
 }

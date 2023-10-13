@@ -66,3 +66,14 @@ Access-Token:
 	"category":"pendidikan",
 	"image_url":""
 }
+
+### Update Store
+PUT http://localhost:5000/api/store/storeId
+Access-Token:
+
+{
+  "store_name":"Toko Buku",
+	"description":"contoh deskripsi",
+	"category":"pendidikan",
+	"image_url":""
+}

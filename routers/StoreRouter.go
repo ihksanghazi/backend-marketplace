@@ -15,5 +15,6 @@ func StoreRouter(r *gin.RouterGroup) {
 	controller:=controllers.NewStoreController(service)
 
 	r.POST("/create",controller.Create)
+	r.PUT("/:id",controller.Update)
 	
 }
