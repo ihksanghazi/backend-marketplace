@@ -2,8 +2,8 @@
 POST http://localhost:5000/api/user/register
 
 {
-  "username":"person",
-  "email":"person@gmail.com",
+  "username":"anggoro",
+  "email":"anggoro@gmail.com",
   "password":"123",
   "phone_number":"",
   "address":"",
@@ -50,7 +50,7 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 Access-Token:
 
 ### Find User
-GET http://localhost:5000/api/user/find?page=10&search=cari
+GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 ### Get User
-GET http://localhost:5000/api/user/userId
+GET http://localhost:5000/api/user/42b14e75-da21-4bcf-9c39-96aa2edaf3d7

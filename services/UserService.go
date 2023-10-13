@@ -20,6 +20,8 @@ type UserService interface{
 	GetToken(refreshToken string) (string,error)
 	Update(id string,req web.UpdateRequest) (web.UpdateRequest,error)
 	Delete(id string) error
+	Find(page int,limit int,search string)(result []web.FindUserResponse, totalPage int, err error)
+	GetUser(id string) (web.FindUserResponse,error)
 }
 
 type userServiceImpl struct{
@@ -47,6 +49,7 @@ func (u *userServiceImpl) Register(req web.RegisterRequest) (web.RegisterRespons
 		user.Username = req.Username
 		user.Email = req.Email
 		user.Password = string(password)
+		user.PhoneNumber=req.PhoneNumber
 		user.Address = req.Address
 		user.ImageUrl = req.ImageUrl
 
@@ -150,4 +153,21 @@ func (u *userServiceImpl) Delete(id string) error{
 		return nil
 	})
 	return err
+}
+
+func (u *userServiceImpl) Find(page int,limit int,search string)(result []web.FindUserResponse, totalPage int, err error){
+	var user domain.User
+	var response []web.FindUserResponse
+	var totalData int64
+	offset:= (page-1)*limit
+	Err:=database.DB.Model(user).WithContext(u.ctx).Where("role != ? AND username ILIKE ?","admin","%"+search+"%").Count(&totalData).Limit(limit).Offset(offset).Find(&response).Error
+	TotalPage:= (int(totalData)+limit-1) / limit
+	return response,TotalPage,Err
+}
+
+func (u *userServiceImpl) GetUser(id string) (web.FindUserResponse,error){
+	var user domain.User
+	var res web.FindUserResponse
+	err:= database.DB.Model(user).WithContext(u.ctx).Where("id = ?",id).First(&res).Error
+	return res,err
 }
