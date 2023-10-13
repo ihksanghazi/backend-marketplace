@@ -245,6 +245,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 #### Request Header
 
 **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna (opsional, dapat dikosongkan).
+
 **Query Parameters**
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
