@@ -9,6 +9,7 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/services"
 	"github.com/ihksanghazi/backend-marketplace/utils"
 	"github.com/jackc/pgx/v5/pgconn"
+	"gorm.io/gorm"
 )
 
 type StoreController interface{
@@ -75,5 +76,22 @@ func (s *storeControllerImpl) Update(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200,gin.H{"id":id,"data":req})
+	result,err:=s.service.Update(id,req)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	response:=web.BasicResponse{
+		Code:200,
+		Status: "Success Update Store With Id '"+id+"'",
+		Data: result,
+	}
+
+	c.JSON(200,response)
 }
