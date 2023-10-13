@@ -241,7 +241,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 #### Request Header
 
-**Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna (opsional, dapat dikosongkan).
+**Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
 **Query Parameters**
 
@@ -293,7 +293,7 @@ POST http://localhost:5000/api/store/create
 
 #### Request Header
 
-- **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna (opsional, dapat dikosongkan).
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
 #### Request Body
 
@@ -326,6 +326,58 @@ POST http://localhost:5000/api/store/create
 		"store_name": "Toko Buku",
 		"description": "contoh deskripsi",
 		"category": "pendidikan",
+		"image_url": ""
+	}
+}
+```
+
+##
+
+### Update Store
+
+Digunakan untuk memperbarui informasi toko yang ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+### Request Body
+
+- **store_name** (string, optional): Nama toko (dapat dikosongkan).
+- **description** (string, optional): Deskripsi toko (dapat dikosongkan).
+- **category** (string, optional): Kategori toko (dapat dikosongkan).
+- **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+
+#### Contoh Request Body:
+
+```json
+{
+	"store_name": "Toko Game",
+	"description": "contoh deskripsi",
+	"category": "hiburan",
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Store With Id 'c15dc952-7fea-499c-b2cb-3c9d6fe8503a'",
+	"data": {
+		"store_name": "Toko Game",
+		"description": "contoh deskripsi",
+		"category": "hiburan",
 		"image_url": ""
 	}
 }
