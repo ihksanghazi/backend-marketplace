@@ -57,7 +57,7 @@ POST http://localhost:5000/api/user/register
 > Kata sandi (password) yang digunakan dalam contoh di atas telah di-hash dengan algoritma bcrypt.
 > jika user memasukkan email dan no telephone yang sudah ada maka akan mengembalikan pesan error.
 
-###
+##
 
 ### Login User
 
@@ -98,7 +98,7 @@ POST http://localhost:5000/api/user/login
 > [!NOTE]
 > Token yang diset dicookie dan token yang dikembalikan ke dalam response memiliki value yang berbeda
 
-###
+##
 
 ### Get User Access Token
 
@@ -121,7 +121,7 @@ GET http://localhost:5000/api/user/token
 }
 ```
 
-###
+##
 
 ### Logout User
 
@@ -145,7 +145,7 @@ DELETE http://localhost:5000/api/user/logout
 }
 ```
 
-###
+##
 
 ### Update User
 
@@ -203,4 +203,31 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 }
 ```
 
-###
+##
+
+### Delete User
+
+Digunakan untuk menghapus pengguna berdasarkan ID.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success delete user with id 'adf4b794-f398-464a-b6d5-ef8a078f0705'"
+}
+```
+
+##

@@ -19,6 +19,7 @@ type UserService interface{
 	Login(req web.LoginRequest) (refreshToken string, accessToken string, err error)
 	GetToken(refreshToken string) (string,error)
 	Update(id string,req web.UpdateRequest) (web.UpdateRequest,error)
+	Delete(id string) error
 }
 
 type userServiceImpl struct{
@@ -133,4 +134,20 @@ func (u *userServiceImpl) Update(id string,req web.UpdateRequest) (web.UpdateReq
 		return nil
 	})
 	return req,err
+}
+
+func (u *userServiceImpl) Delete(id string) error{
+	err:=database.DB.Transaction(func(tx *gorm.DB) error {
+		var user domain.User
+		// cek user
+		if err:= tx.Model(user).WithContext(u.ctx).Where("id = ?",id).First(&user).Error; err!=nil {
+			return err
+		}
+		// delete
+		if err:= tx.Model(user).WithContext(u.ctx).Where("id = ?",id).Delete(&user).Error; err!=nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }
