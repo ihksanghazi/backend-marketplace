@@ -58,3 +58,149 @@ POST http://localhost:5000/api/user/register
 > jika user memasukkan email dan no telephone yang sudah ada maka akan mengembalikan pesan error.
 
 ###
+
+### Login User
+
+Digunakan untuk mengautentikasi pengguna.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/user/login
+```
+
+#### Request Body
+
+- **email** (string, required): Alamat email pengguna.
+- **password** (string, required): Kata sandi pengguna.
+
+#### Contoh Request Body:
+
+```json
+{
+	"email": "person@gmail.com",
+	"password": "123"
+}
+```
+
+### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+- **Set-Cookie**: tkn_ck=[token]; Path=/; Domain=localhost; Max-Age=86400; HttpOnly
+
+```json
+{
+	"your_access_token": "[token]"
+}
+```
+
+> [!NOTE]
+> Token yang diset dicookie dan token yang dikembalikan ke dalam response memiliki value yang berbeda
+
+###
+
+### Get User Access Token
+
+Digunakan untuk mendapatkan akses token pengguna yang sah.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/user/token
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"your_access_token": "[token]"
+}
+```
+
+###
+
+### Logout User
+
+Digunakan untuk logout (keluar) pengguna dari aplikasi.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/user/logout
+```
+
+### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+- **Set-Cookie**: tkn_ck=; Path=/; Domain=localhost; Max-Age=0; HttpOnly
+
+```json
+{
+	"msg": "Berhasil logout"
+}
+```
+
+###
+
+### Update User
+
+Digunakan untuk memperbarui informasi pengguna yang ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Request Body
+
+- **username** (string, optional): Nama pengguna (dapat dikosongkan).
+- **email** (string, optional): Alamat email pengguna (dapat dikosongkan).
+- **password** (string, optional): Kata sandi pengguna (dapat dikosongkan).
+- **phone_number** (string, optional): Nomor telepon pengguna (dapat dikosongkan).
+- **address** (string, optional): Alamat pengguna (dapat dikosongkan).
+- **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
+
+#### Contoh Request Body:
+
+```json
+{
+	"username": "",
+	"email": "person@gmail.com",
+	"password": "",
+	"phone_number": "",
+	"address": "Jl. Buntu",
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Successfull Update User With Id 'adf4b794-f398-464a-b6d5-ef8a078f0705'",
+	"data": {
+		"username": "person",
+		"email": "person@gmail.com",
+		"password": "$2a$10$lQk04EeOxkf8HR1IqoZBXuhEHThgc6OT2SmVR8RPprEpROHEkhv5K",
+		"phone_number": "",
+		"address": "Jl. Buntu",
+		"image_url": ""
+	}
+}
+```
+
+###
