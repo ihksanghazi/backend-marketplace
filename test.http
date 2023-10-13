@@ -58,6 +58,7 @@ GET http://localhost:5000/api/user/42b14e75-da21-4bcf-9c39-96aa2edaf3d7
 
 ### Create Store
 POST http://localhost:5000/api/store/create
+Access-Token:
 
 {
   "store_name":"Toko Buku",
