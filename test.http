@@ -1,1 +1,57 @@
-GET http://localhost:5000/api
+### Register User
+POST http://localhost:5000/api/user/register
+
+{
+  "username":"anggoro",
+  "email":"anggoro@gmail.com",
+  "password":"123",
+  "phone_number":"",
+  "address":"",
+  "image_url":""
+}
+
+### Login User
+POST http://localhost:5000/api/user/login
+
+{
+  "email":"person@gmail.com",
+  "password":"123"
+}
+
+### Get Token
+GET http://localhost:5000/api/user/token
+
+### Logout User
+DELETE http://localhost:5000/api/user/logout
+
+### Test Middleware
+GET http://localhost:5000/api/test/middleware
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE0NTgsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.4M4xzQyhGXPdlT3B79o0b4gyjoO5y64j4RP2mORv9nM
+
+### Test Middleware Admin
+GET http://localhost:5000/api/test/admin
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE4NDEsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.xl0DZ8P93lOsg5STTBT9EF0cvYp480ion8tTRYEuxPo
+
+### Update User
+PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE4NDEsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.xl0DZ8P93lOsg5STTBT9EF0cvYp480ion8tTRYEuxPo
+
+{
+  "username":"",
+	"email":"person@gmail.com",
+	"password":"",
+	"phone_number":"",
+	"address":"Jl. Buntu",
+	"image_url":""
+}
+
+### Delete User
+DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
+Access-Token:
+
+### Find User
+GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
+Access-Token:
+
+### Get User
+GET http://localhost:5000/api/user/42b14e75-da21-4bcf-9c39-96aa2edaf3d7
