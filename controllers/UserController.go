@@ -112,7 +112,7 @@ func (u *userControllerImpl) GetToken(c *gin.Context){
 
 func (u *userControllerImpl) Logout(c *gin.Context){
 	c.SetCookie("tkn_ck","",-1,"/","localhost",false,true)
-	c.JSON(200,gin.H{"msg":"berhasil logout"})
+	c.JSON(200,gin.H{"msg":"Successfull logout"})
 }
 
 func (u *userControllerImpl) Update(c *gin.Context){
