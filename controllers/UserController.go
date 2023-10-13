@@ -18,6 +18,8 @@ type UserController interface{
 	Logout(c *gin.Context)
 	Update(c *gin.Context)
 	Delete(c *gin.Context)
+	Find(c *gin.Context)
+	GetUser(c *gin.Context)
 }
 
 type userControllerImpl struct{
@@ -156,4 +158,17 @@ func (u *userControllerImpl) Delete(c *gin.Context){
 	}
 
 	c.JSON(200,gin.H{"msg":"Success delete user with id '"+id+"'"})
+}
+
+func (u *userControllerImpl) Find(c *gin.Context){
+	page:=c.DefaultQuery("page","5")
+	search:=c.DefaultQuery("search","")
+
+	c.JSON(200,gin.H{"page":page,"search":search})
+}
+
+func (u *userControllerImpl) GetUser(c *gin.Context){
+	id:=c.Param("id")
+
+	c.JSON(200,gin.H{"id":id})
 }
