@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -18,6 +19,8 @@ type UserController interface{
 	Logout(c *gin.Context)
 	Update(c *gin.Context)
 	Delete(c *gin.Context)
+	Find(c *gin.Context)
+	GetUser(c *gin.Context)
 }
 
 type userControllerImpl struct{
@@ -41,7 +44,7 @@ func (u *userControllerImpl) Register(c *gin.Context) {
 	if err != nil {
 		var duplicateEntryError = &pgconn.PgError{Code: "23505"}
 		if errors.As(err, &duplicateEntryError) {
-			c.JSON(409,gin.H{"error":"email or phone number has already exist"})
+			c.JSON(409,gin.H{"error":err.Error()})
 			return
 		}else{
 			c.JSON(500,gin.H{"error":err.Error()})
@@ -156,4 +159,60 @@ func (u *userControllerImpl) Delete(c *gin.Context){
 	}
 
 	c.JSON(200,gin.H{"msg":"Success delete user with id '"+id+"'"})
+}
+
+func (u *userControllerImpl) Find(c *gin.Context){
+	page:=c.DefaultQuery("page","1")
+	limit:=c.DefaultQuery("limit","5")
+	search:=c.DefaultQuery("search","")
+
+	page1,err:=strconv.Atoi(page)
+	if err != nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+	limit1,err:=strconv.Atoi(limit)
+	if err != nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	result,totalPage,err:=u.service.Find(page1,limit1,search)
+	if err != nil {
+		c.JSON(500,gin.H{"error":err.Error()})
+		return
+	}
+
+	response:= web.Pagination{
+		Code: 200,
+		Status: "OK",
+		CurrentPage: page,
+		TotalPage: totalPage,
+		Data: result,
+	}
+
+	c.JSON(200,response)
+}
+
+func (u *userControllerImpl) GetUser(c *gin.Context){
+	id:=c.Param("id")
+
+	result,err:=u.service.GetUser(id)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	response:= web.BasicResponse{
+		Code: 200,
+		Status: "OK",
+		Data: result,
+	}
+
+	c.JSON(200,response)
 }

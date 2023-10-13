@@ -20,10 +20,15 @@ func UserRouter(r *gin.RouterGroup){
 	r.POST("/login",controller.Login)
 	r.GET("/token",controller.GetToken)
 	r.DELETE("/logout",controller.Logout)
-	
+
 	// must login
 	r.Use(middleware.MustLogin())
 	r.PUT("/:id",controller.Update)
 	r.DELETE("/:id",controller.Delete)
+	
+	// must admin
+	r.Use(middleware.MustAdmin())
+	r.GET("/find",controller.Find)
+	r.GET("/:id",controller.GetUser)
 	
 }

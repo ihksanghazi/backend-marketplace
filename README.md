@@ -231,3 +231,52 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 ```
 
 ##
+
+### Find User
+
+Digunakan untuk mencari pengguna berdasarkan kriteria tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
+```
+
+#### Request Header
+
+**Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna (opsional, dapat dikosongkan).
+**Query Parameters**
+
+- **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
+- **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
+- **search** (string, optional): Kriteria pencarian untuk nama pengguna (opsional).
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"current_page": "1",
+	"total_page": 2,
+	"data": [
+		{
+			"id": "194e0179-febb-4bb3-a96b-b19001e0f21b",
+			"username": "azhi",
+			"email": "azhi@gmail.com",
+			"phone_number": "",
+			"address": "",
+			"image_url": "",
+			"created_at": "2023-10-13T20:49:08.295375+07:00",
+			"updated_at": "2023-10-13T20:49:08.295375+07:00"
+		},
+		...
+	]
+}
+```
+
+> [!NOTE]
+> fitur ini hanya bisa digunakan untuk yang memiliki role admin selain admin maka akan mengembalikan pesan error
