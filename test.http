@@ -51,6 +51,7 @@ Access-Token:
 
 ### Find User
 GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
+Access-Token:
 
 ### Get User
 GET http://localhost:5000/api/user/42b14e75-da21-4bcf-9c39-96aa2edaf3d7
