@@ -18,6 +18,7 @@ type UserService interface{
 	Register(req web.RegisterRequest) (web.RegisterResponse,error)
 	Login(req web.LoginRequest) (refreshToken string, accessToken string, err error)
 	GetToken(refreshToken string) (string,error)
+	Update(id string,req web.UpdateRequest) (web.UpdateRequest,error)
 }
 
 type userServiceImpl struct{
@@ -114,4 +115,22 @@ func (u *userServiceImpl) GetToken(refreshToken string) (string,error) {
 	}
 	
 	return accessToken,nil
+}
+
+func (u *userServiceImpl) Update(id string,req web.UpdateRequest) (web.UpdateRequest,error){
+	err:=database.DB.Transaction(func(tx *gorm.DB) error {
+		var user domain.User
+		user.Username=req.Username
+		user.Email=req.Email
+		user.Password=req.Password
+		user.PhoneNumber=req.PhoneNumber
+		user.Address=req.Address
+		user.ImageUrl=req.ImageUrl
+		// update user
+		if err:=tx.Model(user).WithContext(u.ctx).Where("id = ?",id).Updates(user).First(&req).Error;err!=nil{
+			return err
+		}
+		return nil
+	})
+	return req,err
 }

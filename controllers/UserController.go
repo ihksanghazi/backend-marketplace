@@ -118,5 +118,22 @@ func (u *userControllerImpl) Update(c *gin.Context){
 		return
 	}
 
-	c.JSON(200,gin.H{"id":id,"req":req})
+	res,err:=u.service.Update(id,req)
+	if err!= nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	response:=web.BasicResponse{
+		Code: 200,
+		Status: "Successfull Update User With Id '"+id+"'",
+		Data: res,
+	}
+
+	c.JSON(200,response)
 }
