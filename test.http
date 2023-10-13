@@ -31,3 +31,17 @@ Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsI
 ### Test Middleware Admin
 GET http://localhost:5000/api/test/admin
 Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE4NDEsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.xl0DZ8P93lOsg5STTBT9EF0cvYp480ion8tTRYEuxPo
+
+### Update User
+PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE4NDEsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.xl0DZ8P93lOsg5STTBT9EF0cvYp480ion8tTRYEuxPo
+
+
+{
+  "username":"",
+	"email":"person@gmail.com",
+	"password":"",
+	"phone_number":"",
+	"address":"Jl. Buntu",
+	"image_url":""
+}

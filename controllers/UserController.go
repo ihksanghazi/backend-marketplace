@@ -16,6 +16,7 @@ type UserController interface{
 	Login(c *gin.Context)
 	GetToken(c *gin.Context)
 	Logout(c *gin.Context)
+	Update(c *gin.Context)
 }
 
 type userControllerImpl struct{
@@ -105,4 +106,34 @@ func (u *userControllerImpl) GetToken(c *gin.Context){
 func (u *userControllerImpl) Logout(c *gin.Context){
 	c.SetCookie("tkn_ck","",-1,"/","localhost",false,true)
 	c.JSON(200,gin.H{"msg":"berhasil logout"})
+}
+
+func (u *userControllerImpl) Update(c *gin.Context){
+	// get url
+	id := c.Param("id")
+
+	var req web.UpdateRequest
+	if err:= c.ShouldBindJSON(&req);err!= nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	res,err:=u.service.Update(id,req)
+	if err!= nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	response:=web.BasicResponse{
+		Code: 200,
+		Status: "Successfull Update User With Id '"+id+"'",
+		Data: res,
+	}
+
+	c.JSON(200,response)
 }

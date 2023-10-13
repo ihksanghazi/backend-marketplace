@@ -31,3 +31,12 @@ type LoginRequest struct{
 	Email string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
+
+type UpdateRequest struct{
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	PhoneNumber string `json:"phone_number"`
+	Address  string `json:"address"`
+	ImageUrl string `json:"image_url"`
+}
