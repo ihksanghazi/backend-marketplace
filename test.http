@@ -77,3 +77,7 @@ Access-Token:
 	"category":"hiburan",
 	"image_url":""
 }
+
+### Delete Store
+DELETE http://localhost:5000/api/store/storeId
+Access-Token:

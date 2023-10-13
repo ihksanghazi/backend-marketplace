@@ -15,6 +15,7 @@ import (
 type StoreController interface{
 	Create(c *gin.Context)
 	Update(c *gin.Context)
+	Delete(c *gin.Context)
 }
 
 type storeControllerImpl struct{
@@ -94,4 +95,10 @@ func (s *storeControllerImpl) Update(c *gin.Context) {
 	}
 
 	c.JSON(200,response)
+}
+
+func (s *storeControllerImpl) Delete(c *gin.Context){
+	id:=c.Param("id")
+
+	c.JSON(200,gin.H{"id":id})
 }
