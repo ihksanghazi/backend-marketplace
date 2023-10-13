@@ -2,8 +2,8 @@
 POST http://localhost:5000/api/user/register
 
 {
-  "username":"anggoro",
-  "email":"anggoro@gmail.com",
+  "username":"sandy",
+  "email":"sandy@gmail.com",
   "password":"123",
   "phone_number":"",
   "address":"",
@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"person@gmail.com",
+  "email":"sandy@gmail.com",
   "password":"123"
 }
 
@@ -26,11 +26,11 @@ DELETE http://localhost:5000/api/user/logout
 
 ### Test Middleware
 GET http://localhost:5000/api/test/middleware
-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE0NTgsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.4M4xzQyhGXPdlT3B79o0b4gyjoO5y64j4RP2mORv9nM
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3MjE0MTg0LCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.RqPvvBTGahRN4Sopd_5dfhpSfAgsg9KKQJ7nP3-uhJY
 
 ### Test Middleware Admin
 GET http://localhost:5000/api/test/admin
-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE4NDEsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.xl0DZ8P93lOsg5STTBT9EF0cvYp480ion8tTRYEuxPo
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3MjE0MjM5LCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.Ho7nRNa4OeficelCYCkS1qQRS-RtPzrOmV52oiQyD7k
 
 ### Update User
 PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705

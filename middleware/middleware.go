@@ -56,9 +56,15 @@ func (m *middlewareImpl) MustAdmin() gin.HandlerFunc{
 			c.AbortWithStatusJSON(401,gin.H{"error":"Unauthorized"})
 			return
 		}
-		// get user by refresh token & cek
+		// cek refresh token
+		claims,err:=utils.ParsingToken(refreshToken,os.Getenv("REFRESH_TOKEN"))
+		if err != nil {
+			c.AbortWithStatusJSON(401,gin.H{"error":"Unauthorized"})
+			return
+		}
+		// get user by id
 		var user domain.User
-		if err:=database.DB.Model(user).WithContext(m.ctx).Where("refresh_token = ?",refreshToken).First(&user).Error; err != nil {
+		if err:=database.DB.Model(user).WithContext(m.ctx).Where("id = ?",claims.ID).First(&user).Error; err != nil {
 			switch err {
 				case gorm.ErrRecordNotFound:
 					c.AbortWithStatusJSON(401,gin.H{"error":"Unauthorized"})

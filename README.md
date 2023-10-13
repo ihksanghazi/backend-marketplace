@@ -141,7 +141,7 @@ DELETE http://localhost:5000/api/user/logout
 
 ```json
 {
-	"msg": "Berhasil logout"
+	"msg": "Successfull logout"
 }
 ```
 
