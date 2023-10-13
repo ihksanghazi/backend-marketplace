@@ -71,6 +71,9 @@ func (u *userControllerImpl) Login(c *gin.Context) {
 		if err.Error() == "wrong password"{
 			c.JSON(401,gin.H{"error":err.Error()})
 			return
+		}else if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
 		}else{
 			c.JSON(500,gin.H{"error":err.Error()})
 			return
@@ -142,5 +145,15 @@ func (u *userControllerImpl) Update(c *gin.Context){
 func (u *userControllerImpl) Delete(c *gin.Context){
 	id := c.Param("id")
 
-	c.JSON(200,gin.H{"id":id})
+	if err:=u.service.Delete(id);err != nil {
+		if err == gorm.ErrRecordNotFound{
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	c.JSON(200,gin.H{"msg":"Success delete user with id '"+id+"'"})
 }
