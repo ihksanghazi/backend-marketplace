@@ -40,15 +40,12 @@ POST http://localhost:5000/api/user/register
 	"code": 201,
 	"status": "Successful user registration",
 	"data": {
-		"id": "1d7828b5-594a-4648-815d-ecd89b3e79b8",
 		"username": "person",
 		"email": "person@gmail.com",
 		"password": "$2a$10$UbHxmNYQYPwDSk2rcKA1KeAY8vHywEpgSysxD61OvlB8JLszO4IwS",
 		"phone_number": "",
 		"address": "",
-		"image_url": "",
-		"created_at": "2023-10-12T18:26:01.950373+07:00",
-		"updated_at": "2023-10-12T18:26:01.950373+07:00"
+		"image_url": ""
 	}
 }
 ```
@@ -281,3 +278,55 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 > [!NOTE]
 > fitur ini hanya bisa digunakan untuk yang memiliki role admin selain admin maka akan mengembalikan pesan error
+
+##
+
+### Create Store
+
+Digunakan untuk membuat toko baru.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/store/create
+```
+
+#### Request Header
+
+- **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna (opsional, dapat dikosongkan).
+
+#### Request Body
+
+- **store_name** (string, required): Nama toko.
+- **description** (string, required): Deskripsi toko.
+- **category** (string, required): Kategori toko.
+- **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+
+### Contoh Request Body:
+
+```json
+{
+	"store_name": "Toko Buku",
+	"description": "contoh deskripsi",
+	"category": "pendidikan",
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 201,
+	"status": "Success Create Store",
+	"data": {
+		"store_name": "Toko Buku",
+		"description": "contoh deskripsi",
+		"category": "pendidikan",
+		"image_url": ""
+	}
+}
+```
