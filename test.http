@@ -89,3 +89,16 @@ Access-Token:
 ### Get Store
 GET http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 Access-Token:
+
+### Create Product
+POST http://localhost:5000/api/product/create
+Access-Token:
+
+{
+  "product_name":"Buku",
+	"description":"Contoh Deskripsi",
+	"category":"Pendidikan",
+	"stock":"99",
+	"price":"50000",
+	"image_url":""
+}

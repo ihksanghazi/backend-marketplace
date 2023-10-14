@@ -17,4 +17,6 @@ type Store struct {
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 	DeletedAt    gorm.DeletedAt `gorm:"index"`
+	// Association
+	Products []Product `gorm:"foreignKey:StoreId"`
 }

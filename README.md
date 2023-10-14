@@ -241,9 +241,9 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 #### Request Header
 
-**Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-**Query Parameters**
+#### Query Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -421,15 +421,22 @@ Digunakan untuk mencari toko berdasarkan kriteria tertentu.
 ```http
 GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
 ```
+
 #### Request Header
+
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
 #### Query Parameters
+
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
 - **search** (string, optional): Kriteria pencarian untuk nama toko (opsional).
+
 #### Response
+
 - **HTTP Status**: 200 OK
 - **Content-Type**: application/json; charset=utf-8
+
 ```json
 {
   "code": 200,
