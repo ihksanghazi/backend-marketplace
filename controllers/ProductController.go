@@ -13,6 +13,7 @@ import (
 type ProductController interface{
 	Create(c *gin.Context)
 	Update(c *gin.Context)
+	Delete(c *gin.Context)
 }
 
 type productControllerImpl struct{
@@ -85,4 +86,10 @@ func (p *productControllerImpl) Update(c *gin.Context) {
 	}
 
 	c.JSON(200,response)
+}
+
+func (p *productControllerImpl) Delete(c *gin.Context) {
+	id:=c.Param("id")
+
+	c.JSON(200,gin.H{"id":id})
 }
