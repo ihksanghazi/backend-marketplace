@@ -11,6 +11,7 @@ import (
 
 type ProductController interface{
 	Create(c *gin.Context)
+	Update(c *gin.Context)
 }
 
 type productControllerImpl struct{
@@ -54,4 +55,16 @@ func (p *productControllerImpl) Create(c *gin.Context) {
 	}
 
 	c.JSON(201,gin.H{"msg":"Success Create Product"})
+}
+
+func (p *productControllerImpl) Update(c *gin.Context) {
+	id:=c.Param("id")
+
+	var req web.UpdateProductRequest
+	if err:=c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	c.JSON(200,gin.H{"id":id,"data":req})
 }

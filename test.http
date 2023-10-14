@@ -102,3 +102,17 @@ Access-Token:
 	"price":"50000",
 	"image_url":""
 }
+
+### Update Product
+PUT http://localhost:5000/api/product/productID
+Access-Token:
+
+{
+  "product_name":"Buku Politik",
+	"description":"Contoh Deskripsi",
+	"category":"Pendidikan",
+	"stock":"99",
+	"price":"50000",
+	"image_url":""
+}
+

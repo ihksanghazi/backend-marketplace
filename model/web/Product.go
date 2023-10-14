@@ -8,3 +8,12 @@ type CreateProductRequest struct {
 	Price       string `json:"price" binding:"required,number"`
 	ImageUrl    string `json:"image_url"`
 }
+
+type UpdateProductRequest struct {
+	ProductName string `json:"product_name"`
+	Description string `json:"description"`
+	Category    string `json:"category"`
+	Stock       string `json:"stock" binding:"number"`
+	Price       string `json:"price" binding:"number"`
+	ImageUrl    string `json:"image_url"`
+}
