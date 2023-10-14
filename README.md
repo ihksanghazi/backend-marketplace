@@ -409,3 +409,44 @@ DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 	"msg": "Success Delete Store with id 'cc57e8e1-ce13-45b8-ac87-a93ea8611294'"
 }
 ```
+
+##
+
+### Find Stores
+
+Digunakan untuk mencari toko berdasarkan kriteria tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
+```
+#### Request Header
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+#### Query Parameters
+- **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
+- **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
+- **search** (string, optional): Kriteria pencarian untuk nama toko (opsional).
+#### Response
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "current_page": "1",
+  "total_page": 1,
+  "data": [
+    {
+      "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+      "store_name": "Toko Buku",
+      "description": "contoh deskripsi",
+      "category": "pendidikan",
+      "image_url": "",
+      "created_at": "2023-10-14T02:11:56.344211+07:00",
+      "updated_at": "2023-10-14T02:38:15.126789+07:00"
+    },
+    ...
+  ]
+}
+```

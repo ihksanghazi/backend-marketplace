@@ -81,3 +81,11 @@ Access-Token:
 ### Delete Store
 DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 Access-Token:
+
+### Find Store
+GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
+Access-Token:
+
+### Get Store
+GET http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+Access-Token:
