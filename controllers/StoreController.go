@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
@@ -16,6 +17,7 @@ type StoreController interface{
 	Create(c *gin.Context)
 	Update(c *gin.Context)
 	Delete(c *gin.Context)
+	Find(c *gin.Context)
 }
 
 type storeControllerImpl struct{
@@ -111,4 +113,25 @@ func (s *storeControllerImpl) Delete(c *gin.Context){
 	}
 
 	c.JSON(200,gin.H{"msg":"Success Delete Store with id '"+id+"'"})
+}
+
+func (s *storeControllerImpl) Find(c *gin.Context) {
+	page:=c.DefaultQuery("page","1")
+	limit:=c.DefaultQuery("limit","10")
+	search:=c.DefaultQuery("search","")
+
+	page1,err:=strconv.Atoi(page)
+	if err != nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	limit1,err:=strconv.Atoi(limit)
+	if err != nil {
+		c.JSON(400,gin.H{"error":err.Error()})
+		return
+	}
+
+	c.JSON(200,gin.H{"page":page1,"limit":limit1,"search":search})
+
 }

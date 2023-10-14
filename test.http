@@ -81,3 +81,7 @@ Access-Token:
 ### Delete Store
 DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 Access-Token:
+
+### Find Store
+GET http://localhost:5000/api/store/find?page=2&limit=5&search=cari
+Access-Token:
