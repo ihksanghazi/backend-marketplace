@@ -14,5 +14,6 @@ func ProductRouter(r *gin.RouterGroup){
 	service:=services.NewProductService(ctx)
 	controller:=controllers.NewProductController(service)
 	r.POST("/create",controller.Create)
+	r.PUT("/:id",controller.Update)
 	
 }

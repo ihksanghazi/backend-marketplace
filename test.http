@@ -102,3 +102,17 @@ Access-Token:
 	"price":"50000",
 	"image_url":""
 }
+
+### Update Product
+PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
+Access-Token:
+
+{
+  "product_name":"Buku Politik",
+	"description":"",
+	"category":"",
+	"stock":"",
+	"price":"",
+	"image_url":""
+}
+

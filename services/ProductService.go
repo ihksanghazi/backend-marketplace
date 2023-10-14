@@ -13,6 +13,7 @@ import (
 
 type ProductService interface{
 	Create(userId string,req web.CreateProductRequest) error
+	Update(productId string, req web.UpdateProductRequest) (web.UpdateProductRequest,error)
 }
 
 type productServiceImpl struct {
@@ -57,4 +58,22 @@ func (p *productServiceImpl) Create(userId string,req web.CreateProductRequest) 
 		return nil
 	})
 	return err
+}
+
+func (p *productServiceImpl) Update(productId string, req web.UpdateProductRequest) (web.UpdateProductRequest,error) {
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var product domain.Product
+		product.ProductName = req.ProductName
+		product.Description = req.Description
+		product.Category = req.Category
+		product.Stock = req.Stock
+		product.Price = req.Price
+		product.ImageUrl = req.ImageUrl
+		if err := tx.Model(product).WithContext(p.ctx).Where("id = ?",productId).Updates(product).First(&req).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+
+	return req,err
 }
