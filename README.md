@@ -498,3 +498,65 @@ POST http://localhost:5000/api/product/create
 	"msg": "Success Create Product"
 }
 ```
+
+##
+
+### Update Product
+
+Digunakan untuk memperbarui informasi produk yang ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **productId** (string,required): product id
+
+#### Request Body
+
+- **product_name** (string, optional): Nama produk (dapat dikosongkan).
+- **description** (string, optional): Deskripsi produk (dapat dikosongkan).
+- **category** (string, optional): Kategori produk (dapat dikosongkan).
+- **stock** (integer, optional): Jumlah stok produk (dapat dikosongkan).
+- **price** (integer, optional): Harga produk (dapat dikosongkan).
+- **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+
+#### Contoh Request Body:
+
+```json
+{
+	"product_name": "Buku Politik",
+	"description": "",
+	"category": "",
+	"stock": "",
+	"price": "",
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"product_name": "Buku Politik",
+		"description": "Contoh Deskripsi",
+		"category": "Pendidikan",
+		"stock": "99",
+		"price": "50000",
+		"image_url": ""
+	}
+}
+```
