@@ -15,7 +15,7 @@ import (
 )
 
 type UserService interface{
-	Register(req web.RegisterRequest) (web.RegisterRequest,error)
+	Register(req web.RegisterRequest) error
 	Login(req web.LoginRequest) (refreshToken string, accessToken string, err error)
 	GetToken(refreshToken string) (string,error)
 	Update(id string,req web.UpdateRequest) (web.UpdateRequest,error)
@@ -34,7 +34,7 @@ func NewUserService(ctx context.Context) UserService {
 	}
 }
 
-func (u *userServiceImpl) Register(req web.RegisterRequest) (web.RegisterRequest,error) {
+func (u *userServiceImpl) Register(req web.RegisterRequest) error {
 	err:= database.DB.Transaction(func(tx *gorm.DB) error {
 		// hash password
 		password,err:=bcrypt.GenerateFromPassword([]byte(req.Password),bcrypt.DefaultCost)
@@ -50,13 +50,13 @@ func (u *userServiceImpl) Register(req web.RegisterRequest) (web.RegisterRequest
 		user.Address = req.Address
 		user.ImageUrl = req.ImageUrl
 
-		if err:= tx.Model(user).WithContext(u.ctx).Create(&user).First(&req,"id = ?",user.Id).Error;err!= nil {
+		if err:= tx.Model(user).WithContext(u.ctx).Create(&user).Error;err!= nil {
 			return err
 		}
 		return nil
 	})
 
-	return req,err
+	return err
 }
 
 func (u *userServiceImpl) Login(req web.LoginRequest) (refreshToken string, accessToken string, err error) {

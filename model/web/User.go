@@ -8,7 +8,7 @@ import (
 
 type RegisterRequest struct {
 	Username string `json:"username" binding:"required"`
-	Email    string `json:"email" binding:"required"`
+	Email    string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required"`
 	PhoneNumber string `json:"phone_number"`
 	Address  string `json:"address"`
@@ -16,13 +16,13 @@ type RegisterRequest struct {
 }
 
 type LoginRequest struct{
-	Email string `json:"email" binding:"required"`
+	Email string `json:"email" binding:"required,email"`
 	Password string `json:"password" binding:"required"`
 }
 
 type UpdateRequest struct{
 	Username string `json:"username"`
-	Email    string `json:"email"`
+	Email    string `json:"email" binding:"omitempty,email"`
 	Password string `json:"password"`
 	PhoneNumber string `json:"phone_number"`
 	Address  string `json:"address"`

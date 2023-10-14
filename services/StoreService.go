@@ -11,7 +11,7 @@ import (
 )
 
 type StoreService interface{
-	Create(userId string,req web.CreateStoreRequest) (web.CreateStoreRequest,error)
+	Create(userId string,req web.CreateStoreRequest) error
 	Update(storeId string,req web.UpdateStoreRequest) (web.UpdateStoreRequest,error)
 	Delete(storeId string) error
 	Find(page int,limit int, search string) (result []web.FindStoreResponse, totalPage int, err error)
@@ -28,7 +28,7 @@ func NewStoreService(ctx context.Context) StoreService {
 	}
 }
 
-func (s *storeServiceImpl) Create(userId string,req web.CreateStoreRequest) (web.CreateStoreRequest,error) {
+func (s *storeServiceImpl) Create(userId string,req web.CreateStoreRequest) error {
 	err:=database.DB.Transaction(func(tx *gorm.DB) error {
 		UserId,err:=uuid.Parse(userId)
 		if err != nil {
@@ -42,12 +42,12 @@ func (s *storeServiceImpl) Create(userId string,req web.CreateStoreRequest) (web
 		store.Category = req.Category
 		store.ImageUrl = req.ImageUrl
 		
-		if err:= tx.Model(store).WithContext(s.ctx).Create(&store).First(&req,"id = ?",store.Id).Error; err!=nil {
+		if err:= tx.Model(store).WithContext(s.ctx).Create(&store).Error; err!=nil {
 			return err
 		}
 		return nil
 	})
-	return req,err
+	return err
 }
 
 func (s *storeServiceImpl) Update(storeId string,req web.UpdateStoreRequest) (web.UpdateStoreRequest,error) {

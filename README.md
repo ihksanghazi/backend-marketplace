@@ -37,16 +37,7 @@ POST http://localhost:5000/api/user/register
 
 ```json
 {
-	"code": 201,
-	"status": "Successful user registration",
-	"data": {
-		"username": "person",
-		"email": "person@gmail.com",
-		"password": "$2a$10$UbHxmNYQYPwDSk2rcKA1KeAY8vHywEpgSysxD61OvlB8JLszO4IwS",
-		"phone_number": "",
-		"address": "",
-		"image_url": ""
-	}
+	"msg": "Success Registration User"
 }
 ```
 
@@ -158,6 +149,10 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
+#### Parameter
+
+- **userId** (string,required): Id User.
+
 #### Request Body
 
 - **username** (string, optional): Nama pengguna (dapat dikosongkan).
@@ -241,9 +236,9 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 #### Request Header
 
-**Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-**Query Parameters**
+#### Query Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -320,14 +315,7 @@ POST http://localhost:5000/api/store/create
 
 ```json
 {
-	"code": 201,
-	"status": "Success Create Store",
-	"data": {
-		"store_name": "Toko Buku",
-		"description": "contoh deskripsi",
-		"category": "pendidikan",
-		"image_url": ""
-	}
+	"msg": "Success Create Store"
 }
 ```
 
@@ -346,6 +334,10 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 #### Request Header
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **storeId** (string,required): Id Store.
 
 ### Request Body
 
@@ -421,15 +413,22 @@ Digunakan untuk mencari toko berdasarkan kriteria tertentu.
 ```http
 GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
 ```
+
 #### Request Header
+
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
 #### Query Parameters
+
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
 - **search** (string, optional): Kriteria pencarian untuk nama toko (opsional).
+
 #### Response
+
 - **HTTP Status**: 200 OK
 - **Content-Type**: application/json; charset=utf-8
+
 ```json
 {
   "code": 200,
@@ -448,5 +447,54 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
     },
     ...
   ]
+}
+```
+
+##
+
+### Create Product
+
+Digunakan untuk membuat produk baru dalam toko.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/product/create
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Request Body
+
+- **product_name** (string, required): Nama produk.
+- **description** (string, required): Deskripsi produk.
+- **category** (string, required): Kategori produk.
+- **stock** (integer, required): Jumlah stok produk.
+- **price** (integer, required): Harga produk.
+- **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+
+#### Contoh Request Body:
+
+```json
+{
+	"product_name": "Buku Politik",
+	"description": "Contoh Deskripsi",
+	"category": "Pendidikan",
+	"stock": 99,
+	"price": 50000,
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Create Product"
 }
 ```
