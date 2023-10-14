@@ -50,8 +50,7 @@ func (s *storeControllerImpl) Create(c *gin.Context) {
 		return
 	}
 
-	result,err:=s.service.Create(claims.ID,req)
-	if err != nil {
+	if err:=s.service.Create(claims.ID,req); err != nil {
 		var duplicateEntryError = &pgconn.PgError{Code: "23505"}
 		if errors.As(err, &duplicateEntryError) {
 			c.JSON(409,gin.H{"error":"Prohibited from opening any more shops"})
@@ -62,13 +61,7 @@ func (s *storeControllerImpl) Create(c *gin.Context) {
 		}
 	}
 
-	response:=web.BasicResponse{
-		Code: 201,
-		Status: "Success Create Store",
-		Data: result,
-	}
-
-	c.JSON(201,response)
+	c.JSON(201,gin.H{"msg":"Success Create Store"})
 }
 
 func (s *storeControllerImpl) Update(c *gin.Context) {

@@ -37,16 +37,7 @@ POST http://localhost:5000/api/user/register
 
 ```json
 {
-	"code": 201,
-	"status": "Successful user registration",
-	"data": {
-		"username": "person",
-		"email": "person@gmail.com",
-		"password": "$2a$10$UbHxmNYQYPwDSk2rcKA1KeAY8vHywEpgSysxD61OvlB8JLszO4IwS",
-		"phone_number": "",
-		"address": "",
-		"image_url": ""
-	}
+	"msg": "Success Registration User"
 }
 ```
 
@@ -157,6 +148,10 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 #### Request Header
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **userId** (string,required): Id User.
 
 #### Request Body
 
@@ -320,14 +315,7 @@ POST http://localhost:5000/api/store/create
 
 ```json
 {
-	"code": 201,
-	"status": "Success Create Store",
-	"data": {
-		"store_name": "Toko Buku",
-		"description": "contoh deskripsi",
-		"category": "pendidikan",
-		"image_url": ""
-	}
+	"msg": "Success Create Store"
 }
 ```
 
@@ -346,6 +334,10 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 #### Request Header
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **storeId** (string,required): Id Store.
 
 ### Request Body
 

@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"sendi@gmail.com",
+  "email":"azhi@gmail.com",
   "password":"123"
 }
 
@@ -95,7 +95,7 @@ POST http://localhost:5000/api/product/create
 Access-Token:
 
 {
-  "product_name":"Buku",
+  "product_name":"Buku Politik",
 	"description":"Contoh Deskripsi",
 	"category":"Pendidikan",
 	"stock":"99",
