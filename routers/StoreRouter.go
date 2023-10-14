@@ -18,5 +18,6 @@ func StoreRouter(r *gin.RouterGroup) {
 	r.PUT("/:id",controller.Update)
 	r.DELETE("/:id",controller.Delete)
 	r.GET("/find",controller.Find)
+	r.GET("/:id",controller.Get)
 	
 }

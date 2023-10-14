@@ -14,6 +14,8 @@ type StoreService interface{
 	Create(userId string,req web.CreateStoreRequest) (web.CreateStoreRequest,error)
 	Update(storeId string,req web.UpdateStoreRequest) (web.UpdateStoreRequest,error)
 	Delete(storeId string) error
+	Find(page int,limit int, search string) (result []web.FindStoreResponse, totalPage int, err error)
+	Get(storeId string) (web.FindStoreResponse,error)
 }
 
 type storeServiceImpl struct {
@@ -75,4 +77,21 @@ func (s *storeServiceImpl) Delete(storeId string) error {
 		return nil
 	})
 	return err
+}
+
+func (s *storeServiceImpl) Find(page int,limit int, search string) (result []web.FindStoreResponse, totalPage int, err error){
+	var store domain.Store
+	var totalData int64
+	offset:= (page-1)*limit
+	var response []web.FindStoreResponse
+	Err:=database.DB.Model(store).WithContext(s.ctx).Where("store_name ILIKE ? OR category ILIKE ?","%"+search+"%","%"+search+"%").Count(&totalData).Limit(limit).Offset(offset).Find(&response).Error
+	TotalPage:=(int(totalData)+limit-1) / limit
+	return response,TotalPage,Err
+}
+
+func (s *storeServiceImpl) Get(storeId string) (web.FindStoreResponse,error){
+	var store domain.Store
+	var response web.FindStoreResponse
+	err:=database.DB.Model(store).WithContext(s.ctx).Where("id = ?",storeId).First(&response).Error
+	return response,err
 }
