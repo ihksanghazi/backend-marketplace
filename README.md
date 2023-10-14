@@ -211,6 +211,10 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
+#### Parameter
+
+- **userId** (string,required): Id User.
+
 #### Response
 
 - **HTTP Status**: 200 OK
@@ -387,6 +391,10 @@ Digunakan untuk menghapus toko berdasarkan ID.
 DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 ```
 
+#### Parameter
+
+- **storeId** (string,required): Id Store.
+
 #### Request Header
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
@@ -558,5 +566,36 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"price": "50000",
 		"image_url": ""
 	}
+}
+```
+
+##
+
+### Delete Product
+
+Digunakan untuk menghapus produk berdasarkan ID.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
+```
+
+#### Request Header
+
+- **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **productId** (string,required): product id
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Delete Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897'"
 }
 ```
