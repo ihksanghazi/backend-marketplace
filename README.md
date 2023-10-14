@@ -449,3 +449,52 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
   ]
 }
 ```
+
+##
+
+### Create Product
+
+Digunakan untuk membuat produk baru dalam toko.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/product/create
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Request Body
+
+- **product_name** (string, required): Nama produk.
+- **description** (string, required): Deskripsi produk.
+- **category** (string, required): Kategori produk.
+- **stock** (integer, required): Jumlah stok produk.
+- **price** (integer, required): Harga produk.
+- **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+
+#### Contoh Request Body:
+
+```json
+{
+	"product_name": "Buku Politik",
+	"description": "Contoh Deskripsi",
+	"category": "Pendidikan",
+	"stock": 99,
+	"price": 50000,
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Create Product"
+}
+```
