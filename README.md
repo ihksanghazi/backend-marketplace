@@ -40,15 +40,12 @@ POST http://localhost:5000/api/user/register
 	"code": 201,
 	"status": "Successful user registration",
 	"data": {
-		"id": "1d7828b5-594a-4648-815d-ecd89b3e79b8",
 		"username": "person",
 		"email": "person@gmail.com",
 		"password": "$2a$10$UbHxmNYQYPwDSk2rcKA1KeAY8vHywEpgSysxD61OvlB8JLszO4IwS",
 		"phone_number": "",
 		"address": "",
-		"image_url": "",
-		"created_at": "2023-10-12T18:26:01.950373+07:00",
-		"updated_at": "2023-10-12T18:26:01.950373+07:00"
+		"image_url": ""
 	}
 }
 ```
@@ -244,7 +241,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 #### Request Header
 
-**Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna (opsional, dapat dikosongkan).
+**Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
 **Query Parameters**
 
@@ -281,3 +278,175 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 > [!NOTE]
 > fitur ini hanya bisa digunakan untuk yang memiliki role admin selain admin maka akan mengembalikan pesan error
+
+##
+
+### Create Store
+
+Digunakan untuk membuat toko baru.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/store/create
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Request Body
+
+- **store_name** (string, required): Nama toko.
+- **description** (string, required): Deskripsi toko.
+- **category** (string, required): Kategori toko.
+- **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+
+### Contoh Request Body:
+
+```json
+{
+	"store_name": "Toko Buku",
+	"description": "contoh deskripsi",
+	"category": "pendidikan",
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 201,
+	"status": "Success Create Store",
+	"data": {
+		"store_name": "Toko Buku",
+		"description": "contoh deskripsi",
+		"category": "pendidikan",
+		"image_url": ""
+	}
+}
+```
+
+##
+
+### Update Store
+
+Digunakan untuk memperbarui informasi toko yang ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+### Request Body
+
+- **store_name** (string, optional): Nama toko (dapat dikosongkan).
+- **description** (string, optional): Deskripsi toko (dapat dikosongkan).
+- **category** (string, optional): Kategori toko (dapat dikosongkan).
+- **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+
+#### Contoh Request Body:
+
+```json
+{
+	"store_name": "Toko Game",
+	"description": "contoh deskripsi",
+	"category": "hiburan",
+	"image_url": ""
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Store With Id 'c15dc952-7fea-499c-b2cb-3c9d6fe8503a'",
+	"data": {
+		"store_name": "Toko Game",
+		"description": "contoh deskripsi",
+		"category": "hiburan",
+		"image_url": ""
+	}
+}
+```
+
+##
+
+### Delete Store
+
+Digunakan untuk menghapus toko berdasarkan ID.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Delete Store with id 'cc57e8e1-ce13-45b8-ac87-a93ea8611294'"
+}
+```
+
+##
+
+### Find Stores
+
+Digunakan untuk mencari toko berdasarkan kriteria tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
+```
+#### Request Header
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+#### Query Parameters
+- **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
+- **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
+- **search** (string, optional): Kriteria pencarian untuk nama toko (opsional).
+#### Response
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "current_page": "1",
+  "total_page": 1,
+  "data": [
+    {
+      "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+      "store_name": "Toko Buku",
+      "description": "contoh deskripsi",
+      "category": "pendidikan",
+      "image_url": "",
+      "created_at": "2023-10-14T02:11:56.344211+07:00",
+      "updated_at": "2023-10-14T02:38:15.126789+07:00"
+    },
+    ...
+  ]
+}
+```

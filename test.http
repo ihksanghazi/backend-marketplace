@@ -2,8 +2,8 @@
 POST http://localhost:5000/api/user/register
 
 {
-  "username":"sandy",
-  "email":"sandy@gmail.com",
+  "username":"sendi",
+  "email":"sendi@gmail.com",
   "password":"123",
   "phone_number":"",
   "address":"",
@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"sandy@gmail.com",
+  "email":"sendi@gmail.com",
   "password":"123"
 }
 
@@ -55,3 +55,37 @@ Access-Token:
 
 ### Get User
 GET http://localhost:5000/api/user/42b14e75-da21-4bcf-9c39-96aa2edaf3d7
+
+### Create Store
+POST http://localhost:5000/api/store/create
+Access-Token:
+
+{
+  "store_name":"Toko Game",
+	"description":"contoh deskripsi",
+	"category":"hiburan",
+	"image_url":""
+}
+
+### Update Store
+PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+Access-Token:
+
+{
+  "store_name":"Toko Game",
+	"description":"contoh deskripsi",
+	"category":"hiburan",
+	"image_url":""
+}
+
+### Delete Store
+DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
+Access-Token:
+
+### Find Store
+GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
+Access-Token:
+
+### Get Store
+GET http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+Access-Token:

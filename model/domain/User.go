@@ -20,4 +20,6 @@ type User struct {
 	CreatedAt time.Time
   UpdatedAt time.Time
   DeletedAt gorm.DeletedAt `gorm:"index"`
+	// Association
+	Store Store `gorm:"foreignKey:UserId"`
 }
