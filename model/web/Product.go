@@ -13,7 +13,7 @@ type UpdateProductRequest struct {
 	ProductName string `json:"product_name"`
 	Description string `json:"description"`
 	Category    string `json:"category"`
-	Stock       string `json:"stock" binding:"number"`
-	Price       string `json:"price" binding:"number"`
+	Stock       string `json:"stock" binding:"omitempty,number"`
+	Price       string `json:"price" binding:"omitempty,number"`
 	ImageUrl    string `json:"image_url"`
 }
