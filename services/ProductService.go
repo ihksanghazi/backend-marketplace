@@ -14,6 +14,7 @@ import (
 type ProductService interface{
 	Create(userId string,req web.CreateProductRequest) error
 	Update(productId string, req web.UpdateProductRequest) (web.UpdateProductRequest,error)
+	Delete(productId string) error
 }
 
 type productServiceImpl struct {
@@ -76,4 +77,20 @@ func (p *productServiceImpl) Update(productId string, req web.UpdateProductReque
 	})
 
 	return req,err
+}
+
+func (p *productServiceImpl) Delete(productId string) error {
+	err:=database.DB.Transaction(func(tx *gorm.DB) error {
+		// cek product
+		var product domain.Product
+		if err:= tx.Model(product).WithContext(p.ctx).Where("id = ?",productId).First(&product).Error; err != nil {
+			return err
+		}
+		// delete product
+		if err:= tx.Model(product).WithContext(p.ctx).Where("id = ?",productId).Delete(&product).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }

@@ -91,5 +91,15 @@ func (p *productControllerImpl) Update(c *gin.Context) {
 func (p *productControllerImpl) Delete(c *gin.Context) {
 	id:=c.Param("id")
 
-	c.JSON(200,gin.H{"id":id})
+	if err:=p.service.Delete(id); err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(404,gin.H{"error":err.Error()})
+			return
+		}else{
+			c.JSON(500,gin.H{"error":err.Error()})
+			return
+		}
+	}
+
+	c.JSON(200,gin.H{"msg":"Success Delete Product With Id '"+id+"'"})
 }

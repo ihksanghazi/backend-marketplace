@@ -117,5 +117,5 @@ Access-Token:
 }
 
 ### Delete Product
-DELETE http://localhost:5000/api/product/productId
+DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 Access-Token:
