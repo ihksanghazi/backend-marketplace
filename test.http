@@ -95,7 +95,7 @@ POST http://localhost:5000/api/product/create
 Access-Token:
 
 {
-  "product_name":"Buku Politik",
+  "product_name":"Komik Detektif Conan",
 	"description":"Contoh Deskripsi",
 	"category":"Pendidikan",
 	"stock":"99",
@@ -119,3 +119,8 @@ Access-Token:
 ### Delete Product
 DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 Access-Token:
+
+### Find Product
+GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
+Access-Token:
+
