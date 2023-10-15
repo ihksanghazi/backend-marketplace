@@ -599,3 +599,53 @@ DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 	"msg": "Success Delete Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897'"
 }
 ```
+
+##
+
+### Find Products
+
+Digunakan untuk mencari produk berdasarkan kriteria tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Query Parameters
+
+- **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
+- **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
+- **search** (string, optional): Kriteria pencarian untuk nama produk (opsional).
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"current_page": "1",
+	"total_page": 1,
+	"data": [
+		{
+			"id": "5aaa787d-02d3-4487-bc75-b543da26c897",
+			"product_name": "Buku Politik",
+			"description": "Contoh Deskripsi",
+			"category": "Pendidikan",
+			"stock": "99",
+			"price": "50000",
+			"image_url": "",
+			"created_at": "2023-10-14T16:41:21.190663+07:00",
+			"updated_at": "2023-10-14T19:26:54.898163+07:00"
+		},
+		...
+	]
+}
+```
