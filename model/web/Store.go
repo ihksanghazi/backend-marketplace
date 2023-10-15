@@ -21,11 +21,11 @@ type UpdateStoreRequest struct {
 }
 
 type FindStoreResponse struct {
-	Id 					uuid.UUID	`json:"id"`
-	StoreName   string 		`json:"store_name"`
-	Description string 		`json:"description"`
-	Category    string 		`json:"category"`
-	ImageUrl    string 		`json:"image_url"`
+	Id          uuid.UUID `json:"id"`
+	StoreName   string    `json:"store_name"`
+	Description string    `json:"description"`
+	Category    string    `json:"category"`
+	ImageUrl    string    `json:"image_url"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }

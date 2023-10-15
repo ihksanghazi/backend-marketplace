@@ -123,6 +123,20 @@ func (p *productControllerImpl) Find(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"search": search, "page": page1, "limit": limit1})
+	result, totalPage, err := p.service.Find(search, page1, limit1)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	response := web.Pagination{
+		Code:        200,
+		Status:      "OK",
+		CurrentPage: page,
+		TotalPage:   totalPage,
+		Data:        result,
+	}
+
+	c.JSON(200, response)
 
 }
