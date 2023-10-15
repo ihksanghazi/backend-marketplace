@@ -557,7 +557,7 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 ```json
 {
 	"code": 200,
-	"status": "OK",
+	"status": "Success Update Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897'",
 	"data": {
 		"product_name": "Buku Politik",
 		"description": "Contoh Deskripsi",
