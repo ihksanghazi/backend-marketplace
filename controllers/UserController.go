@@ -40,8 +40,7 @@ func (u *userControllerImpl) Register(c *gin.Context) {
 		return
 	}
 
-	res,err:=u.service.Register(req)
-	if err != nil {
+	if  err:=u.service.Register(req);err != nil {
 		var duplicateEntryError = &pgconn.PgError{Code: "23505"}
 		if errors.As(err, &duplicateEntryError) {
 			c.JSON(409,gin.H{"error":err.Error()})
@@ -51,14 +50,8 @@ func (u *userControllerImpl) Register(c *gin.Context) {
 			return
 		}
 	}
-	
-	response:= web.BasicResponse{
-		Code: 201,
-		Status: "Successful user registration",
-		Data: res,
-	}
 
-	c.JSON(201,response)
+	c.JSON(201,gin.H{"msg":"Success Registration User"})
 }
 
 func (u *userControllerImpl) Login(c *gin.Context) {

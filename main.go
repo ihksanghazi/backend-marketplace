@@ -21,11 +21,12 @@ func main() {
   }
 
 	database.ConnectDB()
-	// database.DB.AutoMigrate(domain.User{},domain.Store{})
+	// database.DB.AutoMigrate(domain.Store{},domain.Product{})
 
 	routers.TestRouter(r.Group("/api/test"))
 	routers.UserRouter(r.Group("/api/user"))
 	routers.StoreRouter(r.Group("/api/store"))
+	routers.ProductRouter(r.Group("/api/product"))
 
 	r.Run(":5000")
 }

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"errors"
 	"os"
 	"strconv"
 
@@ -9,11 +8,10 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/services"
 	"github.com/ihksanghazi/backend-marketplace/utils"
-	"github.com/jackc/pgx/v5/pgconn"
 	"gorm.io/gorm"
 )
 
-type StoreController interface {
+type ProductController interface {
 	Create(c *gin.Context)
 	Update(c *gin.Context)
 	Delete(c *gin.Context)
@@ -21,17 +19,18 @@ type StoreController interface {
 	Get(c *gin.Context)
 }
 
-type storeControllerImpl struct {
-	service services.StoreService
+type productControllerImpl struct {
+	service services.ProductService
 }
 
-func NewStoreController(service services.StoreService) StoreController {
-	return &storeControllerImpl{
+func NewProductController(service services.ProductService) ProductController {
+	return &productControllerImpl{
 		service: service,
 	}
 }
 
-func (s *storeControllerImpl) Create(c *gin.Context) {
+func (p *productControllerImpl) Create(c *gin.Context) {
+	// get refresh token
 	refreshToken, err := c.Cookie("tkn_ck")
 	if err != nil {
 		c.JSON(401, gin.H{"error": "Unauthorized"})
@@ -44,16 +43,15 @@ func (s *storeControllerImpl) Create(c *gin.Context) {
 		return
 	}
 
-	var req web.CreateStoreRequest
+	var req web.CreateProductRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 
-	if err := s.service.Create(claims.ID, req); err != nil {
-		var duplicateEntryError = &pgconn.PgError{Code: "23505"}
-		if errors.As(err, &duplicateEntryError) {
-			c.JSON(409, gin.H{"error": "Prohibited from opening any more shops"})
+	if err := p.service.Create(claims.ID, req); err != nil {
+		if err.Error() == "you don't have a shop" {
+			c.JSON(409, gin.H{"error": err.Error()})
 			return
 		} else {
 			c.JSON(500, gin.H{"error": err.Error()})
@@ -61,19 +59,19 @@ func (s *storeControllerImpl) Create(c *gin.Context) {
 		}
 	}
 
-	c.JSON(201, gin.H{"msg": "Success Create Store"})
+	c.JSON(201, gin.H{"msg": "Success Create Product"})
 }
 
-func (s *storeControllerImpl) Update(c *gin.Context) {
+func (p *productControllerImpl) Update(c *gin.Context) {
 	id := c.Param("id")
 
-	var req web.UpdateStoreRequest
+	var req web.UpdateProductRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
 
-	result, err := s.service.Update(id, req)
+	result, err := p.service.Update(id, req)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(404, gin.H{"error": err.Error()})
@@ -86,17 +84,17 @@ func (s *storeControllerImpl) Update(c *gin.Context) {
 
 	response := web.BasicResponse{
 		Code:   200,
-		Status: "Success Update Store With Id '" + id + "'",
+		Status: "Success Update Product With Id '" + id + "'",
 		Data:   result,
 	}
 
 	c.JSON(200, response)
 }
 
-func (s *storeControllerImpl) Delete(c *gin.Context) {
+func (p *productControllerImpl) Delete(c *gin.Context) {
 	id := c.Param("id")
 
-	if err := s.service.Delete(id); err != nil {
+	if err := p.service.Delete(id); err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(404, gin.H{"error": err.Error()})
 			return
@@ -106,13 +104,13 @@ func (s *storeControllerImpl) Delete(c *gin.Context) {
 		}
 	}
 
-	c.JSON(200, gin.H{"msg": "Success Delete Store with id '" + id + "'"})
+	c.JSON(200, gin.H{"msg": "Success Delete Product With Id '" + id + "'"})
 }
 
-func (s *storeControllerImpl) Find(c *gin.Context) {
+func (p *productControllerImpl) Find(c *gin.Context) {
+	search := c.DefaultQuery("search", "")
 	page := c.DefaultQuery("page", "1")
 	limit := c.DefaultQuery("limit", "10")
-	search := c.DefaultQuery("search", "")
 
 	page1, err := strconv.Atoi(page)
 	if err != nil {
@@ -126,13 +124,13 @@ func (s *storeControllerImpl) Find(c *gin.Context) {
 		return
 	}
 
-	result, totalPage, err := s.service.Find(page1, limit1, search)
+	result, totalPage, err := p.service.Find(search, page1, limit1)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
 
-	pagination := web.Pagination{
+	response := web.Pagination{
 		Code:        200,
 		Status:      "OK",
 		CurrentPage: page,
@@ -140,19 +138,19 @@ func (s *storeControllerImpl) Find(c *gin.Context) {
 		Data:        result,
 	}
 
-	c.JSON(200, pagination)
+	c.JSON(200, response)
 }
 
-func (s *storeControllerImpl) Get(c *gin.Context) {
+func (p *productControllerImpl) Get(c *gin.Context) {
 	id := c.Param("id")
 
-	result, err := s.service.Get(id)
+	result, err := p.service.Get(id)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			c.JSON(404, gin.H{"error": err.Error()})
 			return
 		} else {
-			c.JSON(500, gin.H{"error": err.Error()})
+			c.JSON(404, gin.H{"error": err.Error()})
 			return
 		}
 	}
