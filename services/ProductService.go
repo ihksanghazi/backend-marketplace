@@ -16,6 +16,7 @@ type ProductService interface {
 	Update(productId string, req web.UpdateProductRequest) (web.UpdateProductRequest, error)
 	Delete(productId string) error
 	Find(search string, page int, limit int) (result []web.FindProductResponse, totalPage int, err error)
+	Get(productId string) (web.GetProductResponse, error)
 }
 
 type productServiceImpl struct {
@@ -104,4 +105,11 @@ func (p *productServiceImpl) Find(search string, page int, limit int) (result []
 	Err := database.DB.Model(product).WithContext(p.ctx).Where("product_name ILIKE ? OR category ILIKE ?", "%"+search+"%", "%"+search+"%").Count(&totalData).Limit(limit).Offset(offset).Find(&response).Error
 	TotalPage := (int(totalData) + limit - 1) / limit
 	return response, TotalPage, Err
+}
+
+func (p *productServiceImpl) Get(productId string) (web.GetProductResponse, error) {
+	var product domain.Product
+	var response web.GetProductResponse
+	err := database.DB.Model(product).WithContext(p.ctx).Where("id = ?", productId).Preload("Store").First(&response).Error
+	return response, err
 }
