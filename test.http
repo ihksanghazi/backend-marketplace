@@ -128,3 +128,7 @@ Access-Token:
 ### Get Product
 GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 Access-Token:
+
+### Add Product
+POST http://localhost:5000/api/cart/add/contohProductID?qty=2
+Access-Token:
