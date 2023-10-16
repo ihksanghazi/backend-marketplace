@@ -55,7 +55,7 @@ Access-Token:
 
 ### Get User
 GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NDM0NTk0LCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.UdaxGG2L_l3rxxT-2R__skKZ6UR8ka-KKu6iiY9FU-4
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NDQ0ODcwLCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.Hsofju3G8eRKSzGRFBBHCjuKv8jKZLQRDC2_tDXW0pQ
 
 ### Create Store
 POST http://localhost:5000/api/store/create
@@ -89,7 +89,7 @@ Access-Token:
 
 ### Get Store
 GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImF6aGkiLCJzdWIiOiJhemhpQGdtYWlsLmNvbSIsImV4cCI6MTY5NzQzMzUzNSwianRpIjoiNDUzMTM0ODYtYjY5MC00YWIzLWFhN2QtODZlZjQ1YmU1NjI4In0.pCmxEWDSX9BcD4pKTmcrDckEBF_YMAbtpJJa_s3gpdY
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NDQ1MTgyLCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.eJyo4CXBJufC92Mmf6WFIXy38m4ua5QIuMhvoEDcydU
 
 ### Create Product
 POST http://localhost:5000/api/product/create

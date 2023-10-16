@@ -276,7 +276,59 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 ```
 
 > [!NOTE]
-> fitur ini hanya bisa digunakan untuk yang memiliki role admin selain admin maka akan mengembalikan pesan error
+> fitur ini hanya bisa digunakan untuk yang memiliki role admin selain admin maka akan mengembalikan pesan error unauthorized
+
+##
+
+### Get User
+
+Digunakan untuk mendapatkan profil pengguna berdasarkan ID.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **userId** (string,required): Id User.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"id": "45313486-b690-4ab3-aa7d-86ef45be5628",
+		"username": "azhi",
+		"email": "azhi@gmail.com",
+		"phone_number": "",
+		"address": "",
+		"image_url": "",
+		"store": {
+			"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+			"store_name": "Toko Buku",
+			"description": "contoh deskripsi",
+			"category": "pendidikan",
+			"image_url": ""
+		},
+		"created_at": "2023-10-14T01:19:32.73704+07:00",
+		"updated_at": "2023-10-16T12:16:57.062845+07:00"
+	}
+}
+```
+
+> [!NOTE]
+> fitur ini hanya bisa digunakan untuk yang memiliki role admin selain admin maka akan mengembalikan pesan error unauthorized
 
 ##
 
@@ -455,6 +507,60 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
     },
     ...
   ]
+}
+```
+
+##
+
+### Get Store
+
+Digunakan untuk mendapatkan profil toko berdasarkan ID.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **storeId** (string,required): Id Store.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": {
+    "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+    "products": [
+      {
+        "id": "5aaa787d-02d3-4487-bc75-b543da26c897",
+        "product_name": "Buku Politik",
+        "category": "Pendidikan",
+        "stock": "99",
+        "price": "50000",
+        "image_url": "",
+        "created_at": "2023-10-14T16:41:21.190663+07:00",
+        "updated_at": "2023-10-14T19:26:54.898163+07:00"
+      },
+      ...
+    ],
+    "store_name": "Toko Buku",
+    "description": "contoh deskripsi",
+    "category": "pendidikan",
+    "image_url": "",
+    "created_at": "2023-10-14T02:11:56.344211+07:00",
+    "updated_at": "2023-10-14T02:38:15.126789+07:00"
+  }
 }
 ```
 
@@ -649,3 +755,54 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 	]
 }
 ```
+
+##
+
+### Get Product
+
+Digunakan untuk mendapatkan rincian produk berdasarkan ID produk.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
+```
+
+#### Request Header
+
+- **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **productId** (string,required): product id
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"id": "5aaa787d-02d3-4487-bc75-b543da26c897",
+		"store": {
+			"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+			"store_name": "Toko Buku",
+			"category": "pendidikan",
+			"image_url": ""
+		},
+		"product_name": "Buku Politik",
+		"description": "Contoh Deskripsi",
+		"category": "Pendidikan",
+		"stock": "99",
+		"price": "50000",
+		"image_url": "",
+		"created_at": "2023-10-14T16:41:21.190663+07:00",
+		"updated_at": "2023-10-14T19:26:54.898163+07:00"
+	}
+}
+```
+
+##
