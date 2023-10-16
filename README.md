@@ -770,7 +770,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Request Header
 
-- **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna.
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
 #### Parameter
 
