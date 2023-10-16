@@ -16,6 +16,7 @@ type ProductController interface {
 	Update(c *gin.Context)
 	Delete(c *gin.Context)
 	Find(c *gin.Context)
+	Get(c *gin.Context)
 }
 
 type productControllerImpl struct {
@@ -138,5 +139,10 @@ func (p *productControllerImpl) Find(c *gin.Context) {
 	}
 
 	c.JSON(200, response)
+}
 
+func (p *productControllerImpl) Get(c *gin.Context) {
+	id := c.Param("id")
+
+	c.JSON(200, gin.H{"id": id})
 }

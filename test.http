@@ -124,3 +124,6 @@ Access-Token:
 GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 Access-Token:
 
+### Get Product
+GET http://localhost:5000/api/product/getProduct
+Access-Token:
