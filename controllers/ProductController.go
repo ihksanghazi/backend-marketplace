@@ -144,5 +144,22 @@ func (p *productControllerImpl) Find(c *gin.Context) {
 func (p *productControllerImpl) Get(c *gin.Context) {
 	id := c.Param("id")
 
-	c.JSON(200, gin.H{"id": id})
+	result, err := p.service.Get(id)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		} else {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 }

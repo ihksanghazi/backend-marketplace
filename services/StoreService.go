@@ -15,7 +15,7 @@ type StoreService interface {
 	Update(storeId string, req web.UpdateStoreRequest) (web.UpdateStoreRequest, error)
 	Delete(storeId string) error
 	Find(page int, limit int, search string) (result []web.FindStoreResponse, totalPage int, err error)
-	Get(storeId string) (web.FindStoreResponse, error)
+	Get(storeId string) (web.GetStoreResponse, error)
 }
 
 type storeServiceImpl struct {
@@ -89,9 +89,9 @@ func (s *storeServiceImpl) Find(page int, limit int, search string) (result []we
 	return response, TotalPage, Err
 }
 
-func (s *storeServiceImpl) Get(storeId string) (web.FindStoreResponse, error) {
+func (s *storeServiceImpl) Get(storeId string) (web.GetStoreResponse, error) {
 	var store domain.Store
-	var response web.FindStoreResponse
-	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).First(&response).Error
+	var response web.GetStoreResponse
+	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Preload("Products").First(&response).Error
 	return response, err
 }
