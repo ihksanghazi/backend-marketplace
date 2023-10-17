@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"sandy@gmail.com",
+  "email":"sendi@gmail.com",
   "password":"123"
 }
 
@@ -130,5 +130,5 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 Access-Token:
 
 ### Add Product
-POST http://localhost:5000/api/cart/add/contohProductID?qty=2
+POST http://localhost:5000/api/cart/add/f65b5f57-620a-4316-b9c0-4b269d344b82?qty=2
 Access-Token:
