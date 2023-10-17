@@ -321,6 +321,7 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 			"category": "pendidikan",
 			"image_url": ""
 		},
+		"carts": [],
 		"created_at": "2023-10-14T01:19:32.73704+07:00",
 		"updated_at": "2023-10-16T12:16:57.062845+07:00"
 	}
@@ -802,6 +803,71 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"created_at": "2023-10-14T16:41:21.190663+07:00",
 		"updated_at": "2023-10-14T19:26:54.898163+07:00"
 	}
+}
+```
+
+##
+
+### Add Product to Cart
+
+Digunakan untuk menambahkan produk ke keranjang belanja pengguna.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty=2
+```
+
+### Request Header
+
+- **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **product id** (string,required): ID produk yang ingin ditambahkan ke keranjang.
+
+#### Query Parameter
+
+- **qty** (integer,optional): Jumlah produk yang ingin ditambahkan ke keranjang (opsional, default: 1).
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 201,
+  "status": "Success Add Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897' To Your Cart",
+  "data": [
+    {
+      "cart_id": "177f95e3-2080-43d5-abdf-87030f313555",
+      "store": {
+        "store_name": "Toko Buku",
+        "description": "contoh deskripsi",
+        "category": "pendidikan",
+        "image_url": ""
+      },
+      "products": [
+        {
+          "product_name": "Buku Politik",
+          "description": "Contoh Deskripsi",
+          "category": "Pendidikan",
+          "detail": {
+            "item_id": "8ff0034e-3507-43b0-8fee-6277c11347e0",
+            "amount": "2"
+          },
+          "price": "50000",
+          "image_url": ""
+        },
+				...
+      ],
+      "total": "100000",
+      "created_at": "2023-10-17T10:22:59.801696+07:00",
+      "updated_at": "2023-10-17T10:22:59.838224+07:00"
+    },
+		...
+  ]
 }
 ```
 

@@ -48,6 +48,7 @@ type GetUserResponse struct {
 	Address     string               `json:"address"`
 	ImageUrl    string               `json:"image_url"`
 	Store       getUserStoreResponse `json:"store" gorm:"foreignKey:UserId"`
+	Carts       []GetCartResponse    `json:"carts" gorm:"foreignKey:UserId"`
 	CreatedAt   time.Time            `json:"created_at"`
 	UpdatedAt   time.Time            `json:"updated_at"`
 }

@@ -7,13 +7,18 @@ import (
 )
 
 type GetCartResponse struct {
-	Id        uuid.UUID                `json:"id"`
+	Id        uuid.UUID                `json:"cart_id"`
+	UserId    uuid.UUID                `json:"-"`
 	StoreId   uuid.UUID                `json:"-"`
 	Store     getCartStoreResponse     `json:"store" gorm:"foreignKey:StoreId"`
 	Products  []getCartProductResponse `json:"products" gorm:"many2many:cart_details;foreignKey:Id;joinForeignKey:CartId;References:Id;joinReferences:ProductId"`
 	Total     string                   `json:"total"`
 	CreatedAt time.Time                `json:"created_at"`
 	UpdatedAt time.Time                `json:"updated_at"`
+}
+
+func (c *GetCartResponse) TableName() string {
+	return "carts"
 }
 
 type getCartStoreResponse struct {
@@ -43,6 +48,7 @@ func (p *getCartProductResponse) TableName() string {
 }
 
 type getCartProductDetailResponse struct {
+	Id        uuid.UUID `json:"item_id"`
 	ProductId uuid.UUID `json:"-"`
 	Amount    string    `json:"amount"`
 }
