@@ -39,7 +39,7 @@ type FindProductResponse struct {
 type GetProductResponse struct {
 	Id          uuid.UUID               `json:"id"`
 	StoreId     uuid.UUID               `json:"-"`
-	Store       GetProductStoreResponse `json:"store" gorm:"foreignKey:StoreId"`
+	Store       getProductStoreResponse `json:"store" gorm:"foreignKey:StoreId"`
 	ProductName string                  `json:"product_name"`
 	Description string                  `json:"description"`
 	Category    string                  `json:"category"`
@@ -50,13 +50,13 @@ type GetProductResponse struct {
 	UpdatedAt   time.Time               `json:"updated_at"`
 }
 
-type GetProductStoreResponse struct {
+type getProductStoreResponse struct {
 	Id        uuid.UUID `json:"id"`
 	StoreName string    `json:"store_name"`
 	Category  string    `json:"category"`
 	ImageUrl  string    `json:"image_url"`
 }
 
-func (s *GetProductStoreResponse) TableName() string {
+func (s *getProductStoreResponse) TableName() string {
 	return "stores"
 }
