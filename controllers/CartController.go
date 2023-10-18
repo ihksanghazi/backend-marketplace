@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
@@ -13,6 +14,7 @@ import (
 type CartController interface {
 	Add(c *gin.Context)
 	DeleteCart(c *gin.Context)
+	UpdateItem(c *gin.Context)
 }
 
 type cartControllerImpl struct {
@@ -106,4 +108,17 @@ func (ca *cartControllerImpl) DeleteCart(c *gin.Context) {
 	}
 
 	c.JSON(200, response)
+}
+
+func (ca *cartControllerImpl) UpdateItem(c *gin.Context) {
+	itemId := c.Param("id")
+	qty := c.Query("qty")
+
+	qty1, err := strconv.Atoi(qty)
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{"item id": itemId, "qty": qty1})
 }
