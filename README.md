@@ -905,3 +905,66 @@ DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
 ```
 
 ##
+
+### Update Item Cart
+
+Digunakan untuk memperbarui jumlah produk dalam keranjang belanja.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty=3
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **item id** (string,required): ID item dalam keranjang yang ingin diperbarui.
+
+#### Query Parameters
+
+- **qty** (integer,required): Jumlah produk yang ingin diperbarui dalam item ini.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Item 'f3aea3b7-e2be-47fd-b0a2-a3496537a3e1' With qty 3",
+	"data": [
+		{
+			"cart_id": "109ed563-b36f-4784-8ff5-7b580da1939d",
+			"store": {
+				"store_name": "Toko Buku",
+				"description": "contoh deskripsi",
+				"category": "pendidikan",
+				"image_url": ""
+			},
+			"products": [
+				{
+					"product_name": "Buku Politik",
+					"description": "Contoh Deskripsi",
+					"category": "Pendidikan",
+					"detail": {
+						"item_id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
+						"amount": "3"
+					},
+					"price": "50000",
+					"image_url": ""
+				}
+			],
+			"total": "150000",
+			"created_at": "2023-10-18T21:07:28.338832+07:00",
+			"updated_at": "2023-10-18T21:28:06.109172+07:00"
+		}
+	]
+}
+```
+
+##
