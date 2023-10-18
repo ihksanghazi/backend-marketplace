@@ -872,3 +872,36 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
 ```
 
 ##
+
+### Delete Cart
+
+Digunakan untuk menghapus keranjang belanja pengguna.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **cart id** (string,required): ID keranjang yang ingin dihapus.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Delete Cart With Id 'db1106eb-48be-49e4-9ebc-651331072944'",
+	"data": []
+}
+```
+
+##

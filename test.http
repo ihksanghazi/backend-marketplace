@@ -134,4 +134,5 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
 Access-Token:
 
 ### Delete Cart
-DELETE http://localhost:5000/api/cart/f789fcd1-17de-41d0-b809-79caf1d2a586
+DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
+Access-Token:
