@@ -17,4 +17,5 @@ func CartRouter(r *gin.RouterGroup) {
 	r.POST("/add/:product_id", controller.Add)
 	r.DELETE("/:id", controller.DeleteCart)
 	r.PUT("/item/:id", controller.UpdateItem)
+	r.DELETE("/item/:id", controller.DeleteItem)
 }
