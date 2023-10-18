@@ -15,6 +15,7 @@ import (
 type CartService interface {
 	Add(productId string, amount string, userId string) error
 	Get(userId string) ([]web.GetCartResponse, error)
+	DeleteCart(cartId string) error
 }
 
 type cartServiceImpl struct {
@@ -111,4 +112,22 @@ func (c *cartServiceImpl) Get(userId string) ([]web.GetCartResponse, error) {
 	var response []web.GetCartResponse
 	err := database.DB.Model(cart).WithContext(c.ctx).Where("user_id = ?", userId).Preload("Store").Preload("Products.Detail").Find(&response).Error
 	return response, err
+}
+
+func (c *cartServiceImpl) DeleteCart(cartId string) error {
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var cart domain.Cart
+		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartId).First(&cart).Error; err != nil {
+			return err
+		}
+		var cartDetail domain.CartDetail
+		if err := tx.Model(cartDetail).WithContext(c.ctx).Where("cart_id = ?", cartId).Delete(&cartDetail).Error; err != nil {
+			return err
+		}
+		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartId).Delete(&cart).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }
