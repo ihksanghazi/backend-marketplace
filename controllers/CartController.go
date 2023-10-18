@@ -12,6 +12,7 @@ import (
 
 type CartController interface {
 	Add(c *gin.Context)
+	DeleteCart(c *gin.Context)
 }
 
 type cartControllerImpl struct {
@@ -65,4 +66,9 @@ func (ca *cartControllerImpl) Add(c *gin.Context) {
 	}
 
 	c.JSON(201, response)
+}
+func (ca *cartControllerImpl) DeleteCart(c *gin.Context) {
+	id := c.Param("id")
+
+	c.JSON(200, gin.H{"id": id})
 }

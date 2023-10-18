@@ -15,4 +15,5 @@ func CartRouter(r *gin.RouterGroup) {
 	controller := controllers.NewCartController(cartService)
 
 	r.POST("/add/:product_id", controller.Add)
+	r.DELETE("/:id", controller.DeleteCart)
 }
