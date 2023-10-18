@@ -40,7 +40,10 @@ func (ca *cartControllerImpl) Add(c *gin.Context) {
 	}
 
 	if err := ca.service.Add(productID, amount, claims.ID); err != nil {
-		if err == gorm.ErrRecordNotFound {
+		if err.Error() == "you are the selller of this item" {
+			c.JSON(409, gin.H{"error": err.Error()})
+			return
+		} else if err == gorm.ErrRecordNotFound || err.Error() == "product is not available" {
 			c.JSON(404, gin.H{"error": err.Error()})
 			return
 		} else {

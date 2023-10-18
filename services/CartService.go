@@ -2,6 +2,8 @@ package services
 
 import (
 	"context"
+	"errors"
+	"strconv"
 
 	"github.com/google/uuid"
 	"github.com/ihksanghazi/backend-marketplace/database"
@@ -31,6 +33,28 @@ func (c *cartServiceImpl) Add(productId string, amount string, userId string) er
 		var product domain.Product
 		if err := tx.Model(product).WithContext(c.ctx).Where("id = ?", productId).First(&product).Error; err != nil {
 			return err
+		}
+
+		// cek apakah user bukan penjual dari barang ini
+		var productUserId string
+		if err := tx.WithContext(c.ctx).Raw("select u.id from users u join stores s on u.id = s.user_id where s.id = ?", product.StoreId).Scan(&productUserId).Error; err != nil {
+			return err
+		}
+		if productUserId == userId {
+			return errors.New("you are the selller of this item")
+		}
+
+		// cek apakah product masih tersedia
+		productStock, err := strconv.Atoi(product.Stock)
+		if err != nil {
+			return err
+		}
+		productAmount, err := strconv.Atoi(amount)
+		if err != nil {
+			return err
+		}
+		if productStock-productAmount < 0 {
+			return errors.New("product is not available")
 		}
 
 		// cari cart berdasarkan user id dan store id

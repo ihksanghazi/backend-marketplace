@@ -11,8 +11,8 @@ import (
 func CartRouter(r *gin.RouterGroup) {
 
 	var ctx context.Context
-	service := services.NewCartService(ctx)
-	controller := controllers.NewCartController(service)
+	cartService := services.NewCartService(ctx)
+	controller := controllers.NewCartController(cartService)
 
 	r.POST("/add/:product_id", controller.Add)
 }
