@@ -16,6 +16,7 @@ type CartService interface {
 	Add(productId string, amount string, userId string) error
 	Get(userId string) ([]web.GetCartResponse, error)
 	DeleteCart(cartId string) error
+	UpdateCartItem(itemId string, qty int) error
 }
 
 type cartServiceImpl struct {
@@ -125,6 +126,29 @@ func (c *cartServiceImpl) DeleteCart(cartId string) error {
 			return err
 		}
 		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartId).Delete(&cart).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
+}
+
+func (c *cartServiceImpl) UpdateCartItem(itemId string, qty int) error {
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var cartDetail domain.CartDetail
+		if err := tx.Model(cartDetail).WithContext(c.ctx).Where("id = ?", itemId).First(&cartDetail).Error; err != nil {
+			return err
+		}
+		if err := tx.Model(cartDetail).WithContext(c.ctx).Where("id = ?", itemId).Update("amount", qty).Error; err != nil {
+			return err
+		}
+		// hitung ulang total cart
+		var total int
+		if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cartDetail.CartId).Scan(&total).Error; err != nil {
+			return err
+		}
+		var cart domain.Cart
+		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartDetail.CartId).Update("total", total).Error; err != nil {
 			return err
 		}
 		return nil

@@ -136,3 +136,7 @@ Access-Token:
 ### Delete Cart
 DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
 Access-Token:
+
+### Update Item Cart
+PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty=3
+Access-Token:
