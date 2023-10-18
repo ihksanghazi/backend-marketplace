@@ -67,8 +67,43 @@ func (ca *cartControllerImpl) Add(c *gin.Context) {
 
 	c.JSON(201, response)
 }
+
 func (ca *cartControllerImpl) DeleteCart(c *gin.Context) {
 	id := c.Param("id")
 
-	c.JSON(200, gin.H{"id": id})
+	refreshToken, err := c.Cookie("tkn_ck")
+	if err != nil {
+		c.JSON(401, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	claims, err := utils.ParsingToken(refreshToken, os.Getenv("REFRESH_TOKEN"))
+	if err != nil {
+		c.JSON(401, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	if err := ca.service.DeleteCart(id); err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		} else {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	result, err := ca.service.Get(claims.ID)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "Success Delete Cart With Id '" + id + "'",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 }
