@@ -146,5 +146,5 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 Access-Token:
 
 ### Cek Ongkir
-GET http://localhost:5000/api/transaction/ongkir
+GET http://localhost:5000/api/transaction/ongkir/078cc825-83b2-44d5-9868-406702e70db4?expedition=tiki
 Access-Token:

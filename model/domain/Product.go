@@ -15,7 +15,7 @@ type Product struct {
 	Category    string    `gorm:"not null;index"`
 	Stock       string    `gorm:"not null;type:numeric"`
 	Price       string    `gorm:"not null;type:numeric"`
-	Weight      string
+	WeightGram  int
 	ImageUrl    string
 	CreatedAt   time.Time
 	UpdatedAt   time.Time

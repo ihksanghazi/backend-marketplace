@@ -1,6 +1,6 @@
 package web
 
-type OngkirWebResponse struct {
+type Ongkir struct {
 	Rajaongkir rajaongkir `json:"rajaongkir"`
 }
 
@@ -49,4 +49,18 @@ type cost struct {
 	Etd   string `json:"etd"`
 	Note  string `json:"note"`
 	Value int    `json:"value"`
+}
+
+type ExpeditionWebResponse struct {
+	OriginDetails      city                `json:"origin_details"`
+	DestinationDetails city                `json:"destination_details"`
+	Services           []ServiceExpedition `json:"services"`
+}
+
+type ServiceExpedition struct {
+	Service     string `json:"service"`
+	Description string `json:"description"`
+	Value       int    `json:"value"`
+	Etd         string `json:"etd"`
+	Note        string `json:"note"`
 }
