@@ -16,6 +16,7 @@ type User struct {
 	Role         string `gorm:"default:user;index"`
 	PhoneNumber  string `gorm:"unique;default:NULL"`
 	Address      string
+	CityId       string `gorm:"foreignKey"`
 	ImageUrl     string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time

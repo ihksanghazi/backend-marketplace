@@ -13,6 +13,8 @@ type Store struct {
 	StoreName   string    `gorm:"not null;index"`
 	Description string    `gorm:"not null"`
 	Category    string    `gorm:"not null;index"`
+	Address     string
+	CityId      string `gorm:"foreignKey"`
 	ImageUrl    string
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
