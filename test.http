@@ -14,7 +14,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"sandy@gmail.com",
+  "email":"sendi@gmail.com",
   "password":"123"
 }
 
@@ -55,7 +55,7 @@ Access-Token:
 
 ### Get User
 GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
-Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NDQ0ODcwLCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.Hsofju3G8eRKSzGRFBBHCjuKv8jKZLQRDC2_tDXW0pQ
+Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NTE0MDc2LCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.h4NE77F1qJFeD4VHtGg5LmVI-ROmB46cbQleA_vWvWc
 
 ### Create Store
 POST http://localhost:5000/api/store/create
@@ -127,4 +127,20 @@ Access-Token:
 
 ### Get Product
 GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
+Access-Token:
+
+### Add Product
+POST http://localhost:5000/api/cart/add/f65b5f57-620a-4316-b9c0-4b269d344b82?qty=2
+Access-Token:
+
+### Delete Cart
+DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
+Access-Token:
+
+### Update Item Cart
+PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty=3
+Access-Token:
+
+### Delete Item Cart
+DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 Access-Token:

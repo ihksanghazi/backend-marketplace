@@ -151,7 +151,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 #### Parameter
 
-- **userId** (string,required): Id User.
+- **user id** (string,required): Id User.
 
 #### Request Body
 
@@ -213,7 +213,7 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 #### Parameter
 
-- **userId** (string,required): Id User.
+- **user id** (string,required): Id User.
 
 #### Response
 
@@ -296,7 +296,7 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 
 #### Parameter
 
-- **userId** (string,required): Id User.
+- **user id** (string,required): Id User.
 
 #### Response
 
@@ -321,6 +321,7 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 			"category": "pendidikan",
 			"image_url": ""
 		},
+		"carts": [],
 		"created_at": "2023-10-14T01:19:32.73704+07:00",
 		"updated_at": "2023-10-16T12:16:57.062845+07:00"
 	}
@@ -393,7 +394,7 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 
 #### Parameter
 
-- **storeId** (string,required): Id Store.
+- **store id** (string,required): Id Store.
 
 ### Request Body
 
@@ -445,7 +446,7 @@ DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 
 #### Parameter
 
-- **storeId** (string,required): Id Store.
+- **store id** (string,required): Id Store.
 
 #### Request Header
 
@@ -528,7 +529,7 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 #### Parameter
 
-- **storeId** (string,required): Id Store.
+- **store id** (string,required): Id Store.
 
 #### Response
 
@@ -631,7 +632,7 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Parameter
 
-- **productId** (string,required): product id
+- **product id** (string,required): product id
 
 #### Request Body
 
@@ -693,7 +694,7 @@ DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Parameter
 
-- **productId** (string,required): product id
+- **product id** (string,required): product id
 
 #### Response
 
@@ -774,7 +775,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Parameter
 
-- **productId** (string,required): product id
+- **product id** (string,required): product id
 
 #### Response
 
@@ -802,6 +803,198 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"created_at": "2023-10-14T16:41:21.190663+07:00",
 		"updated_at": "2023-10-14T19:26:54.898163+07:00"
 	}
+}
+```
+
+##
+
+### Add Product to Cart
+
+Digunakan untuk menambahkan produk ke keranjang belanja pengguna.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty=2
+```
+
+### Request Header
+
+- **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **product id** (string,required): ID produk yang ingin ditambahkan ke keranjang.
+
+#### Query Parameter
+
+- **qty** (integer,optional): Jumlah produk yang ingin ditambahkan ke keranjang (opsional, default: 1).
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 201,
+  "status": "Success Add Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897' To Your Cart",
+  "data": [
+    {
+      "cart_id": "177f95e3-2080-43d5-abdf-87030f313555",
+      "store": {
+        "store_name": "Toko Buku",
+        "description": "contoh deskripsi",
+        "category": "pendidikan",
+        "image_url": ""
+      },
+      "products": [
+        {
+          "product_name": "Buku Politik",
+          "description": "Contoh Deskripsi",
+          "category": "Pendidikan",
+          "detail": {
+            "item_id": "8ff0034e-3507-43b0-8fee-6277c11347e0",
+            "amount": "2"
+          },
+          "price": "50000",
+          "image_url": ""
+        },...
+      ],
+      "total": "100000",
+      "created_at": "2023-10-17T10:22:59.801696+07:00",
+      "updated_at": "2023-10-17T10:22:59.838224+07:00"
+    },...
+  ]
+}
+```
+
+##
+
+### Delete Cart
+
+Digunakan untuk menghapus keranjang belanja pengguna.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **cart id** (string,required): ID keranjang yang ingin dihapus.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Delete Cart With Id 'db1106eb-48be-49e4-9ebc-651331072944'",
+	"data": []
+}
+```
+
+##
+
+### Update Item Cart
+
+Digunakan untuk memperbarui jumlah produk dalam keranjang belanja.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty=3
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **item id** (string,required): ID item dalam keranjang yang ingin diperbarui.
+
+#### Query Parameters
+
+- **qty** (integer,required): Jumlah produk yang ingin diperbarui dalam item ini.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Item 'f3aea3b7-e2be-47fd-b0a2-a3496537a3e1' With qty 3",
+	"data": [
+		{
+			"cart_id": "109ed563-b36f-4784-8ff5-7b580da1939d",
+			"store": {
+				"store_name": "Toko Buku",
+				"description": "contoh deskripsi",
+				"category": "pendidikan",
+				"image_url": ""
+			},
+			"products": [
+				{
+					"product_name": "Buku Politik",
+					"description": "Contoh Deskripsi",
+					"category": "Pendidikan",
+					"detail": {
+						"item_id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
+						"amount": "3"
+					},
+					"price": "50000",
+					"image_url": ""
+				}
+			],
+			"total": "150000",
+			"created_at": "2023-10-18T21:07:28.338832+07:00",
+			"updated_at": "2023-10-18T21:28:06.109172+07:00"
+		}
+	]
+}
+```
+
+##
+
+### Delete Item Cart
+
+Digunakan untuk menghapus item tertentu dari keranjang belanja.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **Item Id** (string): ID item dalam keranjang yang ingin dihapus.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Delete Item With Id '8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0'",
+	"data": []
 }
 ```
 

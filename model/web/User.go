@@ -47,12 +47,13 @@ type GetUserResponse struct {
 	PhoneNumber string               `json:"phone_number"`
 	Address     string               `json:"address"`
 	ImageUrl    string               `json:"image_url"`
-	Store       GetUserStoreResponse `json:"store" gorm:"foreignKey:UserId"`
+	Store       getUserStoreResponse `json:"store" gorm:"foreignKey:UserId"`
+	Carts       []GetCartResponse    `json:"carts" gorm:"foreignKey:UserId"`
 	CreatedAt   time.Time            `json:"created_at"`
 	UpdatedAt   time.Time            `json:"updated_at"`
 }
 
-type GetUserStoreResponse struct {
+type getUserStoreResponse struct {
 	Id          uuid.UUID `json:"id"`
 	UserId      uuid.UUID `json:"-"`
 	StoreName   string    `json:"store_name"`
@@ -61,6 +62,6 @@ type GetUserStoreResponse struct {
 	ImageUrl    string    `json:"image_url"`
 }
 
-func (s *GetUserStoreResponse) TableName() string {
+func (s *getUserStoreResponse) TableName() string {
 	return "stores"
 }

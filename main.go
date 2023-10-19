@@ -16,17 +16,18 @@ func main() {
 	r.Use(gin.Recovery())
 
 	err := godotenv.Load()
-  if err != nil {
-    log.Fatal("Error loading .env file")
-  }
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	database.ConnectDB()
-	// database.DB.AutoMigrate(domain.Store{},domain.Product{})
+	// database.DB.AutoMigrate(domain.User{}, domain.Store{}, domain.Product{}, domain.Cart{}, domain.CartDetail{})
 
 	routers.TestRouter(r.Group("/api/test"))
 	routers.UserRouter(r.Group("/api/user"))
 	routers.StoreRouter(r.Group("/api/store"))
 	routers.ProductRouter(r.Group("/api/product"))
+	routers.CartRouter(r.Group("/api/cart"))
 
 	r.Run(":5000")
 }
