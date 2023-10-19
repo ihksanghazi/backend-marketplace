@@ -130,7 +130,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 Access-Token:
 
 ### Add Product
-POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty=2
+POST http://localhost:5000/api/cart/add/f65b5f57-620a-4316-b9c0-4b269d344b82?qty=2
 Access-Token:
 
 ### Delete Cart
@@ -139,4 +139,8 @@ Access-Token:
 
 ### Update Item Cart
 PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty=3
+Access-Token:
+
+### Delete Item Cart
+DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 Access-Token:

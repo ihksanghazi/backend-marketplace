@@ -151,7 +151,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 #### Parameter
 
-- **userId** (string,required): Id User.
+- **user id** (string,required): Id User.
 
 #### Request Body
 
@@ -213,7 +213,7 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 #### Parameter
 
-- **userId** (string,required): Id User.
+- **user id** (string,required): Id User.
 
 #### Response
 
@@ -296,7 +296,7 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 
 #### Parameter
 
-- **userId** (string,required): Id User.
+- **user id** (string,required): Id User.
 
 #### Response
 
@@ -394,7 +394,7 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 
 #### Parameter
 
-- **storeId** (string,required): Id Store.
+- **store id** (string,required): Id Store.
 
 ### Request Body
 
@@ -446,7 +446,7 @@ DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 
 #### Parameter
 
-- **storeId** (string,required): Id Store.
+- **store id** (string,required): Id Store.
 
 #### Request Header
 
@@ -529,7 +529,7 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 #### Parameter
 
-- **storeId** (string,required): Id Store.
+- **store id** (string,required): Id Store.
 
 #### Response
 
@@ -632,7 +632,7 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Parameter
 
-- **productId** (string,required): product id
+- **product id** (string,required): product id
 
 #### Request Body
 
@@ -694,7 +694,7 @@ DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Parameter
 
-- **productId** (string,required): product id
+- **product id** (string,required): product id
 
 #### Response
 
@@ -775,7 +775,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 #### Parameter
 
-- **productId** (string,required): product id
+- **product id** (string,required): product id
 
 #### Response
 
@@ -859,14 +859,12 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
           },
           "price": "50000",
           "image_url": ""
-        },
-				...
+        },...
       ],
       "total": "100000",
       "created_at": "2023-10-17T10:22:59.801696+07:00",
       "updated_at": "2023-10-17T10:22:59.838224+07:00"
-    },
-		...
+    },...
   ]
 }
 ```
@@ -964,6 +962,39 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 			"updated_at": "2023-10-18T21:28:06.109172+07:00"
 		}
 	]
+}
+```
+
+##
+
+### Delete Item Cart
+
+Digunakan untuk menghapus item tertentu dari keranjang belanja.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
+```
+
+#### Request Header
+
+- **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
+
+#### Parameter
+
+- **Item Id** (string): ID item dalam keranjang yang ingin dihapus.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Delete Item With Id '8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0'",
+	"data": []
 }
 ```
 
