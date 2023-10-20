@@ -167,6 +167,6 @@ func (u *userServiceImpl) Find(page int, limit int, search string) (result []web
 func (u *userServiceImpl) GetUser(id string) (web.GetUserResponse, error) {
 	var user domain.User
 	var res web.GetUserResponse
-	err := database.DB.Model(user).WithContext(u.ctx).Where("id = ?", id).Preload("Store").Preload("Carts.Store").Preload("Carts.Products.Detail").First(&res).Error
+	err := database.DB.Model(user).WithContext(u.ctx).Where("id = ?", id).Preload("Region").Preload("Store").Preload("Carts.Store").Preload("Carts.Products.Detail").First(&res).Error
 	return res, err
 }

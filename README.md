@@ -409,6 +409,12 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 		"phone_number": "",
 		"address": "",
 		"image_url": "",
+		"region": {
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		},
 		"store": {
 			"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
 			"store_name": "Toko Buku",
@@ -448,8 +454,6 @@ POST http://localhost:5000/api/store/create
 - **description** (string, required): Deskripsi toko.
 - **category** (string, required): Kategori toko.
 - **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
-- **address** (string,optional): address toko.
-- **city_id** (string,required): city id toko.
 
 ### Contoh Request Body:
 
@@ -458,9 +462,7 @@ POST http://localhost:5000/api/store/create
 	"store_name": "Toko Buku",
 	"description": "contoh deskripsi",
 	"category": "pendidikan",
-	"image_url": "",
-	"address": "",
-	"city_id": "153"
+	"image_url": ""
 }
 ```
 
@@ -647,6 +649,12 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
   "status": "OK",
   "data": {
     "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+		"region": {
+      "id": "153",
+      "type": "Kota",
+      "city_name": "Jakarta Selatan",
+      "postal_code": "12230"
+    },
     "products": [
       {
         "id": "5aaa787d-02d3-4487-bc75-b543da26c897",
@@ -694,6 +702,7 @@ POST http://localhost:5000/api/product/create
 - **stock** (integer, required): Jumlah stok produk.
 - **price** (integer, required): Harga produk.
 - **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+- **weight_on_gram** (integer,required): berat product
 
 #### Contoh Request Body:
 
@@ -704,7 +713,8 @@ POST http://localhost:5000/api/product/create
 	"category": "Pendidikan",
 	"stock": 99,
 	"price": 50000,
-	"image_url": ""
+	"image_url": "",
+	"weight_on_gram": 1000
 }
 ```
 
@@ -747,6 +757,7 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 - **stock** (integer, optional): Jumlah stok produk (dapat dikosongkan).
 - **price** (integer, optional): Harga produk (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+- **weight_on_gram** (integer,optional): berat product (dapat dikosongkan).
 
 #### Contoh Request Body:
 
@@ -757,7 +768,8 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 	"category": "",
 	"stock": "",
 	"price": "",
-	"image_url": ""
+	"image_url": "",
+	"weight_on_gram": 1000
 }
 ```
 
@@ -776,7 +788,8 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"category": "Pendidikan",
 		"stock": "99",
 		"price": "50000",
-		"image_url": ""
+		"image_url": "",
+		"weight_on_gram": 1000
 	}
 }
 ```
@@ -851,6 +864,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 			"product_name": "Buku Politik",
 			"description": "Contoh Deskripsi",
 			"category": "Pendidikan",
+			"weight_on_gram": 1000,
 			"stock": "99",
 			"price": "50000",
 			"image_url": "",
@@ -902,6 +916,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"product_name": "Buku Politik",
 		"description": "Contoh Deskripsi",
 		"category": "Pendidikan",
+		"weight_on_gram": 1000,
 		"stock": "99",
 		"price": "50000",
 		"image_url": "",

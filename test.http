@@ -8,8 +8,8 @@ GET http://localhost:5000/api/region/city/6
 POST http://localhost:5000/api/user/register
 
 {
-  "username":"sendi",
-  "email":"sendi@gmail.com",
+  "username":"person",
+  "email":"person@gmail.com",
   "password":"123",
 	"city_id":"153",
   "phone_number":"",
@@ -21,7 +21,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"sendi@gmail.com",
+  "email":"person@gmail.com",
   "password":"123"
 }
 
@@ -40,14 +40,14 @@ GET http://localhost:5000/api/test/admin
 Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3MjE0MjM5LCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.Ho7nRNa4OeficelCYCkS1qQRS-RtPzrOmV52oiQyD7k
 
 ### Update User
-PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
+PUT http://localhost:5000/api/user/707f5b86-7a34-4888-abf5-f72b23fc30af
 Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsInN1YiI6InBlcnNvbkBnbWFpbC5jb20iLCJleHAiOjE2OTcxMzE4NDEsImp0aSI6ImFkZjRiNzk0LWYzOTgtNDY0YS1iNmQ1LWVmOGEwNzhmMDcwNSJ9.xl0DZ8P93lOsg5STTBT9EF0cvYp480ion8tTRYEuxPo
 
 {
   "username":"",
 	"email":"person@gmail.com",
 	"password":"",
-	"city_id":"153",
+	"city_id":"",
 	"phone_number":"",
 	"address":"Jl. Buntu",
 	"image_url":""
@@ -62,7 +62,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 Access-Token:
 
 ### Get User
-GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
+GET http://localhost:5000/api/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4f53
 Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NTE0MDc2LCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.h4NE77F1qJFeD4VHtGg5LmVI-ROmB46cbQleA_vWvWc
 
 ### Create Store
@@ -70,16 +70,14 @@ POST http://localhost:5000/api/store/create
 Access-Token:
 
 {
-  "store_name":"Toko Game",
+  "store_name":"Toko Sembako",
 	"description":"contoh deskripsi",
-	"category":"hiburan",
-	"image_url":"",
-	"address":"",
-	"city_id":"153"
+	"category":"rumahan",
+	"image_url":""
 }
 
 ### Update Store
-PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
+PUT http://localhost:5000/api/store/e9c49a8d-f156-431a-9f65-e3012fb29f45
 Access-Token:
 
 {
@@ -87,7 +85,7 @@ Access-Token:
 	"description":"contoh deskripsi",
 	"category":"hiburan",
 	"image_url":"",
-	"address":"",
+	"address":"jl buntu",
 	"city_id":"153"
 }
 
@@ -100,7 +98,7 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
 Access-Token:
 
 ### Get Store
-GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
+GET http://localhost:5000/api/store/e9c49a8d-f156-431a-9f65-e3012fb29f45
 Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NDQ1MTgyLCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.eJyo4CXBJufC92Mmf6WFIXy38m4ua5QIuMhvoEDcydU
 
 ### Create Product
@@ -108,25 +106,27 @@ POST http://localhost:5000/api/product/create
 Access-Token:
 
 {
-  "product_name":"Komik Detektif Conan",
+  "product_name":"Aqua",
 	"description":"Contoh Deskripsi",
-	"category":"Pendidikan",
+	"category":"Kebutuhan",
 	"stock":"99",
-	"price":"50000",
-	"image_url":""
+	"price":"4000",
+	"image_url":"",
+	"weight_on_gram":1000
 }
 
 ### Update Product
-PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
+PUT http://localhost:5000/api/product/33f389da-3963-4087-b4de-6309928b710c
 Access-Token:
 
 {
-  "product_name":"Buku Politik",
+  "product_name":"",
 	"description":"",
 	"category":"",
 	"stock":"",
 	"price":"",
-	"image_url":""
+	"image_url":"",
+	"weight_on_gram":0
 }
 
 ### Delete Product
