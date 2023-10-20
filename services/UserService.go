@@ -46,6 +46,7 @@ func (u *userServiceImpl) Register(req web.RegisterRequest) error {
 		user.Username = req.Username
 		user.Email = req.Email
 		user.Password = string(password)
+		user.CityId = req.CityId
 		user.PhoneNumber = req.PhoneNumber
 		user.Address = req.Address
 		user.ImageUrl = req.ImageUrl
@@ -124,6 +125,7 @@ func (u *userServiceImpl) Update(id string, req web.UpdateRequest) (web.UpdateRe
 		user.Username = req.Username
 		user.Email = req.Email
 		user.Password = req.Password
+		user.CityId = req.CityId
 		user.PhoneNumber = req.PhoneNumber
 		user.Address = req.Address
 		user.ImageUrl = req.ImageUrl

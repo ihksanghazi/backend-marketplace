@@ -103,6 +103,7 @@ POST http://localhost:5000/api/user/register
 - **username** (string, required): Nama pengguna.
 - **email** (string, required): Alamat email pengguna.
 - **password** (string, required): Kata sandi pengguna.
+- **city_id** (string,required): id city pengguna
 - **phone_number** (string, optional): No telephone pengguna.
 - **address** (string, optional): Alamat pengguna (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
@@ -114,6 +115,7 @@ POST http://localhost:5000/api/user/register
 	"username": "person",
 	"email": "person@gmail.com",
 	"password": "123",
+	"city_id": "153",
 	"phone_number": "",
 	"address": "",
 	"image_url": ""
@@ -248,6 +250,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 - **username** (string, optional): Nama pengguna (dapat dikosongkan).
 - **email** (string, optional): Alamat email pengguna (dapat dikosongkan).
 - **password** (string, optional): Kata sandi pengguna (dapat dikosongkan).
+- **city_id** (string,optional): city id pengguna (dapat dikosongkan)
 - **phone_number** (string, optional): Nomor telepon pengguna (dapat dikosongkan).
 - **address** (string, optional): Alamat pengguna (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
@@ -259,6 +262,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 	"username": "",
 	"email": "person@gmail.com",
 	"password": "",
+	"city_id": "153",
 	"phone_number": "",
 	"address": "Jl. Buntu",
 	"image_url": ""
@@ -278,6 +282,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 		"username": "person",
 		"email": "person@gmail.com",
 		"password": "$2a$10$lQk04EeOxkf8HR1IqoZBXuhEHThgc6OT2SmVR8RPprEpROHEkhv5K",
+		"city_id": "153",
 		"phone_number": "",
 		"address": "Jl. Buntu",
 		"image_url": ""

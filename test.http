@@ -11,6 +11,7 @@ POST http://localhost:5000/api/user/register
   "username":"sendi",
   "email":"sendi@gmail.com",
   "password":"123",
+	"city_id":"153",
   "phone_number":"",
   "address":"",
   "image_url":""
@@ -46,6 +47,7 @@ Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBlcnNvbiIsI
   "username":"",
 	"email":"person@gmail.com",
 	"password":"",
+	"city_id":"153",
 	"phone_number":"",
 	"address":"Jl. Buntu",
 	"image_url":""
