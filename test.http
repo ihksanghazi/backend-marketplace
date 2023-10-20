@@ -162,5 +162,5 @@ GET http://localhost:5000/api/cart/get
 Access-Token:
 
 ### Cek Ongkir
-GET http://localhost:5000/api/transaction/ongkir/078cc825-83b2-44d5-9868-406702e70db4?expedition=jne
+GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81a8fe7?expedition=jne
 Access-Token:

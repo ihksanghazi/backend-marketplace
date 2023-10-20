@@ -26,20 +26,26 @@ func NewTransactionService(ctx context.Context) TransactionService {
 	}
 }
 
+type cekOngkir struct {
+	CityId     string
+	Total_Gram string
+}
+
 func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedition string) (web.ExpeditionWebResponse, error) {
 	var result web.ExpeditionWebResponse
 
 	// get origin city
-	var originCity, destinationCity string
-	if err := database.DB.WithContext(t.ctx).Raw("select s.city_id from carts c join stores s on c.store_id = s.id where c.id = ? ", cartId).Scan(&originCity).Error; err != nil {
+	var cekOngkir cekOngkir
+	if err := database.DB.WithContext(t.ctx).Raw("select s.city_id,c.total_gram from carts c join stores s on c.store_id = s.id where c.id = ? ", cartId).Scan(&cekOngkir).Error; err != nil {
 		return result, err
 	}
 	// get destination city
+	var destinationCity string
 	if err := database.DB.WithContext(t.ctx).Raw("select u.city_id from users u where u.id = ? ", userId).Scan(&destinationCity).Error; err != nil {
 		return result, err
 	}
 
-	payload := strings.NewReader("origin=" + originCity + "&destination=" + destinationCity + "&weight=1000&courier=" + expedition)
+	payload := strings.NewReader("origin=" + cekOngkir.CityId + "&destination=" + destinationCity + "&weight=" + cekOngkir.Total_Gram + "&courier=" + expedition)
 
 	req, err := http.NewRequest("POST", os.Getenv("URL_ONGKIR")+"/cost", payload)
 	if err != nil {
@@ -75,6 +81,7 @@ func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedit
 
 	result.OriginDetails = data.Rajaongkir.OriginDetails
 	result.DestinationDetails = data.Rajaongkir.DestinationDetails
+	result.Weight = cekOngkir.Total_Gram
 	result.Services = services
 
 	return result, err

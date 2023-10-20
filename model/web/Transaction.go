@@ -54,6 +54,7 @@ type cost struct {
 type ExpeditionWebResponse struct {
 	OriginDetails      city                `json:"origin_details"`
 	DestinationDetails city                `json:"destination_details"`
+	Weight             string              `json:"weight_on_gram"`
 	Services           []ServiceExpedition `json:"services"`
 }
 

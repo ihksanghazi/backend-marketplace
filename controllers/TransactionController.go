@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/services"
 	"github.com/ihksanghazi/backend-marketplace/utils"
 )
@@ -49,5 +50,11 @@ func (t *tranctionControllerImpl) CekOngir(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, result)
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 }

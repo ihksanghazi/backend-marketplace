@@ -1176,3 +1176,86 @@ GET http://localhost:5000/api/cart/get
 ```
 
 ##
+
+Berikut adalah dokumentasi untuk permintaan (request) dan respons yang Anda berikan:
+
+markdown
+Copy code
+
+### Cek Ongkir
+
+Menghitung biaya pengiriman (ongkir) antara alamat pengiriman dan alamat tujuan menggunakan layanan ekspedisi tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81a8fe7?expedition=jne
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameter
+
+- **cart** id (string,required): ID keranjang belanja.
+
+#### Query Parameter
+
+- **expedition** (string,required) : Nama ekspedisi yang digunakan untuk menghitung ongkir.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"origin_details": {
+			"city_id": "151",
+			"city_name": "Jakarta Barat",
+			"postal_code": "11220",
+			"province": "DKI Jakarta",
+			"province_id": "6",
+			"type": "Kota"
+		},
+		"destination_details": {
+			"city_id": "153",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230",
+			"province": "DKI Jakarta",
+			"province_id": "6",
+			"type": "Kota"
+		},
+		"weight_on_gram": "2000",
+		"services": [
+			{
+				"service": "CTC",
+				"description": "JNE City Courier",
+				"value": 20000,
+				"etd": "1-2",
+				"note": ""
+			},
+			{
+				"service": "CTCYES",
+				"description": "JNE City Courier",
+				"value": 36000,
+				"etd": "1-1",
+				"note": ""
+			}
+		]
+	}
+}
+```
+
+> [!NOTE]
+> untuk expedition hanya tersedia option jne, pos, tiki, menggunakan selain itu akan terkena error BAD REQUEST
+
+##
+
+```
+
+```
