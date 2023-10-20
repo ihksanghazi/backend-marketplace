@@ -21,13 +21,16 @@ func main() {
 	}
 
 	database.ConnectDB()
-	// database.DB.AutoMigrate(domain.User{}, domain.Store{}, domain.Product{}, domain.Cart{}, domain.CartDetail{})
+	// database.DB.AutoMigrate(domain.Cart{})
+	// database.Seeder()
 
 	routers.TestRouter(r.Group("/api/test"))
+	routers.RegionRouter(r.Group("/api/region"))
 	routers.UserRouter(r.Group("/api/user"))
 	routers.StoreRouter(r.Group("/api/store"))
 	routers.ProductRouter(r.Group("/api/product"))
 	routers.CartRouter(r.Group("/api/cart"))
+	routers.TransactionRouter(r.Group("api/transaction"))
 
 	r.Run(":5000")
 }

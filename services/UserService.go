@@ -46,6 +46,7 @@ func (u *userServiceImpl) Register(req web.RegisterRequest) error {
 		user.Username = req.Username
 		user.Email = req.Email
 		user.Password = string(password)
+		user.CityId = req.CityId
 		user.PhoneNumber = req.PhoneNumber
 		user.Address = req.Address
 		user.ImageUrl = req.ImageUrl
@@ -124,6 +125,7 @@ func (u *userServiceImpl) Update(id string, req web.UpdateRequest) (web.UpdateRe
 		user.Username = req.Username
 		user.Email = req.Email
 		user.Password = req.Password
+		user.CityId = req.CityId
 		user.PhoneNumber = req.PhoneNumber
 		user.Address = req.Address
 		user.ImageUrl = req.ImageUrl
@@ -165,6 +167,6 @@ func (u *userServiceImpl) Find(page int, limit int, search string) (result []web
 func (u *userServiceImpl) GetUser(id string) (web.GetUserResponse, error) {
 	var user domain.User
 	var res web.GetUserResponse
-	err := database.DB.Model(user).WithContext(u.ctx).Where("id = ?", id).Preload("Store").Preload("Carts.Store").Preload("Carts.Products.Detail").First(&res).Error
+	err := database.DB.Model(user).WithContext(u.ctx).Where("id = ?", id).Preload("Region").Preload("Store").First(&res).Error
 	return res, err
 }

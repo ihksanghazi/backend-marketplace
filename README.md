@@ -1,3 +1,93 @@
+##
+
+### Get Province List
+
+Mengambil daftar provinsi yang tersedia di sistem.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/region/province
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": [
+		{
+			"id": "1",
+			"province": "Bali"
+		},
+		{
+			"id": "2",
+			"province": "Bangka Belitung"
+		},
+		{
+			"id": "3",
+			"province": "Banten"
+		}
+		// ... (data provinsi lainnya)
+	]
+}
+```
+
+##
+
+### Get City By Province Id
+
+Mengambil daftar kota/kabupaten berdasarkan ID provinsi yang diberikan.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/region/city/6
+```
+
+#### Parameter
+
+- **province id** (number,required): ID provinsi yang digunakan untuk mengambil daftar kota/kabupaten yang berada dalam provinsi tersebut.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": [
+		{
+			"id": "151",
+			"type": "Kota",
+			"city_name": "Jakarta Barat",
+			"postal_code": "11220"
+		},
+		{
+			"id": "152",
+			"type": "Kota",
+			"city_name": "Jakarta Pusat",
+			"postal_code": "10540"
+		},
+		{
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		}
+		// ... (data provinsi lainnya)
+	]
+}
+```
+
+##
+
 ### Register User
 
 Digunakan untuk mendaftarkan pengguna baru.
@@ -13,6 +103,7 @@ POST http://localhost:5000/api/user/register
 - **username** (string, required): Nama pengguna.
 - **email** (string, required): Alamat email pengguna.
 - **password** (string, required): Kata sandi pengguna.
+- **city_id** (string,required): id city pengguna
 - **phone_number** (string, optional): No telephone pengguna.
 - **address** (string, optional): Alamat pengguna (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
@@ -24,6 +115,7 @@ POST http://localhost:5000/api/user/register
 	"username": "person",
 	"email": "person@gmail.com",
 	"password": "123",
+	"city_id": "153",
 	"phone_number": "",
 	"address": "",
 	"image_url": ""
@@ -158,6 +250,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 - **username** (string, optional): Nama pengguna (dapat dikosongkan).
 - **email** (string, optional): Alamat email pengguna (dapat dikosongkan).
 - **password** (string, optional): Kata sandi pengguna (dapat dikosongkan).
+- **city_id** (string,optional): city id pengguna (dapat dikosongkan)
 - **phone_number** (string, optional): Nomor telepon pengguna (dapat dikosongkan).
 - **address** (string, optional): Alamat pengguna (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
@@ -169,6 +262,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 	"username": "",
 	"email": "person@gmail.com",
 	"password": "",
+	"city_id": "153",
 	"phone_number": "",
 	"address": "Jl. Buntu",
 	"image_url": ""
@@ -188,6 +282,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 		"username": "person",
 		"email": "person@gmail.com",
 		"password": "$2a$10$lQk04EeOxkf8HR1IqoZBXuhEHThgc6OT2SmVR8RPprEpROHEkhv5K",
+		"city_id": "153",
 		"phone_number": "",
 		"address": "Jl. Buntu",
 		"image_url": ""
@@ -314,6 +409,12 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 		"phone_number": "",
 		"address": "",
 		"image_url": "",
+		"region": {
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		},
 		"store": {
 			"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
 			"store_name": "Toko Buku",
@@ -321,7 +422,6 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 			"category": "pendidikan",
 			"image_url": ""
 		},
-		"carts": [],
 		"created_at": "2023-10-14T01:19:32.73704+07:00",
 		"updated_at": "2023-10-16T12:16:57.062845+07:00"
 	}
@@ -402,6 +502,8 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 - **description** (string, optional): Deskripsi toko (dapat dikosongkan).
 - **category** (string, optional): Kategori toko (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+- **address** (string,optional): address toko (dapat dikosongkan).
+- **city_id** (string,optional): city id toko (dapat dikosongkan).
 
 #### Contoh Request Body:
 
@@ -410,7 +512,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 	"store_name": "Toko Game",
 	"description": "contoh deskripsi",
 	"category": "hiburan",
-	"image_url": ""
+	"image_url": "",
+	"address": "",
+	"city_id": "153"
 }
 ```
 
@@ -427,7 +531,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 		"store_name": "Toko Game",
 		"description": "contoh deskripsi",
 		"category": "hiburan",
-		"image_url": ""
+		"image_url": "",
+		"address": "",
+		"city_id": "153"
 	}
 }
 ```
@@ -542,6 +648,12 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
   "status": "OK",
   "data": {
     "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+		"region": {
+      "id": "153",
+      "type": "Kota",
+      "city_name": "Jakarta Selatan",
+      "postal_code": "12230"
+    },
     "products": [
       {
         "id": "5aaa787d-02d3-4487-bc75-b543da26c897",
@@ -589,6 +701,7 @@ POST http://localhost:5000/api/product/create
 - **stock** (integer, required): Jumlah stok produk.
 - **price** (integer, required): Harga produk.
 - **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+- **weight_on_gram** (integer,required): berat product
 
 #### Contoh Request Body:
 
@@ -599,7 +712,8 @@ POST http://localhost:5000/api/product/create
 	"category": "Pendidikan",
 	"stock": 99,
 	"price": 50000,
-	"image_url": ""
+	"image_url": "",
+	"weight_on_gram": 1000
 }
 ```
 
@@ -642,6 +756,7 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 - **stock** (integer, optional): Jumlah stok produk (dapat dikosongkan).
 - **price** (integer, optional): Harga produk (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+- **weight_on_gram** (integer,optional): berat product (dapat dikosongkan).
 
 #### Contoh Request Body:
 
@@ -652,7 +767,8 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 	"category": "",
 	"stock": "",
 	"price": "",
-	"image_url": ""
+	"image_url": "",
+	"weight_on_gram": 1000
 }
 ```
 
@@ -671,7 +787,8 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"category": "Pendidikan",
 		"stock": "99",
 		"price": "50000",
-		"image_url": ""
+		"image_url": "",
+		"weight_on_gram": 1000
 	}
 }
 ```
@@ -746,6 +863,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 			"product_name": "Buku Politik",
 			"description": "Contoh Deskripsi",
 			"category": "Pendidikan",
+			"weight_on_gram": 1000,
 			"stock": "99",
 			"price": "50000",
 			"image_url": "",
@@ -797,6 +915,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"product_name": "Buku Politik",
 		"description": "Contoh Deskripsi",
 		"category": "Pendidikan",
+		"weight_on_gram": 1000,
 		"stock": "99",
 		"price": "50000",
 		"image_url": "",
@@ -861,7 +980,8 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
           "image_url": ""
         },...
       ],
-      "total": "100000",
+      "total_price": "100000",
+      "total_gram": "1000",
       "created_at": "2023-10-17T10:22:59.801696+07:00",
       "updated_at": "2023-10-17T10:22:59.838224+07:00"
     },...
@@ -957,7 +1077,8 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 					"image_url": ""
 				}
 			],
-			"total": "150000",
+			"total_price": "150000",
+			"total_gram": "3000",
 			"created_at": "2023-10-18T21:07:28.338832+07:00",
 			"updated_at": "2023-10-18T21:28:06.109172+07:00"
 		}
@@ -999,3 +1120,142 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 ```
 
 ##
+
+### Get Cart
+
+Mengambil keranjang belanja pengguna saat ini.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/cart/get
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "cart_id": "682f3ca8-9519-4b05-8463-700a383264cb",
+      "store": {
+        "store_name": "Toko Anime",
+        "description": "contoh deskripsi",
+        "category": "hiburan",
+        "image_url": ""
+      },
+      "products": [
+        {
+          "product_name": "Komik Naruto",
+          "description": "Contoh Deskripsi",
+          "category": "Pendidikan",
+          "detail": {
+            "item_id": "c162d728-3c49-4a8f-9d8a-a90dc86137b9",
+            "amount": "2"
+          },
+          "price": "50000",
+          "image_url": ""
+        },...
+      ],
+      "total_price": "100000",
+      "total_gram": "2000",
+      "created_at": "2023-10-21T05:56:47.377428+07:00",
+      "updated_at": "2023-10-21T05:56:47.38139+07:00"
+    },...
+  ]
+}
+```
+
+##
+
+Berikut adalah dokumentasi untuk permintaan (request) dan respons yang Anda berikan:
+
+markdown
+Copy code
+
+### Cek Ongkir
+
+Menghitung biaya pengiriman (ongkir) antara alamat pengiriman dan alamat tujuan menggunakan layanan ekspedisi tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81a8fe7?expedition=jne
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameter
+
+- **cart** id (string,required): ID keranjang belanja.
+
+#### Query Parameter
+
+- **expedition** (string,required) : Nama ekspedisi yang digunakan untuk menghitung ongkir.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"origin_details": {
+			"city_id": "151",
+			"city_name": "Jakarta Barat",
+			"postal_code": "11220",
+			"province": "DKI Jakarta",
+			"province_id": "6",
+			"type": "Kota"
+		},
+		"destination_details": {
+			"city_id": "153",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230",
+			"province": "DKI Jakarta",
+			"province_id": "6",
+			"type": "Kota"
+		},
+		"weight_on_gram": "2000",
+		"services": [
+			{
+				"service": "CTC",
+				"description": "JNE City Courier",
+				"value": 20000,
+				"etd": "1-2",
+				"note": ""
+			},
+			{
+				"service": "CTCYES",
+				"description": "JNE City Courier",
+				"value": 36000,
+				"etd": "1-1",
+				"note": ""
+			}
+		]
+	}
+}
+```
+
+> [!NOTE]
+> untuk expedition hanya tersedia option jne, pos, tiki, menggunakan selain itu akan terkena error BAD REQUEST
+
+##
+
+```
+
+```

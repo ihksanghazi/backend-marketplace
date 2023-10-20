@@ -18,6 +18,8 @@ type UpdateStoreRequest struct {
 	Description string `json:"description"`
 	Category    string `json:"category"`
 	ImageUrl    string `json:"image_url"`
+	Address     string `json:"address"`
+	CityId      string `json:"city_id" binding:"omitempty,number"`
 }
 
 type FindStoreResponse struct {
@@ -32,6 +34,8 @@ type FindStoreResponse struct {
 
 type GetStoreResponse struct {
 	Id          uuid.UUID                 `json:"id"`
+	CityId      string                    `json:"-"`
+	Region      getStoreRegion            `json:"region" gorm:"foreignKey:CityId"`
 	Products    []getStoreProductResponse `json:"products" gorm:"foreignKey:StoreId"`
 	StoreName   string                    `json:"store_name"`
 	Description string                    `json:"description"`
@@ -39,6 +43,17 @@ type GetStoreResponse struct {
 	ImageUrl    string                    `json:"image_url"`
 	CreatedAt   time.Time                 `json:"created_at"`
 	UpdatedAt   time.Time                 `json:"updated_at"`
+}
+
+type getStoreRegion struct {
+	Id         string `json:"id"`
+	Type       string `json:"type"`
+	CityName   string `json:"city_name"`
+	PostalCode string `json:"postal_code"`
+}
+
+func (g *getStoreRegion) TableName() string {
+	return "cities"
 }
 
 type getStoreProductResponse struct {

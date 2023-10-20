@@ -54,6 +54,7 @@ func (p *productServiceImpl) Create(userId string, req web.CreateProductRequest)
 		product.Stock = req.Stock
 		product.Price = req.Price
 		product.ImageUrl = req.ImageUrl
+		product.WeightGram = req.WeightGram
 
 		if err := tx.Model(product).WithContext(p.ctx).Create(&product).Error; err != nil {
 			return err
@@ -72,6 +73,7 @@ func (p *productServiceImpl) Update(productId string, req web.UpdateProductReque
 		product.Stock = req.Stock
 		product.Price = req.Price
 		product.ImageUrl = req.ImageUrl
+		product.WeightGram = req.WeightGram
 		if err := tx.Model(product).WithContext(p.ctx).Where("id = ?", productId).Updates(product).First(&req).Error; err != nil {
 			return err
 		}

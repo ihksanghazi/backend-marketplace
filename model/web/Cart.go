@@ -12,7 +12,8 @@ type GetCartResponse struct {
 	StoreId   uuid.UUID                `json:"-"`
 	Store     getCartStoreResponse     `json:"store" gorm:"foreignKey:StoreId"`
 	Products  []getCartProductResponse `json:"products" gorm:"many2many:cart_details;foreignKey:Id;joinForeignKey:CartId;References:Id;joinReferences:ProductId"`
-	Total     string                   `json:"total"`
+	Total     string                   `json:"total_price"`
+	TotalGram string                   `json:"total_gram"`
 	CreatedAt time.Time                `json:"created_at"`
 	UpdatedAt time.Time                `json:"updated_at"`
 }

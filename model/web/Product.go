@@ -13,6 +13,7 @@ type CreateProductRequest struct {
 	Stock       string `json:"stock" binding:"required,number"`
 	Price       string `json:"price" binding:"required,number"`
 	ImageUrl    string `json:"image_url"`
+	WeightGram  int    `json:"weight_on_gram" binding:"required,number"`
 }
 
 type UpdateProductRequest struct {
@@ -22,6 +23,7 @@ type UpdateProductRequest struct {
 	Stock       string `json:"stock" binding:"omitempty,number"`
 	Price       string `json:"price" binding:"omitempty,number"`
 	ImageUrl    string `json:"image_url"`
+	WeightGram  int    `json:"weight_on_gram" binding:"omitempty,number"`
 }
 
 type FindProductResponse struct {
@@ -29,6 +31,7 @@ type FindProductResponse struct {
 	ProductName string    `json:"product_name"`
 	Description string    `json:"description"`
 	Category    string    `json:"category"`
+	WeightGram  int       `json:"weight_on_gram"`
 	Stock       string    `json:"stock"`
 	Price       string    `json:"price"`
 	ImageUrl    string    `json:"image_url"`
@@ -43,6 +46,7 @@ type GetProductResponse struct {
 	ProductName string                  `json:"product_name"`
 	Description string                  `json:"description"`
 	Category    string                  `json:"category"`
+	WeightGram  int                     `json:"weight_on_gram"`
 	Stock       string                  `json:"stock"`
 	Price       string                  `json:"price"`
 	ImageUrl    string                  `json:"image_url"`

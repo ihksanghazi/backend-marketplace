@@ -3,7 +3,6 @@ package services
 import (
 	"context"
 
-	"github.com/google/uuid"
 	"github.com/ihksanghazi/backend-marketplace/database"
 	"github.com/ihksanghazi/backend-marketplace/model/domain"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
@@ -30,17 +29,18 @@ func NewStoreService(ctx context.Context) StoreService {
 
 func (s *storeServiceImpl) Create(userId string, req web.CreateStoreRequest) error {
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
-		UserId, err := uuid.Parse(userId)
-		if err != nil {
+		var user domain.User
+		if err := tx.Model(user).WithContext(s.ctx).Where("id = ?", userId).First(&user).Error; err != nil {
 			return err
 		}
-
 		var store domain.Store
-		store.UserId = UserId
+		store.UserId = user.Id
 		store.StoreName = req.StoreName
 		store.Description = req.Description
 		store.Category = req.Category
 		store.ImageUrl = req.ImageUrl
+		store.Address = user.Address
+		store.CityId = user.CityId
 
 		if err := tx.Model(store).WithContext(s.ctx).Create(&store).Error; err != nil {
 			return err
@@ -57,6 +57,8 @@ func (s *storeServiceImpl) Update(storeId string, req web.UpdateStoreRequest) (w
 		store.Description = req.Description
 		store.Category = req.Category
 		store.ImageUrl = req.ImageUrl
+		store.Address = req.Address
+		store.CityId = req.CityId
 		if err := tx.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Updates(store).First(&req).Error; err != nil {
 			return err
 		}
@@ -92,6 +94,6 @@ func (s *storeServiceImpl) Find(page int, limit int, search string) (result []we
 func (s *storeServiceImpl) Get(storeId string) (web.GetStoreResponse, error) {
 	var store domain.Store
 	var response web.GetStoreResponse
-	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Preload("Products").First(&response).Error
+	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Preload("Region").Preload("Products").First(&response).Error
 	return response, err
 }
