@@ -1,3 +1,9 @@
+### Get Province
+GET http://localhost:5000/api/region/province
+
+### Get City By Province Id
+GET http://localhost:5000/api/region/city/6
+
 ### Register User
 POST http://localhost:5000/api/user/register
 
@@ -146,5 +152,5 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 Access-Token:
 
 ### Cek Ongkir
-GET http://localhost:5000/api/transaction/ongkir/078cc825-83b2-44d5-9868-406702e70db4?expedition=tiki
+GET http://localhost:5000/api/transaction/ongkir/078cc825-83b2-44d5-9868-406702e70db4?expedition=jne
 Access-Token:

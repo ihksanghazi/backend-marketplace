@@ -26,6 +26,7 @@ func main() {
 	// database.Seeder()
 
 	routers.TestRouter(r.Group("/api/test"))
+	routers.RegionRouter(r.Group("/api/region"))
 	routers.UserRouter(r.Group("/api/user"))
 	routers.StoreRouter(r.Group("/api/store"))
 	routers.ProductRouter(r.Group("/api/product"))

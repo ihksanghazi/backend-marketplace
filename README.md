@@ -1,3 +1,93 @@
+##
+
+### Get Province List
+
+Mengambil daftar provinsi yang tersedia di sistem.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/region/province
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": [
+		{
+			"id": "1",
+			"province": "Bali"
+		},
+		{
+			"id": "2",
+			"province": "Bangka Belitung"
+		},
+		{
+			"id": "3",
+			"province": "Banten"
+		}
+		// ... (data provinsi lainnya)
+	]
+}
+```
+
+##
+
+### Get City By Province Id
+
+Mengambil daftar kota/kabupaten berdasarkan ID provinsi yang diberikan.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/region/city/6
+```
+
+#### Parameter
+
+- **province id** (number,required): ID provinsi yang digunakan untuk mengambil daftar kota/kabupaten yang berada dalam provinsi tersebut.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": [
+		{
+			"id": "151",
+			"type": "Kota",
+			"city_name": "Jakarta Barat",
+			"postal_code": "11220"
+		},
+		{
+			"id": "152",
+			"type": "Kota",
+			"city_name": "Jakarta Pusat",
+			"postal_code": "10540"
+		},
+		{
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		}
+		// ... (data provinsi lainnya)
+	]
+}
+```
+
+##
+
 ### Register User
 
 Digunakan untuk mendaftarkan pengguna baru.

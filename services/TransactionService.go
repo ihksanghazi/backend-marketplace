@@ -3,13 +3,13 @@ package services
 import (
 	"context"
 	"encoding/json"
-	"io"
 	"net/http"
 	"os"
 	"strings"
 
 	"github.com/ihksanghazi/backend-marketplace/database"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
+	"github.com/ihksanghazi/backend-marketplace/utils"
 )
 
 type TransactionService interface {
@@ -49,13 +49,7 @@ func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedit
 	req.Header.Add("key", os.Getenv("API_KEY_ONGKIR"))
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
 
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return result, err
-	}
-
-	defer res.Body.Close()
-	body, err := io.ReadAll(res.Body)
+	body, err := utils.ResponseAPI(req)
 	if err != nil {
 		return result, err
 	}
@@ -68,17 +62,15 @@ func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedit
 
 	var services []web.ServiceExpedition
 	for _, items := range data.Rajaongkir.Results[0].Costs {
-		//
-		for _, cost := range items.Cost {
-			service := web.ServiceExpedition{
-				Service:     items.Service,
-				Description: items.Description,
-				Value:       cost.Value,
-				Etd:         cost.Etd,
-				Note:        cost.Note,
-			}
-			services = append(services, service)
+		service := web.ServiceExpedition{
+			Service:     items.Service,
+			Description: items.Description,
+			Value:       items.Cost[0].Value,
+			Etd:         items.Cost[0].Etd,
+			Note:        items.Cost[0].Note,
 		}
+		services = append(services, service)
+
 	}
 
 	result.OriginDetails = data.Rajaongkir.OriginDetails
