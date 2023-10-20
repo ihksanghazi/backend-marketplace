@@ -73,7 +73,9 @@ Access-Token:
   "store_name":"Toko Game",
 	"description":"contoh deskripsi",
 	"category":"hiburan",
-	"image_url":""
+	"image_url":"",
+	"address":"",
+	"city_id":"153"
 }
 
 ### Update Store
@@ -84,7 +86,9 @@ Access-Token:
   "store_name":"Toko Game",
 	"description":"contoh deskripsi",
 	"category":"hiburan",
-	"image_url":""
+	"image_url":"",
+	"address":"",
+	"city_id":"153"
 }
 
 ### Delete Store

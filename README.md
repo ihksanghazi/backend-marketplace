@@ -448,6 +448,8 @@ POST http://localhost:5000/api/store/create
 - **description** (string, required): Deskripsi toko.
 - **category** (string, required): Kategori toko.
 - **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+- **address** (string,optional): address toko.
+- **city_id** (string,required): city id toko.
 
 ### Contoh Request Body:
 
@@ -456,7 +458,9 @@ POST http://localhost:5000/api/store/create
 	"store_name": "Toko Buku",
 	"description": "contoh deskripsi",
 	"category": "pendidikan",
-	"image_url": ""
+	"image_url": "",
+	"address": "",
+	"city_id": "153"
 }
 ```
 
@@ -497,6 +501,8 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 - **description** (string, optional): Deskripsi toko (dapat dikosongkan).
 - **category** (string, optional): Kategori toko (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+- **address** (string,optional): address toko (dapat dikosongkan).
+- **city_id** (string,optional): city id toko (dapat dikosongkan).
 
 #### Contoh Request Body:
 
@@ -505,7 +511,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 	"store_name": "Toko Game",
 	"description": "contoh deskripsi",
 	"category": "hiburan",
-	"image_url": ""
+	"image_url": "",
+	"address": "",
+	"city_id": "153"
 }
 ```
 
@@ -522,7 +530,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 		"store_name": "Toko Game",
 		"description": "contoh deskripsi",
 		"category": "hiburan",
-		"image_url": ""
+		"image_url": "",
+		"address": "",
+		"city_id": "153"
 	}
 }
 ```

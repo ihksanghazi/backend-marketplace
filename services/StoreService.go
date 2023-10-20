@@ -41,6 +41,8 @@ func (s *storeServiceImpl) Create(userId string, req web.CreateStoreRequest) err
 		store.Description = req.Description
 		store.Category = req.Category
 		store.ImageUrl = req.ImageUrl
+		store.Address = req.Address
+		store.CityId = req.CityId
 
 		if err := tx.Model(store).WithContext(s.ctx).Create(&store).Error; err != nil {
 			return err
@@ -57,6 +59,8 @@ func (s *storeServiceImpl) Update(storeId string, req web.UpdateStoreRequest) (w
 		store.Description = req.Description
 		store.Category = req.Category
 		store.ImageUrl = req.ImageUrl
+		store.Address = req.Address
+		store.CityId = req.CityId
 		if err := tx.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Updates(store).First(&req).Error; err != nil {
 			return err
 		}

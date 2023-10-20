@@ -11,6 +11,8 @@ type CreateStoreRequest struct {
 	Description string `json:"description" binding:"required"`
 	Category    string `json:"category" binding:"required"`
 	ImageUrl    string `json:"image_url"`
+	Address     string `json:"address"`
+	CityId      string `json:"city_id" binding:"required,number"`
 }
 
 type UpdateStoreRequest struct {
@@ -18,6 +20,8 @@ type UpdateStoreRequest struct {
 	Description string `json:"description"`
 	Category    string `json:"category"`
 	ImageUrl    string `json:"image_url"`
+	Address     string `json:"address"`
+	CityId      string `json:"city_id" binding:"omitempty,number"`
 }
 
 type FindStoreResponse struct {
