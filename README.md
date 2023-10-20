@@ -422,7 +422,6 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 			"category": "pendidikan",
 			"image_url": ""
 		},
-		"carts": [],
 		"created_at": "2023-10-14T01:19:32.73704+07:00",
 		"updated_at": "2023-10-16T12:16:57.062845+07:00"
 	}
@@ -981,7 +980,8 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
           "image_url": ""
         },...
       ],
-      "total": "100000",
+      "total_price": "100000",
+      "total_gram": "1000",
       "created_at": "2023-10-17T10:22:59.801696+07:00",
       "updated_at": "2023-10-17T10:22:59.838224+07:00"
     },...
@@ -1077,7 +1077,8 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 					"image_url": ""
 				}
 			],
-			"total": "150000",
+			"total_price": "150000",
+			"total_gram": "3000",
 			"created_at": "2023-10-18T21:07:28.338832+07:00",
 			"updated_at": "2023-10-18T21:28:06.109172+07:00"
 		}
@@ -1115,6 +1116,62 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 	"code": 200,
 	"status": "Success Delete Item With Id '8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0'",
 	"data": []
+}
+```
+
+##
+
+### Get Cart
+
+Mengambil keranjang belanja pengguna saat ini.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/cart/get
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "cart_id": "682f3ca8-9519-4b05-8463-700a383264cb",
+      "store": {
+        "store_name": "Toko Anime",
+        "description": "contoh deskripsi",
+        "category": "hiburan",
+        "image_url": ""
+      },
+      "products": [
+        {
+          "product_name": "Komik Naruto",
+          "description": "Contoh Deskripsi",
+          "category": "Pendidikan",
+          "detail": {
+            "item_id": "c162d728-3c49-4a8f-9d8a-a90dc86137b9",
+            "amount": "2"
+          },
+          "price": "50000",
+          "image_url": ""
+        },...
+      ],
+      "total_price": "100000",
+      "total_gram": "2000",
+      "created_at": "2023-10-21T05:56:47.377428+07:00",
+      "updated_at": "2023-10-21T05:56:47.38139+07:00"
+    },...
+  ]
 }
 ```
 

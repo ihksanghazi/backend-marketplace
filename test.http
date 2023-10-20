@@ -21,7 +21,7 @@ POST http://localhost:5000/api/user/register
 POST http://localhost:5000/api/user/login
 
 {
-  "email":"person@gmail.com",
+  "email":"sendi@gmail.com",
   "password":"123"
 }
 
@@ -150,11 +150,15 @@ DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
 Access-Token:
 
 ### Update Item Cart
-PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty=3
+PUT http://localhost:5000/api/cart/item/a042ded2-9ff5-4431-813b-63c7953cf1bc?qty=3
 Access-Token:
 
 ### Delete Item Cart
-DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
+DELETE http://localhost:5000/api/cart/item/a042ded2-9ff5-4431-813b-63c7953cf1bc
+Access-Token:
+
+### Get My Cart
+GET http://localhost:5000/api/cart/get
 Access-Token:
 
 ### Cek Ongkir

@@ -52,7 +52,6 @@ type GetUserResponse struct {
 	CityId      string               `json:"-"`
 	Region      getUserRegion        `json:"region" gorm:"foreignKey:CityId"`
 	Store       getUserStoreResponse `json:"store" gorm:"foreignKey:UserId"`
-	Carts       []GetCartResponse    `json:"carts" gorm:"foreignKey:UserId"`
 	CreatedAt   time.Time            `json:"created_at"`
 	UpdatedAt   time.Time            `json:"updated_at"`
 }
