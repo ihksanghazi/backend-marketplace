@@ -10,6 +10,9 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/database"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/utils"
+	"github.com/midtrans/midtrans-go"
+	"github.com/midtrans/midtrans-go/coreapi"
+	"gorm.io/gorm"
 )
 
 type TransactionService interface {
@@ -85,4 +88,38 @@ func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedit
 	result.Services = services
 
 	return result, err
+}
+
+func (t *transactionServiceImpl) Checkout(cartId string) (*coreapi.ChargeResponse, error) {
+
+	var s coreapi.Client
+	s.New(os.Getenv("MIDTRANS_SERVER_KEY"), midtrans.Sandbox)
+
+	chargeReq := &coreapi.ChargeReq{
+		PaymentType:  coreapi.PaymentTypeBankTransfer,
+		BankTransfer: &coreapi.BankTransferDetails{Bank: midtrans.BankBca},
+		TransactionDetails: midtrans.TransactionDetails{
+			OrderID:  "12345",
+			GrossAmt: 200000,
+		},
+		CustomerDetails: &midtrans.CustomerDetails{
+			FName: "Azhi",
+			Email: "asasa",
+		},
+		// Items: &[]midtrans.ItemDetails{
+		// 	{Name: "Ongkir",Price: 20000,Category: }
+		// },
+	}
+
+	database.DB.Transaction(func(tx *gorm.DB) error {
+		// var cart domain.Cart
+		// if err := tx.Model(cart).WithContext(t.ctx).Where("id = ?", cartId).First().Error; err != nil {
+		// 	return err
+		// }
+		return nil
+	})
+
+	coreApiRes, err := s.ChargeTransaction(chargeReq)
+
+	return coreApiRes, err
 }

@@ -20,6 +20,7 @@ type Store struct {
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
 	// Association
-	Products []Product `gorm:"foreignKey:StoreId"`
-	Cart     []Cart    `gorm:"foreignKey:StoreId"`
+	Products    []Product     `gorm:"foreignKey:StoreId"`
+	Cart        []Cart        `gorm:"foreignKey:StoreId"`
+	Transaction []Transaction `gorm:"foreignKey:StoreId"`
 }

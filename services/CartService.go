@@ -115,7 +115,7 @@ func (c *cartServiceImpl) Add(productId string, amount string, userId string) er
 func (c *cartServiceImpl) Get(userId string) ([]web.GetCartResponse, error) {
 	var cart domain.Cart
 	var response []web.GetCartResponse
-	err := database.DB.Model(cart).WithContext(c.ctx).Where("user_id = ?", userId).Preload("Store").Preload("Products.Detail").Find(&response).Error
+	err := database.DB.Model(cart).WithContext(c.ctx).Where("user_id = ?", userId).Preload("Store").Preload("Items.Product").Find(&response).Error
 	return response, err
 }
 

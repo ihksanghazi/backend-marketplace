@@ -21,5 +21,6 @@ type Product struct {
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`
 	// Association
-	CartDetail []CartDetail `gorm:"foreignKey:ProductId"`
+	CartDetail        []CartDetail        `gorm:"foreignKey:ProductId"`
+	TransactionDetail []TransactionDetail `gorm:"foreignKey:ProductId"`
 }

@@ -11,6 +11,7 @@ import (
 
 type TransactionController interface {
 	CekOngir(c *gin.Context)
+	Checkout(c *gin.Context)
 }
 
 type tranctionControllerImpl struct {
@@ -57,4 +58,15 @@ func (t *tranctionControllerImpl) CekOngir(c *gin.Context) {
 	}
 
 	c.JSON(200, response)
+}
+
+func (t *tranctionControllerImpl) Checkout(c *gin.Context) {
+	// cartId := c.Param("id")
+	payment := c.Query("payment")
+
+	if payment != "BCA" && payment != "BNI" && payment != "BRI" {
+		c.JSON(400, gin.H{"error": "Must be BCA, BNI, Or BRI"})
+		return
+	}
+
 }

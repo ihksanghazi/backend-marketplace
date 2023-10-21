@@ -15,4 +15,5 @@ func TransactionRouter(r *gin.RouterGroup) {
 	controller := controllers.NewTransactionController(service)
 
 	r.GET("/ongkir/:id", controller.CekOngir)
+	r.POST("checkout/:id", controller.Checkout)
 }

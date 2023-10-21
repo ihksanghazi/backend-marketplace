@@ -967,18 +967,19 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
         "category": "pendidikan",
         "image_url": ""
       },
-      "products": [
-        {
-          "product_name": "Buku Politik",
-          "description": "Contoh Deskripsi",
-          "category": "Pendidikan",
-          "detail": {
-            "item_id": "8ff0034e-3507-43b0-8fee-6277c11347e0",
-            "amount": "2"
-          },
-          "price": "50000",
-          "image_url": ""
-        },...
+			"items": [
+				{
+					"id":"8ff0034e-3507-43b0-8fee-6277c11347e0",
+          "amount": "2",
+					"product":{
+						"product_name": "Buku Politik",
+          	"description": "Contoh Deskripsi",
+          	"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+          	"image_url": ""
+					}
+				},...
       ],
       "total_price": "100000",
       "total_gram": "1000",
@@ -1064,18 +1065,19 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 				"category": "pendidikan",
 				"image_url": ""
 			},
-			"products": [
+			"items": [
 				{
-					"product_name": "Buku Politik",
-					"description": "Contoh Deskripsi",
-					"category": "Pendidikan",
-					"detail": {
-						"item_id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
-						"amount": "3"
-					},
-					"price": "50000",
-					"image_url": ""
-				}
+					"id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
+					"amount": "3",
+					"product": {
+						"product_name": "Buku Politik",
+						"description": "Contoh Deskripsi",
+						"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+						"image_url": ""
+					}
+				},...
 			],
 			"total_price": "150000",
 			"total_gram": "3000",
@@ -1153,19 +1155,20 @@ GET http://localhost:5000/api/cart/get
         "category": "hiburan",
         "image_url": ""
       },
-      "products": [
-        {
-          "product_name": "Komik Naruto",
-          "description": "Contoh Deskripsi",
-          "category": "Pendidikan",
-          "detail": {
-            "item_id": "c162d728-3c49-4a8f-9d8a-a90dc86137b9",
-            "amount": "2"
-          },
-          "price": "50000",
-          "image_url": ""
-        },...
-      ],
+			"items":[
+				{
+					"id":"c162d728-3c49-4a8f-9d8a-a90dc86137b9",
+          "amount": "2",
+					"product":{
+						"product_name": "Komik Naruto",
+          	"description": "Contoh Deskripsi",
+          	"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+          	"image_url": ""
+					}
+				},...
+			],
       "total_price": "100000",
       "total_gram": "2000",
       "created_at": "2023-10-21T05:56:47.377428+07:00",
@@ -1198,7 +1201,7 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 
 #### Parameter
 
-- **cart** id (string,required): ID keranjang belanja.
+- **cart id** (string,required): ID keranjang belanja.
 
 #### Query Parameter
 
@@ -1255,7 +1258,3 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 > untuk expedition hanya tersedia option jne, pos, tiki, menggunakan selain itu akan terkena error BAD REQUEST
 
 ##
-
-```
-
-```
