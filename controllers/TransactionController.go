@@ -15,12 +15,14 @@ type TransactionController interface {
 }
 
 type tranctionControllerImpl struct {
-	service services.TransactionService
+	TrxService  services.TransactionService
+	CartService services.CartService
 }
 
-func NewTransactionController(service services.TransactionService) TransactionController {
+func NewTransactionController(TrxService services.TransactionService, CartService services.CartService) TransactionController {
 	return &tranctionControllerImpl{
-		service: service,
+		TrxService:  TrxService,
+		CartService: CartService,
 	}
 }
 
@@ -45,7 +47,7 @@ func (t *tranctionControllerImpl) CekOngir(c *gin.Context) {
 		return
 	}
 
-	result, err := t.service.CekOngkir(cartId, claims.ID, expedition)
+	result, err := t.TrxService.CekOngkir(cartId, claims.ID, expedition)
 	if err != nil {
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
@@ -61,12 +63,32 @@ func (t *tranctionControllerImpl) CekOngir(c *gin.Context) {
 }
 
 func (t *tranctionControllerImpl) Checkout(c *gin.Context) {
-	// cartId := c.Param("id")
+	cartId := c.Param("id")
 	payment := c.Query("payment")
 
-	if payment != "BCA" && payment != "BNI" && payment != "BRI" {
-		c.JSON(400, gin.H{"error": "Must be BCA, BNI, Or BRI"})
+	var req web.CheckoutRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
+
+	if payment != "bca" && payment != "bni" && payment != "bri" {
+		c.JSON(400, gin.H{"error": "Must be bca, Bni, Or Bri"})
+		return
+	}
+
+	result, err := t.TrxService.Checkout(cartId, req, payment)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	// delete cart
+	if err := t.CartService.DeleteCart(cartId); err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(201, result)
 
 }

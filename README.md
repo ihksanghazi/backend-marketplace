@@ -1258,3 +1258,97 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 > untuk expedition hanya tersedia option jne, pos, tiki, menggunakan selain itu akan terkena error BAD REQUEST
 
 ##
+
+### Checkout
+
+Melakukan proses checkout untuk menyelesaikan pembelian dengan memilih metode pembayaran dan menghitung biaya pengiriman.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/transaction/checkout/e39eecaa-828e-45b1-9447-56aae81a8fe7?payment=bca
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameter
+
+- **cart id** (string,required): ID keranjang belanja.
+
+#### Query Parameter
+
+- **payment** (string,required): Metode pembayaran yang digunakan
+
+#### Request Body
+
+```json
+{
+	"origin_city": "Jakarta Barat",
+	"destination_city": "Jakarta Selatan",
+	"courier": "tiki",
+	"weight_on_gram": "2000",
+	"service": "ECO",
+	"description": "Economy Service",
+	"price": 16000
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"transaction_id": "8d2449b6-a26b-4b98-994f-df86da92134f",
+	"order_id": "TRX-e39eecaa",
+	"gross_amount": "116000.00",
+	"payment_type": "bank_transfer",
+	"transaction_time": "2023-10-23 00:29:18",
+	"transaction_status": "pending",
+	"fraud_status": "accept",
+	"masked_card": "",
+	"status_code": "201",
+	"bank": "",
+	"status_message": "Success, Bank Transfer transaction is created",
+	"approval_code": "",
+	"channel_response_code": "",
+	"channel_response_message": "",
+	"currency": "IDR",
+	"card_type": "",
+	"redirect_url": "",
+	"id": "",
+	"validation_messages": null,
+	"installment_term": "",
+	"eci": "",
+	"saved_token_id": "",
+	"saved_token_id_expired_at": "",
+	"point_redeem_amount": 0,
+	"point_redeem_quantity": 0,
+	"point_balance_amount": "",
+	"permata_va_number": "",
+	"va_numbers": [
+		{
+			"bank": "bca",
+			"va_number": "77855188791"
+		}
+	],
+	"bill_key": "",
+	"biller_code": "",
+	"acquirer": "",
+	"actions": null,
+	"payment_code": "",
+	"store": "",
+	"qr_string": "",
+	"on_us": false,
+	"three_ds_version": "",
+	"expiry_time": "2023-10-24 00:29:17"
+}
+```
+
+> [!NOTE]
+> Untuk metode pembayaran saat ini hanya tersedia bca, bni, dan bri selain itu maka akan mengembalikan response BAD REQUEST
+
+##
