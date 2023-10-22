@@ -5,15 +5,21 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/ihksanghazi/backend-marketplace/database"
+	"github.com/ihksanghazi/backend-marketplace/model/domain"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/utils"
+	"github.com/midtrans/midtrans-go"
+	"github.com/midtrans/midtrans-go/coreapi"
+	"gorm.io/gorm"
 )
 
 type TransactionService interface {
 	CekOngkir(cartId string, userId string, expedition string) (web.ExpeditionWebResponse, error)
+	Checkout(cartId string, req web.CheckoutRequest, payment string) (*coreapi.ChargeResponse, error)
 }
 
 type transactionServiceImpl struct {
@@ -85,4 +91,88 @@ func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedit
 	result.Services = services
 
 	return result, err
+}
+
+func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest, payment string) (*coreapi.ChargeResponse, error) {
+	var c coreapi.Client
+	c.New(os.Getenv("MIDTRANS_SERVER_KEY"), midtrans.Sandbox)
+	var chargeResponse *coreapi.ChargeResponse
+
+	// transaction
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var cart domain.Cart
+		var responseCart web.GetCartResponse
+		// get cart
+		if err := tx.Model(cart).WithContext(t.ctx).Where("id = ?", cartId).Preload("Store").Preload("Items.Product").First(&responseCart).Error; err != nil {
+			return err
+		}
+		// get user
+		var user domain.User
+		if err := tx.Model(user).WithContext(t.ctx).Where("id = ?", responseCart.UserId).First(&user).Error; err != nil {
+			return err
+		}
+
+		totalProductPrice, err := strconv.Atoi(responseCart.Total)
+		if err != nil {
+			return err
+		}
+		// jumlah biaya seluruh product dan ongkos kirim
+		totalPrice := totalProductPrice + req.Price
+
+		chargeReq := &coreapi.ChargeReq{
+			PaymentType:  coreapi.PaymentTypeBankTransfer,
+			BankTransfer: &coreapi.BankTransferDetails{Bank: midtrans.Bank(payment)},
+			TransactionDetails: midtrans.TransactionDetails{
+				OrderID:  "TRX-" + strings.Split(responseCart.Id.String(), "-")[0],
+				GrossAmt: int64(totalPrice),
+			},
+			CustomerDetails: &midtrans.CustomerDetails{
+				FName: user.Username,
+				Email: user.Email,
+			},
+		}
+		coreApiRes, errCharge := c.ChargeTransaction(chargeReq)
+		if errCharge != nil {
+			return errCharge
+		}
+
+		chargeResponse = coreApiRes
+
+		// insert to database
+		var transaction domain.Transaction
+		transaction.StoreId = responseCart.StoreId
+		transaction.UserId = responseCart.UserId
+		transaction.TransactionStatus = "pending"
+		transaction.TotalProductPrice = responseCart.Total
+		transaction.TotalPrice = strconv.Itoa(totalPrice)
+		if err := tx.Model(transaction).WithContext(t.ctx).Create(&transaction).Error; err != nil {
+			return err
+		}
+		var expedition domain.Expedition
+		expedition.TransactionId = transaction.Id
+		expedition.OriginCity = req.OriginCity
+		expedition.DestinationCity = req.DestionationCity
+		expedition.Courier = req.Courier
+		expedition.WeightOnGram = req.WeightOnGram
+		expedition.Service = req.Service
+		expedition.Description = req.Description
+		expedition.Price = req.Price
+		if err := tx.Model(expedition).WithContext(t.ctx).Create(&expedition).Error; err != nil {
+			return err
+		}
+
+		for _, item := range responseCart.Items {
+			var transactionDetail domain.TransactionDetail
+			transactionDetail.TransactionId = transaction.Id
+			transactionDetail.ProductId = item.ProductId
+			transactionDetail.Amount = item.Amount
+			if err := tx.Model(transactionDetail).WithContext(t.ctx).Create(&transactionDetail).Error; err != nil {
+				return err
+			}
+		}
+
+		return nil
+	})
+
+	return chargeResponse, err
 }

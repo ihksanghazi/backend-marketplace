@@ -967,18 +967,19 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
         "category": "pendidikan",
         "image_url": ""
       },
-      "products": [
-        {
-          "product_name": "Buku Politik",
-          "description": "Contoh Deskripsi",
-          "category": "Pendidikan",
-          "detail": {
-            "item_id": "8ff0034e-3507-43b0-8fee-6277c11347e0",
-            "amount": "2"
-          },
-          "price": "50000",
-          "image_url": ""
-        },...
+			"items": [
+				{
+					"id":"8ff0034e-3507-43b0-8fee-6277c11347e0",
+          "amount": "2",
+					"product":{
+						"product_name": "Buku Politik",
+          	"description": "Contoh Deskripsi",
+          	"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+          	"image_url": ""
+					}
+				},...
       ],
       "total_price": "100000",
       "total_gram": "1000",
@@ -1064,18 +1065,19 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 				"category": "pendidikan",
 				"image_url": ""
 			},
-			"products": [
+			"items": [
 				{
-					"product_name": "Buku Politik",
-					"description": "Contoh Deskripsi",
-					"category": "Pendidikan",
-					"detail": {
-						"item_id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
-						"amount": "3"
-					},
-					"price": "50000",
-					"image_url": ""
-				}
+					"id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
+					"amount": "3",
+					"product": {
+						"product_name": "Buku Politik",
+						"description": "Contoh Deskripsi",
+						"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+						"image_url": ""
+					}
+				},...
 			],
 			"total_price": "150000",
 			"total_gram": "3000",
@@ -1153,19 +1155,20 @@ GET http://localhost:5000/api/cart/get
         "category": "hiburan",
         "image_url": ""
       },
-      "products": [
-        {
-          "product_name": "Komik Naruto",
-          "description": "Contoh Deskripsi",
-          "category": "Pendidikan",
-          "detail": {
-            "item_id": "c162d728-3c49-4a8f-9d8a-a90dc86137b9",
-            "amount": "2"
-          },
-          "price": "50000",
-          "image_url": ""
-        },...
-      ],
+			"items":[
+				{
+					"id":"c162d728-3c49-4a8f-9d8a-a90dc86137b9",
+          "amount": "2",
+					"product":{
+						"product_name": "Komik Naruto",
+          	"description": "Contoh Deskripsi",
+          	"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+          	"image_url": ""
+					}
+				},...
+			],
       "total_price": "100000",
       "total_gram": "2000",
       "created_at": "2023-10-21T05:56:47.377428+07:00",
@@ -1198,7 +1201,7 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 
 #### Parameter
 
-- **cart** id (string,required): ID keranjang belanja.
+- **cart id** (string,required): ID keranjang belanja.
 
 #### Query Parameter
 
@@ -1256,6 +1259,96 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 
 ##
 
+### Checkout
+
+Melakukan proses checkout untuk menyelesaikan pembelian dengan memilih metode pembayaran dan menghitung biaya pengiriman.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/transaction/checkout/e39eecaa-828e-45b1-9447-56aae81a8fe7?payment=bca
 ```
 
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameter
+
+- **cart id** (string,required): ID keranjang belanja.
+
+#### Query Parameter
+
+- **payment** (string,required): Metode pembayaran yang digunakan
+
+#### Request Body
+
+```json
+{
+	"origin_city": "Jakarta Barat",
+	"destination_city": "Jakarta Selatan",
+	"courier": "tiki",
+	"weight_on_gram": "2000",
+	"service": "ECO",
+	"description": "Economy Service",
+	"price": 16000
+}
 ```
+
+#### Response
+
+- **HTTP Status**: 201 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"transaction_id": "8d2449b6-a26b-4b98-994f-df86da92134f",
+	"order_id": "TRX-e39eecaa",
+	"gross_amount": "116000.00",
+	"payment_type": "bank_transfer",
+	"transaction_time": "2023-10-23 00:29:18",
+	"transaction_status": "pending",
+	"fraud_status": "accept",
+	"masked_card": "",
+	"status_code": "201",
+	"bank": "",
+	"status_message": "Success, Bank Transfer transaction is created",
+	"approval_code": "",
+	"channel_response_code": "",
+	"channel_response_message": "",
+	"currency": "IDR",
+	"card_type": "",
+	"redirect_url": "",
+	"id": "",
+	"validation_messages": null,
+	"installment_term": "",
+	"eci": "",
+	"saved_token_id": "",
+	"saved_token_id_expired_at": "",
+	"point_redeem_amount": 0,
+	"point_redeem_quantity": 0,
+	"point_balance_amount": "",
+	"permata_va_number": "",
+	"va_numbers": [
+		{
+			"bank": "bca",
+			"va_number": "77855188791"
+		}
+	],
+	"bill_key": "",
+	"biller_code": "",
+	"acquirer": "",
+	"actions": null,
+	"payment_code": "",
+	"store": "",
+	"qr_string": "",
+	"on_us": false,
+	"three_ds_version": "",
+	"expiry_time": "2023-10-24 00:29:17"
+}
+```
+
+> [!NOTE]
+> Untuk metode pembayaran saat ini hanya tersedia bca, bni, dan bri selain itu maka akan mengembalikan response BAD REQUEST
+
+##

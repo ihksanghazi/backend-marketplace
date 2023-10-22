@@ -22,6 +22,7 @@ type User struct {
 	UpdatedAt    time.Time
 	DeletedAt    gorm.DeletedAt `gorm:"index"`
 	// Association
-	Store Store  `gorm:"foreignKey:UserId"`
-	Cart  []Cart `gorm:"foreignKey:UserId"`
+	Store       Store         `gorm:"foreignKey:UserId"`
+	Cart        []Cart        `gorm:"foreignKey:UserId"`
+	Transaction []Transaction `gorm:"foreignKey:UserId"`
 }

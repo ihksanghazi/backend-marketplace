@@ -11,8 +11,10 @@ import (
 func TransactionRouter(r *gin.RouterGroup) {
 
 	var ctx context.Context
-	service := services.NewTransactionService(ctx)
-	controller := controllers.NewTransactionController(service)
+	TrxService := services.NewTransactionService(ctx)
+	CartService := services.NewCartService(ctx)
+	controller := controllers.NewTransactionController(TrxService, CartService)
 
 	r.GET("/ongkir/:id", controller.CekOngir)
+	r.POST("checkout/:id", controller.Checkout)
 }
