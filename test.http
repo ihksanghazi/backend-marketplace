@@ -203,5 +203,5 @@ Access-Token:
 }
 
 ### Get Product Review
-GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae
+GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?page=1&limit=10
 Access-Token:
