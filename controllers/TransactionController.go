@@ -12,21 +12,23 @@ import (
 type TransactionController interface {
 	CekOngir(c *gin.Context)
 	Checkout(c *gin.Context)
+	GetByUserId(c *gin.Context)
+	GetByStoreId(c *gin.Context)
 }
 
-type tranctionControllerImpl struct {
+type transactionControllerImpl struct {
 	TrxService  services.TransactionService
 	CartService services.CartService
 }
 
 func NewTransactionController(TrxService services.TransactionService, CartService services.CartService) TransactionController {
-	return &tranctionControllerImpl{
+	return &transactionControllerImpl{
 		TrxService:  TrxService,
 		CartService: CartService,
 	}
 }
 
-func (t *tranctionControllerImpl) CekOngir(c *gin.Context) {
+func (t *transactionControllerImpl) CekOngir(c *gin.Context) {
 	cartId := c.Param("id")
 	expedition := c.DefaultQuery("expedition", "jne")
 
@@ -62,7 +64,7 @@ func (t *tranctionControllerImpl) CekOngir(c *gin.Context) {
 	c.JSON(200, response)
 }
 
-func (t *tranctionControllerImpl) Checkout(c *gin.Context) {
+func (t *transactionControllerImpl) Checkout(c *gin.Context) {
 	cartId := c.Param("id")
 	payment := c.Query("payment")
 
@@ -90,5 +92,40 @@ func (t *tranctionControllerImpl) Checkout(c *gin.Context) {
 	}
 
 	c.JSON(201, result)
+}
 
+func (t *transactionControllerImpl) GetByUserId(c *gin.Context) {
+	userId := c.Param("id")
+
+	result, err := t.TrxService.GetByUserId(userId)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
+}
+
+func (t *transactionControllerImpl) GetByStoreId(c *gin.Context) {
+	storeId := c.Param("id")
+
+	result, err := t.TrxService.GetByStoreId(storeId)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 }

@@ -30,7 +30,7 @@ func main() {
 	routers.StoreRouter(r.Group("/api/store"))
 	routers.ProductRouter(r.Group("/api/product"))
 	routers.CartRouter(r.Group("/api/cart"))
-	routers.TransactionRouter(r.Group("api/transaction"))
+	routers.TransactionRouter(r.Group("/api/transaction"))
 
 	r.Run(":5000")
 }

@@ -1352,3 +1352,187 @@ POST http://localhost:5000/api/transaction/checkout/e39eecaa-828e-45b1-9447-56aa
 > Untuk metode pembayaran saat ini hanya tersedia bca, bni, dan bri selain itu maka akan mengembalikan response BAD REQUEST
 
 ##
+
+### Get Transaction By User Id
+
+Mengambil Semua transaksi berdasarkan ID pengguna.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4f53
+```
+
+#### Request Header
+- **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameter
+- **user id** (string,required): ID pengguna.
+
+#### Response
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "id": "5654e222-c384-4dff-b8b2-f0cfe3a49914",
+      "user": {
+        "id": "4e9497c1-fb82-4301-94a8-7d0b4d6c4f53",
+        "username": "sendi",
+        "email": "sendi@gmail.com",
+        "phone_number": "",
+        "address": "",
+        "image_url": "",
+        "region": {
+          "id": "153",
+          "type": "Kota",
+          "city_name": "Jakarta Selatan",
+          "postal_code": "12230"
+        }
+      },
+      "store": {
+        "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+        "region": {
+          "id": "151",
+          "type": "Kota",
+          "city_name": "Jakarta Barat",
+          "postal_code": "11220"
+        },
+        "store_name": "Toko Buku",
+        "description": "contoh deskripsi",
+        "category": "pendidikan",
+        "image_url": "",
+        "created_at": "2023-10-14T02:11:56.344211+07:00",
+        "updated_at": "2023-10-14T02:38:15.126789+07:00"
+      },
+      "item": [
+        {
+          "id": "3f281685-16e9-40cf-a54c-9dea65853d5c",
+          "product": {
+            "product_name": "Komik Detektif Conan",
+            "description": "Contoh Deskripsi",
+            "category": "Pendidikan",
+            "weight_on_gram": 1000,
+            "price": "50000",
+            "image_url": ""
+          },
+          "amount": "2"
+        },...
+      ],
+      "expedition": {
+        "id": "ca36ca9d-c7d0-4efb-9c03-54ac235a37cf",
+        "origin_city": "Jakarta Barat",
+        "destination_city": "Jakarta Selatan",
+        "courier": "tiki",
+        "weight_on_gram": "2000",
+        "service": "ECO",
+        "description": "Economy Service",
+        "price": 16000
+      },
+      "transaction_status": "pending",
+      "total_product_price": "100000",
+      "total_price": "116000",
+      "created_at": "2023-10-23T00:29:20.255491+07:00",
+      "updated_at": "2023-10-23T00:29:20.255491+07:00"
+    },...
+  ]
+}
+```
+
+##
+
+### Get Transaction By Store Id
+
+Mengambil Semua transaksi berdasarkan ID Toko.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010728e
+```
+
+#### Request Header
+- **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameter
+- **store id** (string,required): ID Toko.
+
+#### Response
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "id": "5654e222-c384-4dff-b8b2-f0cfe3a49914",
+      "user": {
+        "id": "4e9497c1-fb82-4301-94a8-7d0b4d6c4f53",
+        "username": "sendi",
+        "email": "sendi@gmail.com",
+        "phone_number": "",
+        "address": "",
+        "image_url": "",
+        "region": {
+          "id": "153",
+          "type": "Kota",
+          "city_name": "Jakarta Selatan",
+          "postal_code": "12230"
+        }
+      },
+      "store": {
+        "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+        "region": {
+          "id": "151",
+          "type": "Kota",
+          "city_name": "Jakarta Barat",
+          "postal_code": "11220"
+        },
+        "store_name": "Toko Buku",
+        "description": "contoh deskripsi",
+        "category": "pendidikan",
+        "image_url": "",
+        "created_at": "2023-10-14T02:11:56.344211+07:00",
+        "updated_at": "2023-10-14T02:38:15.126789+07:00"
+      },
+      "item": [
+        {
+          "id": "3f281685-16e9-40cf-a54c-9dea65853d5c",
+          "product": {
+            "product_name": "Komik Detektif Conan",
+            "description": "Contoh Deskripsi",
+            "category": "Pendidikan",
+            "weight_on_gram": 1000,
+            "price": "50000",
+            "image_url": ""
+          },
+          "amount": "2"
+        },...
+      ],
+      "expedition": {
+        "id": "ca36ca9d-c7d0-4efb-9c03-54ac235a37cf",
+        "origin_city": "Jakarta Barat",
+        "destination_city": "Jakarta Selatan",
+        "courier": "tiki",
+        "weight_on_gram": "2000",
+        "service": "ECO",
+        "description": "Economy Service",
+        "price": 16000
+      },
+      "transaction_status": "pending",
+      "total_product_price": "100000",
+      "total_price": "116000",
+      "created_at": "2023-10-23T00:29:20.255491+07:00",
+      "updated_at": "2023-10-23T00:29:20.255491+07:00"
+    },...
+  ]
+}
+```
+
+##
