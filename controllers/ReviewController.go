@@ -49,5 +49,5 @@ func (r *reviewControllerImpl) Create(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"msg": "Success Create Product Review"})
+	c.JSON(201, gin.H{"msg": "Success Create Product Review"})
 }
