@@ -8,6 +8,7 @@ import (
 
 type Transaction struct {
 	Id                uuid.UUID `gorm:"primarykey;default:gen_random_uuid()"`
+	OrderId           string    `gorm:"index"`
 	UserId            uuid.UUID `gorm:"foreignkey;not null"`
 	StoreId           uuid.UUID `gorm:"foreignkey;not null"`
 	TransactionStatus string    `gorm:"not null"`

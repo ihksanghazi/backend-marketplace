@@ -17,6 +17,7 @@ func TransactionRouter(r *gin.RouterGroup) {
 
 	r.GET("/ongkir/:id", controller.CekOngir)
 	r.POST("/checkout/:id", controller.Checkout)
+	r.POST("/callback", controller.Callback)
 	r.GET("/user/:id", controller.GetByUserId)
 	r.GET("/store/:id", controller.GetByStoreId)
 }

@@ -21,7 +21,7 @@ func main() {
 	}
 
 	database.ConnectDB()
-	// database.DB.AutoMigrate(domain.User{}, domain.Store{}, domain.Product{}, domain.Transaction{}, domain.TransactionDetail{}, domain.Expedition{})
+	// database.DB.AutoMigrate(domain.Transaction{})
 	// database.Seeder()
 
 	routers.TestRouter(r.Group("/api/test"))

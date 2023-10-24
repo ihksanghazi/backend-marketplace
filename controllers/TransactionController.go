@@ -12,6 +12,7 @@ import (
 type TransactionController interface {
 	CekOngir(c *gin.Context)
 	Checkout(c *gin.Context)
+	Callback(c *gin.Context)
 	GetByUserId(c *gin.Context)
 	GetByStoreId(c *gin.Context)
 }
@@ -92,6 +93,27 @@ func (t *transactionControllerImpl) Checkout(c *gin.Context) {
 	}
 
 	c.JSON(201, result)
+}
+
+func (t *transactionControllerImpl) Callback(c *gin.Context) {
+	var notificationPayload map[string]interface{}
+	if err := c.ShouldBind(&notificationPayload); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	orderId, exists := notificationPayload["order_id"].(string)
+	if !exists {
+		c.JSON(404, gin.H{"error": orderId + " not found"})
+		return
+	}
+
+	if err := t.TrxService.Callback(orderId); err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, "ok")
 }
 
 func (t *transactionControllerImpl) GetByUserId(c *gin.Context) {

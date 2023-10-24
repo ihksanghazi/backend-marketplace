@@ -179,6 +179,9 @@ Access-Token:
 	"price":16000
 }
 
+### Callback Midtrans
+POST http://localhost:5000/api/transaction/callback 
+
 ### Get Transaction By User Id
 GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4f53
 Access-Token:

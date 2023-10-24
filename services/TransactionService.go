@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/ihksanghazi/backend-marketplace/database"
 	"github.com/ihksanghazi/backend-marketplace/model/domain"
@@ -20,6 +21,7 @@ import (
 type TransactionService interface {
 	CekOngkir(cartId string, userId string, expedition string) (web.ExpeditionWebResponse, error)
 	Checkout(cartId string, req web.CheckoutRequest, payment string) (*coreapi.ChargeResponse, error)
+	Callback(orderId string) error
 	GetByUserId(userId string) ([]web.GetTransactionResponse, error)
 	GetByStoreId(storeId string) ([]web.GetTransactionResponse, error)
 }
@@ -38,6 +40,8 @@ type cekOngkir struct {
 	CityId     string
 	Total_Gram string
 }
+
+var c coreapi.Client
 
 func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedition string) (web.ExpeditionWebResponse, error) {
 	var result web.ExpeditionWebResponse
@@ -96,7 +100,6 @@ func (t *transactionServiceImpl) CekOngkir(cartId string, userId string, expedit
 }
 
 func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest, payment string) (*coreapi.ChargeResponse, error) {
-	var c coreapi.Client
 	c.New(os.Getenv("MIDTRANS_SERVER_KEY"), midtrans.Sandbox)
 	var chargeResponse *coreapi.ChargeResponse
 
@@ -120,12 +123,12 @@ func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest
 		}
 		// jumlah biaya seluruh product dan ongkos kirim
 		totalPrice := totalProductPrice + req.Price
-
+		orderId := "TRX-" + strings.Split(responseCart.Id.String(), "-")[0] + "-" + strconv.FormatInt(time.Now().Unix(), 10)
 		chargeReq := &coreapi.ChargeReq{
 			PaymentType:  coreapi.PaymentTypeBankTransfer,
 			BankTransfer: &coreapi.BankTransferDetails{Bank: midtrans.Bank(payment)},
 			TransactionDetails: midtrans.TransactionDetails{
-				OrderID:  "TRX-" + strings.Split(responseCart.Id.String(), "-")[0],
+				OrderID:  orderId,
 				GrossAmt: int64(totalPrice),
 			},
 			CustomerDetails: &midtrans.CustomerDetails{
@@ -142,6 +145,7 @@ func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest
 
 		// insert to database
 		var transaction domain.Transaction
+		transaction.OrderId = orderId
 		transaction.StoreId = responseCart.StoreId
 		transaction.UserId = responseCart.UserId
 		transaction.TransactionStatus = "pending"
@@ -177,6 +181,57 @@ func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest
 	})
 
 	return chargeResponse, err
+}
+
+func (t *transactionServiceImpl) Callback(orderId string) error {
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var transaction domain.Transaction
+		transactionStatusResp, err := c.CheckTransaction(orderId)
+		if err != nil {
+			return err
+		} else {
+			if transactionStatusResp != nil {
+				// 5. Do set transaction status based on response from check transaction status
+				if transactionStatusResp.TransactionStatus == "capture" {
+					if transactionStatusResp.FraudStatus == "challenge" {
+						// TODO set transaction status on your database to 'challenge'
+						if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "challenge").Error; err != nil {
+							return err
+						}
+						// e.g: 'Payment status challenged. Please take action on your Merchant Administration Portal
+					} else if transactionStatusResp.FraudStatus == "accept" {
+						// TODO set transaction status on your database to 'success'
+						if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "success").Error; err != nil {
+							return err
+						}
+					}
+				} else if transactionStatusResp.TransactionStatus == "settlement" {
+					// TODO set transaction status on your databaase to 'success'
+					if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "success").Error; err != nil {
+						return err
+					}
+				} else if transactionStatusResp.TransactionStatus == "deny" {
+					// TODO you can ignore 'deny', because most of the time it allows payment retries
+					if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "deny").Error; err != nil {
+						return err
+					}
+					// and later can become success
+				} else if transactionStatusResp.TransactionStatus == "cancel" || transactionStatusResp.TransactionStatus == "expire" {
+					// TODO set transaction status on your databaase to 'failure'
+					if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "failure").Error; err != nil {
+						return err
+					}
+				} else if transactionStatusResp.TransactionStatus == "pending" {
+					// TODO set transaction status on your databaase to 'pending' / waiting payment
+					if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "pending").Error; err != nil {
+						return err
+					}
+				}
+			}
+		}
+		return nil
+	})
+	return err
 }
 
 func (t *transactionServiceImpl) GetByUserId(userId string) ([]web.GetTransactionResponse, error) {
