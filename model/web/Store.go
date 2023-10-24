@@ -71,3 +71,8 @@ type getStoreProductResponse struct {
 func (s *getStoreProductResponse) TableName() string {
 	return "products"
 }
+
+type StoreReport struct {
+	TotalSales       float64 `json:"total_sales"`
+	TotalProductSold float64 `json:"total_product_sold"`
+}

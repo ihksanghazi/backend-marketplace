@@ -101,6 +101,10 @@ Access-Token:
 GET http://localhost:5000/api/store/e9c49a8d-f156-431a-9f65-e3012fb29f45
 Access-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbmR5Iiwic3ViIjoic2FuZHlAZ21haWwuY29tIiwiZXhwIjoxNjk3NDQ1MTgyLCJqdGkiOiIzNzcyZDllYS04N2M0LTRlMDEtOGYxNC04NmIyYjViZTVmNjgifQ.eJyo4CXBJufC92Mmf6WFIXy38m4ua5QIuMhvoEDcydU
 
+### Get Store Report 
+GET http://localhost:5000/api/store/report/8bae8813-c361-4b1a-8c20-59f78010728e?startDate=2023-10-22&endDate=2023-10-30
+Access-Token:
+
 ### Create Product
 POST http://localhost:5000/api/product/create
 Access-Token:

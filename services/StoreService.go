@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"time"
 
 	"github.com/ihksanghazi/backend-marketplace/database"
 	"github.com/ihksanghazi/backend-marketplace/model/domain"
@@ -15,6 +16,7 @@ type StoreService interface {
 	Delete(storeId string) error
 	Find(page int, limit int, search string) (result []web.FindStoreResponse, totalPage int, err error)
 	Get(storeId string) (web.GetStoreResponse, error)
+	Report(storeId string, startDate time.Time, endDate time.Time) (web.StoreReport, error)
 }
 
 type storeServiceImpl struct {
@@ -96,4 +98,10 @@ func (s *storeServiceImpl) Get(storeId string) (web.GetStoreResponse, error) {
 	var response web.GetStoreResponse
 	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Preload("Region").Preload("Products").First(&response).Error
 	return response, err
+}
+
+func (s *storeServiceImpl) Report(storeId string, startDate time.Time, endDate time.Time) (web.StoreReport, error) {
+	var report web.StoreReport
+	err := database.DB.WithContext(s.ctx).Raw("select sum(t.total_product_price) as total_sales, sum(td.amount) as total_product_sold from transactions t join transaction_details td on td.transaction_id =t.id where t.store_id = ? and t.created_at between ? and ?", storeId, startDate, endDate).Scan(&report).Error
+	return report, err
 }

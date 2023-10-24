@@ -679,6 +679,44 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 ##
 
+### Get Store Report
+
+Mengambil laporan toko berdasarkan ID toko dengan rentang tanggal tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/store/report/8bae8813-c361-4b1a-8c20-59f78010728e?startDate=2023-10-22&endDate=2023-10-30
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **8bae8813-c361-4b1a-8c20-59f78010728e**: ID toko.
+- **startDate**: Tanggal awal periode laporan.
+- **endDate**: Tanggal akhir periode laporan.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"total_sales": 100000,
+		"total_product_sold": 2
+	}
+}
+```
+
+##
+
 ### Create Product
 
 Digunakan untuk membuat produk baru dalam toko.
@@ -1364,12 +1402,15 @@ GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4
 ```
 
 #### Request Header
+
 - **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
 #### Parameter
+
 - **user id** (string,required): ID pengguna.
 
 #### Response
+
 - **HTTP Status**: 200 OK
 - **Content-Type**: application/json; charset=utf-8
 
@@ -1456,12 +1497,15 @@ GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010
 ```
 
 #### Request Header
+
 - **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
 #### Parameter
+
 - **store id** (string,required): ID Toko.
 
 #### Response
+
 - **HTTP Status**: 200 OK
 - **Content-Type**: application/json; charset=utf-8
 

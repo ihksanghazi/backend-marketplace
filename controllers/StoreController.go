@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/model/web"
@@ -19,6 +20,7 @@ type StoreController interface {
 	Delete(c *gin.Context)
 	Find(c *gin.Context)
 	Get(c *gin.Context)
+	Report(c *gin.Context)
 }
 
 type storeControllerImpl struct {
@@ -155,6 +157,38 @@ func (s *storeControllerImpl) Get(c *gin.Context) {
 			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
+}
+
+func (s *storeControllerImpl) Report(c *gin.Context) {
+	id := c.Param("id")
+	startDateStr := c.DefaultQuery("startDate", time.Now().Format("2006-01-02"))
+	endDateStr := c.DefaultQuery("endDate", time.Now().Add(24*time.Hour).Format("2006-01-02"))
+
+	startDate, err := time.Parse("2006-01-02", startDateStr)
+	if err != nil {
+		c.JSON(400, gin.H{"message": "Invalid start date format"})
+		return
+	}
+
+	endDate, err := time.Parse("2006-01-02", endDateStr)
+	if err != nil {
+		c.JSON(400, gin.H{"message": "Invalid end date format"})
+		return
+	}
+
+	result, err := s.service.Report(id, startDate, endDate)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
 	}
 
 	response := web.BasicResponse{

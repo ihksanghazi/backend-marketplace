@@ -186,6 +186,7 @@ func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest
 func (t *transactionServiceImpl) Callback(orderId string) error {
 	err := database.DB.Transaction(func(tx *gorm.DB) error {
 		var transaction domain.Transaction
+		var product domain.Product
 		transactionStatusResp, err := c.CheckTransaction(orderId)
 		if err != nil {
 			return err
@@ -201,14 +202,26 @@ func (t *transactionServiceImpl) Callback(orderId string) error {
 						// e.g: 'Payment status challenged. Please take action on your Merchant Administration Portal
 					} else if transactionStatusResp.FraudStatus == "accept" {
 						// TODO set transaction status on your database to 'success'
-						if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "success").Error; err != nil {
+						if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "success").Preload("TransactionDetail").First(&transaction).Error; err != nil {
 							return err
+						}
+						// update stock product
+						for _, items := range transaction.TransactionDetail {
+							if err := tx.Model(product).Where("id = ?", items.ProductId).Update("stock", gorm.Expr("stock - ?", items.Amount)).Error; err != nil {
+								return err
+							}
 						}
 					}
 				} else if transactionStatusResp.TransactionStatus == "settlement" {
 					// TODO set transaction status on your databaase to 'success'
-					if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "success").Error; err != nil {
+					if err := tx.Model(transaction).WithContext(t.ctx).Where("order_id = ?", orderId).Update("transaction_status", "success").Preload("TransactionDetail").First(&transaction).Error; err != nil {
 						return err
+					}
+					// update stock product
+					for _, items := range transaction.TransactionDetail {
+						if err := tx.Model(product).Where("id = ?", items.ProductId).Update("stock", gorm.Expr("stock - ?", items.Amount)).Error; err != nil {
+							return err
+						}
 					}
 				} else if transactionStatusResp.TransactionStatus == "deny" {
 					// TODO you can ignore 'deny', because most of the time it allows payment retries
