@@ -178,3 +178,11 @@ Access-Token:
 	"description":"Economy Service",
 	"price":16000
 }
+
+### Get Transaction By User Id
+GET http://localhost:5000/api/transaction/user/userid
+Access-Token:
+
+### Get Transaction By Store Id
+GET http://localhost:5000/api/transaction/store/storeid
+Access-Token:

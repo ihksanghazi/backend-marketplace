@@ -16,5 +16,7 @@ func TransactionRouter(r *gin.RouterGroup) {
 	controller := controllers.NewTransactionController(TrxService, CartService)
 
 	r.GET("/ongkir/:id", controller.CekOngir)
-	r.POST("checkout/:id", controller.Checkout)
+	r.POST("/checkout/:id", controller.Checkout)
+	r.GET("/user/:id", controller.GetByUserId)
+	r.GET("/store/:id", controller.GetByStoreId)
 }
