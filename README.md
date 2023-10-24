@@ -49,9 +49,9 @@ Mengambil daftar kota/kabupaten berdasarkan ID provinsi yang diberikan.
 GET http://localhost:5000/api/region/city/6
 ```
 
-#### Parameter
+#### Parameters
 
-- **province id** (number,required): ID provinsi yang digunakan untuk mengambil daftar kota/kabupaten yang berada dalam provinsi tersebut.
+- **6** (number,required): ID provinsi yang digunakan untuk mengambil daftar kota/kabupaten yang berada dalam provinsi tersebut.
 
 #### Response
 
@@ -241,9 +241,9 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): Id User.
+- **adf4b794-f398-464a-b6d5-ef8a078f0705** (string,required): User ID.
 
 #### Request Body
 
@@ -306,9 +306,9 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): Id User.
+- **adf4b794-f398-464a-b6d5-ef8a078f0705** (string,required): User ID.
 
 #### Response
 
@@ -337,7 +337,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Query Parameters
+#### Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -389,9 +389,9 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): Id User.
+- **45313486-b690-4ab3-aa7d-86ef45be5628** (string,required): User ID.
 
 #### Response
 
@@ -492,9 +492,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): Id Store.
+- **c15dc952-7fea-499c-b2cb-3c9d6fe8503a** (string,required): Store ID.
 
 ### Request Body
 
@@ -550,9 +550,9 @@ Digunakan untuk menghapus toko berdasarkan ID.
 DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 ```
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): Id Store.
+- **cc57e8e1-ce13-45b8-ac87-a93ea8611294** (string,required): Store ID.
 
 #### Request Header
 
@@ -585,7 +585,7 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Query Parameters
+#### Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -633,9 +633,9 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): Id Store.
+- **8bae8813-c361-4b1a-8c20-59f78010728e** (string,required): Store ID.
 
 #### Response
 
@@ -782,9 +782,9 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): product id
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): Product ID.
 
 #### Request Body
 
@@ -847,9 +847,9 @@ DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 - **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): product id
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): Product ID.
 
 #### Response
 
@@ -878,7 +878,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 
 - **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Query Parameters
+#### Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -929,9 +929,9 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): product id
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): Product ID.
 
 #### Response
 
@@ -979,12 +979,9 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
 
 - **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): ID produk yang ingin ditambahkan ke keranjang.
-
-#### Query Parameter
-
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): ID produk yang ingin ditambahkan ke keranjang.
 - **qty** (integer,optional): Jumlah produk yang ingin ditambahkan ke keranjang (opsional, default: 1).
 
 #### Response
@@ -1044,9 +1041,9 @@ DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **cart id** (string,required): ID keranjang yang ingin dihapus.
+- **db1106eb-48be-49e4-9ebc-651331072944** (string,required): ID keranjang yang ingin dihapus.
 
 #### Response
 
@@ -1077,12 +1074,9 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **item id** (string,required): ID item dalam keranjang yang ingin diperbarui.
-
-#### Query Parameters
-
+- **f3aea3b7-e2be-47fd-b0a2-a3496537a3e1** (string,required): ID item dalam keranjang yang ingin diperbarui.
 - **qty** (integer,required): Jumlah produk yang ingin diperbarui dalam item ini.
 
 #### Response
@@ -1142,9 +1136,9 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **Item Id** (string): ID item dalam keranjang yang ingin dihapus.
+- **8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0** (string): ID item dalam keranjang yang ingin dihapus.
 
 #### Response
 
@@ -1237,12 +1231,9 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 
 - **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
-#### Parameter
+#### Parameters
 
-- **cart id** (string,required): ID keranjang belanja.
-
-#### Query Parameter
-
+- **e39eecaa-828e-45b1-9447-56aae81a8fe7** (string,required): ID keranjang belanja.
 - **expedition** (string,required) : Nama ekspedisi yang digunakan untuk menghitung ongkir.
 
 #### Response
@@ -1311,12 +1302,9 @@ POST http://localhost:5000/api/transaction/checkout/e39eecaa-828e-45b1-9447-56aa
 
 - **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
-#### Parameter
+#### Parameters
 
-- **cart id** (string,required): ID keranjang belanja.
-
-#### Query Parameter
-
+- **e39eecaa-828e-45b1-9447-56aae81a8fe7** (string,required): ID keranjang belanja.
 - **payment** (string,required): Metode pembayaran yang digunakan
 
 #### Request Body
@@ -1405,9 +1393,9 @@ GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4
 
 - **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): ID pengguna.
+- **4e9497c1-fb82-4301-94a8-7d0b4d6c4f53** (string,required): User ID.
 
 #### Response
 
@@ -1500,9 +1488,9 @@ GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010
 
 - **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): ID Toko.
+- **8bae8813-c361-4b1a-8c20-59f78010728e** (string,required): Store ID.
 
 #### Response
 
