@@ -12,6 +12,7 @@ import (
 
 type ReviewService interface {
 	Create(userId string, productId string, req web.CreateReviewRequest) error
+	Get(productId string, page int, limit int) (result []web.GetReviewResponse, totalPage int, err error)
 }
 
 type reviewServiceImpl struct {
@@ -44,4 +45,14 @@ func (r *reviewServiceImpl) Create(userId string, productId string, req web.Crea
 		return nil
 	})
 	return err
+}
+
+func (r *reviewServiceImpl) Get(productId string, page int, limit int) (result []web.GetReviewResponse, totalPage int, err error) {
+	var review []web.GetReviewResponse
+	var model domain.Review
+	var totalData int64
+	offset := (page - 1) * limit
+	Err := database.DB.Model(model).WithContext(r.ctx).Where("product_id = ?", productId).Count(&totalData).Limit(limit).Offset(offset).Find(&review).Error
+	TotalPage := (int(totalData) + limit - 1) / limit
+	return review, TotalPage, Err
 }
