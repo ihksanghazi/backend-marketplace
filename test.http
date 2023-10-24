@@ -201,3 +201,7 @@ Access-Token:
 {
 	"comment":"Product bagus dan murah"
 }
+
+### Get Product Review
+GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae
+Access-Token:

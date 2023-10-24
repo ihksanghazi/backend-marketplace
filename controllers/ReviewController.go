@@ -11,6 +11,7 @@ import (
 
 type ReviewController interface {
 	Create(c *gin.Context)
+	Get(c *gin.Context)
 }
 
 type reviewControllerImpl struct {
@@ -50,4 +51,10 @@ func (r *reviewControllerImpl) Create(c *gin.Context) {
 	}
 
 	c.JSON(201, gin.H{"msg": "Success Create Product Review"})
+}
+
+func (r *reviewControllerImpl) Get(c *gin.Context) {
+	productId := c.Param("productId")
+
+	c.JSON(200, gin.H{"id": productId})
 }

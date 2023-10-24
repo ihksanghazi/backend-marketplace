@@ -15,4 +15,5 @@ func ReviewRouter(r *gin.RouterGroup) {
 	controller := controllers.NewReviewController(service)
 
 	r.POST("/create/:productId", controller.Create)
+	r.GET("/get/:productId", controller.Get)
 }
