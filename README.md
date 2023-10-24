@@ -1602,3 +1602,44 @@ POST http://localhost:5000/api/review/create/190fce26-fd07-48df-9283-84759abbefa
 ```
 
 ##
+
+### Get Product Review
+
+Mengambil ulasan produk untuk produk tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?page=1&limit=10
+```
+
+#### Request Header
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+- **190fce26-fd07-48df-9283-84759abbefae** (string,required): ID produk yang ulasan produknya akan diambil.
+- **page** (int,required): Nomor halaman yang diinginkan dalam hasil ulasan.
+- **limit** (int,required): Jumlah ulasan yang ingin ditampilkan dalam satu halaman.
+
+#### Response
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "current_page": "1",
+  "total_page": 1,
+  "data": [
+    {
+      "id": "c18b0b9e-fcf4-4863-8f33-f361f95c24f1",
+      "comment": "Product bagus dan murah",
+      "created_at": "2023-10-25T00:44:10.92995+07:00",
+      "updated_at": "2023-10-25T00:44:10.92995+07:00"
+    }... // (data product review lainnya)
+  ]
+}
+```
+
+##
