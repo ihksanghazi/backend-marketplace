@@ -16,11 +16,13 @@ type User struct {
 	Role         string `gorm:"default:user;index"`
 	PhoneNumber  string `gorm:"unique;default:NULL"`
 	Address      string
+	CityId       string `gorm:"foreignKey"`
 	ImageUrl     string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 	DeletedAt    gorm.DeletedAt `gorm:"index"`
 	// Association
-	Store Store  `gorm:"foreignKey:UserId"`
-	Cart  []Cart `gorm:"foreignKey:UserId"`
+	Store       Store         `gorm:"foreignKey:UserId"`
+	Cart        []Cart        `gorm:"foreignKey:UserId"`
+	Transaction []Transaction `gorm:"foreignKey:UserId"`
 }

@@ -1,3 +1,93 @@
+##
+
+### Get Province List
+
+Mengambil daftar provinsi yang tersedia di sistem.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/region/province
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": [
+		{
+			"id": "1",
+			"province": "Bali"
+		},
+		{
+			"id": "2",
+			"province": "Bangka Belitung"
+		},
+		{
+			"id": "3",
+			"province": "Banten"
+		}
+		// ... (data provinsi lainnya)
+	]
+}
+```
+
+##
+
+### Get City By Province Id
+
+Mengambil daftar kota/kabupaten berdasarkan ID provinsi yang diberikan.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/region/city/6
+```
+
+#### Parameters
+
+- **6** (number,required): ID provinsi yang digunakan untuk mengambil daftar kota/kabupaten yang berada dalam provinsi tersebut.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": [
+		{
+			"id": "151",
+			"type": "Kota",
+			"city_name": "Jakarta Barat",
+			"postal_code": "11220"
+		},
+		{
+			"id": "152",
+			"type": "Kota",
+			"city_name": "Jakarta Pusat",
+			"postal_code": "10540"
+		},
+		{
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		}
+		// ... (data provinsi lainnya)
+	]
+}
+```
+
+##
+
 ### Register User
 
 Digunakan untuk mendaftarkan pengguna baru.
@@ -13,6 +103,7 @@ POST http://localhost:5000/api/user/register
 - **username** (string, required): Nama pengguna.
 - **email** (string, required): Alamat email pengguna.
 - **password** (string, required): Kata sandi pengguna.
+- **city_id** (string,required): id city pengguna
 - **phone_number** (string, optional): No telephone pengguna.
 - **address** (string, optional): Alamat pengguna (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
@@ -24,6 +115,7 @@ POST http://localhost:5000/api/user/register
 	"username": "person",
 	"email": "person@gmail.com",
 	"password": "123",
+	"city_id": "153",
 	"phone_number": "",
 	"address": "",
 	"image_url": ""
@@ -149,15 +241,16 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): Id User.
+- **adf4b794-f398-464a-b6d5-ef8a078f0705** (string,required): User ID.
 
 #### Request Body
 
 - **username** (string, optional): Nama pengguna (dapat dikosongkan).
 - **email** (string, optional): Alamat email pengguna (dapat dikosongkan).
 - **password** (string, optional): Kata sandi pengguna (dapat dikosongkan).
+- **city_id** (string,optional): city id pengguna (dapat dikosongkan)
 - **phone_number** (string, optional): Nomor telepon pengguna (dapat dikosongkan).
 - **address** (string, optional): Alamat pengguna (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar profil pengguna (dapat dikosongkan).
@@ -169,6 +262,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 	"username": "",
 	"email": "person@gmail.com",
 	"password": "",
+	"city_id": "153",
 	"phone_number": "",
 	"address": "Jl. Buntu",
 	"image_url": ""
@@ -188,6 +282,7 @@ PUT http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 		"username": "person",
 		"email": "person@gmail.com",
 		"password": "$2a$10$lQk04EeOxkf8HR1IqoZBXuhEHThgc6OT2SmVR8RPprEpROHEkhv5K",
+		"city_id": "153",
 		"phone_number": "",
 		"address": "Jl. Buntu",
 		"image_url": ""
@@ -211,9 +306,9 @@ DELETE http://localhost:5000/api/user/adf4b794-f398-464a-b6d5-ef8a078f0705
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): Id User.
+- **adf4b794-f398-464a-b6d5-ef8a078f0705** (string,required): User ID.
 
 #### Response
 
@@ -242,7 +337,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Query Parameters
+#### Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -294,9 +389,9 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **user id** (string,required): Id User.
+- **45313486-b690-4ab3-aa7d-86ef45be5628** (string,required): User ID.
 
 #### Response
 
@@ -314,6 +409,12 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 		"phone_number": "",
 		"address": "",
 		"image_url": "",
+		"region": {
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		},
 		"store": {
 			"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
 			"store_name": "Toko Buku",
@@ -321,7 +422,6 @@ GET http://localhost:5000/api/user/45313486-b690-4ab3-aa7d-86ef45be5628
 			"category": "pendidikan",
 			"image_url": ""
 		},
-		"carts": [],
 		"created_at": "2023-10-14T01:19:32.73704+07:00",
 		"updated_at": "2023-10-16T12:16:57.062845+07:00"
 	}
@@ -392,9 +492,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): Id Store.
+- **c15dc952-7fea-499c-b2cb-3c9d6fe8503a** (string,required): Store ID.
 
 ### Request Body
 
@@ -402,6 +502,8 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 - **description** (string, optional): Deskripsi toko (dapat dikosongkan).
 - **category** (string, optional): Kategori toko (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar toko (dapat dikosongkan).
+- **address** (string,optional): address toko (dapat dikosongkan).
+- **city_id** (string,optional): city id toko (dapat dikosongkan).
 
 #### Contoh Request Body:
 
@@ -410,7 +512,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 	"store_name": "Toko Game",
 	"description": "contoh deskripsi",
 	"category": "hiburan",
-	"image_url": ""
+	"image_url": "",
+	"address": "",
+	"city_id": "153"
 }
 ```
 
@@ -427,7 +531,9 @@ PUT http://localhost:5000/api/store/c15dc952-7fea-499c-b2cb-3c9d6fe8503a
 		"store_name": "Toko Game",
 		"description": "contoh deskripsi",
 		"category": "hiburan",
-		"image_url": ""
+		"image_url": "",
+		"address": "",
+		"city_id": "153"
 	}
 }
 ```
@@ -444,9 +550,9 @@ Digunakan untuk menghapus toko berdasarkan ID.
 DELETE http://localhost:5000/api/store/cc57e8e1-ce13-45b8-ac87-a93ea8611294
 ```
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): Id Store.
+- **cc57e8e1-ce13-45b8-ac87-a93ea8611294** (string,required): Store ID.
 
 #### Request Header
 
@@ -479,7 +585,7 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Query Parameters
+#### Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -527,9 +633,9 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **store id** (string,required): Id Store.
+- **8bae8813-c361-4b1a-8c20-59f78010728e** (string,required): Store ID.
 
 #### Response
 
@@ -542,6 +648,12 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
   "status": "OK",
   "data": {
     "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+		"region": {
+      "id": "153",
+      "type": "Kota",
+      "city_name": "Jakarta Selatan",
+      "postal_code": "12230"
+    },
     "products": [
       {
         "id": "5aaa787d-02d3-4487-bc75-b543da26c897",
@@ -562,6 +674,44 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
     "created_at": "2023-10-14T02:11:56.344211+07:00",
     "updated_at": "2023-10-14T02:38:15.126789+07:00"
   }
+}
+```
+
+##
+
+### Get Store Report
+
+Mengambil laporan toko berdasarkan ID toko dengan rentang tanggal tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/store/report/8bae8813-c361-4b1a-8c20-59f78010728e?startDate=2023-10-22&endDate=2023-10-30
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **8bae8813-c361-4b1a-8c20-59f78010728e**: ID toko.
+- **startDate**: Tanggal awal periode laporan.
+- **endDate**: Tanggal akhir periode laporan.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"total_sales": 100000,
+		"total_product_sold": 2
+	}
 }
 ```
 
@@ -589,6 +739,7 @@ POST http://localhost:5000/api/product/create
 - **stock** (integer, required): Jumlah stok produk.
 - **price** (integer, required): Harga produk.
 - **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+- **weight_on_gram** (integer,required): berat product
 
 #### Contoh Request Body:
 
@@ -599,7 +750,8 @@ POST http://localhost:5000/api/product/create
 	"category": "Pendidikan",
 	"stock": 99,
 	"price": 50000,
-	"image_url": ""
+	"image_url": "",
+	"weight_on_gram": 1000
 }
 ```
 
@@ -630,9 +782,9 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): product id
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): Product ID.
 
 #### Request Body
 
@@ -642,6 +794,7 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 - **stock** (integer, optional): Jumlah stok produk (dapat dikosongkan).
 - **price** (integer, optional): Harga produk (dapat dikosongkan).
 - **image_url** (string, optional): URL gambar produk (dapat dikosongkan).
+- **weight_on_gram** (integer,optional): berat product (dapat dikosongkan).
 
 #### Contoh Request Body:
 
@@ -652,7 +805,8 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 	"category": "",
 	"stock": "",
 	"price": "",
-	"image_url": ""
+	"image_url": "",
+	"weight_on_gram": 1000
 }
 ```
 
@@ -671,7 +825,8 @@ PUT http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"category": "Pendidikan",
 		"stock": "99",
 		"price": "50000",
-		"image_url": ""
+		"image_url": "",
+		"weight_on_gram": 1000
 	}
 }
 ```
@@ -692,9 +847,9 @@ DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 - **Access-Token** (string, optional): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): product id
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): Product ID.
 
 #### Response
 
@@ -723,7 +878,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 
 - **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Query Parameters
+#### Parameters
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
@@ -746,6 +901,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 			"product_name": "Buku Politik",
 			"description": "Contoh Deskripsi",
 			"category": "Pendidikan",
+			"weight_on_gram": 1000,
 			"stock": "99",
 			"price": "50000",
 			"image_url": "",
@@ -773,9 +929,9 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): product id
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): Product ID.
 
 #### Response
 
@@ -797,6 +953,7 @@ GET http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 		"product_name": "Buku Politik",
 		"description": "Contoh Deskripsi",
 		"category": "Pendidikan",
+		"weight_on_gram": 1000,
 		"stock": "99",
 		"price": "50000",
 		"image_url": "",
@@ -822,12 +979,9 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
 
 - **Access-Token** (string,required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **product id** (string,required): ID produk yang ingin ditambahkan ke keranjang.
-
-#### Query Parameter
-
+- **5aaa787d-02d3-4487-bc75-b543da26c897** (string,required): ID produk yang ingin ditambahkan ke keranjang.
 - **qty** (integer,optional): Jumlah produk yang ingin ditambahkan ke keranjang (opsional, default: 1).
 
 #### Response
@@ -848,20 +1002,22 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
         "category": "pendidikan",
         "image_url": ""
       },
-      "products": [
-        {
-          "product_name": "Buku Politik",
-          "description": "Contoh Deskripsi",
-          "category": "Pendidikan",
-          "detail": {
-            "item_id": "8ff0034e-3507-43b0-8fee-6277c11347e0",
-            "amount": "2"
-          },
-          "price": "50000",
-          "image_url": ""
-        },...
+			"items": [
+				{
+					"id":"8ff0034e-3507-43b0-8fee-6277c11347e0",
+          "amount": "2",
+					"product":{
+						"product_name": "Buku Politik",
+          	"description": "Contoh Deskripsi",
+          	"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+          	"image_url": ""
+					}
+				},...
       ],
-      "total": "100000",
+      "total_price": "100000",
+      "total_gram": "1000",
       "created_at": "2023-10-17T10:22:59.801696+07:00",
       "updated_at": "2023-10-17T10:22:59.838224+07:00"
     },...
@@ -885,9 +1041,9 @@ DELETE http://localhost:5000/api/cart/db1106eb-48be-49e4-9ebc-651331072944
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **cart id** (string,required): ID keranjang yang ingin dihapus.
+- **db1106eb-48be-49e4-9ebc-651331072944** (string,required): ID keranjang yang ingin dihapus.
 
 #### Response
 
@@ -918,12 +1074,9 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **item id** (string,required): ID item dalam keranjang yang ingin diperbarui.
-
-#### Query Parameters
-
+- **f3aea3b7-e2be-47fd-b0a2-a3496537a3e1** (string,required): ID item dalam keranjang yang ingin diperbarui.
 - **qty** (integer,required): Jumlah produk yang ingin diperbarui dalam item ini.
 
 #### Response
@@ -944,20 +1097,22 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 				"category": "pendidikan",
 				"image_url": ""
 			},
-			"products": [
+			"items": [
 				{
-					"product_name": "Buku Politik",
-					"description": "Contoh Deskripsi",
-					"category": "Pendidikan",
-					"detail": {
-						"item_id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
-						"amount": "3"
-					},
-					"price": "50000",
-					"image_url": ""
-				}
+					"id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
+					"amount": "3",
+					"product": {
+						"product_name": "Buku Politik",
+						"description": "Contoh Deskripsi",
+						"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+						"image_url": ""
+					}
+				},...
 			],
-			"total": "150000",
+			"total_price": "150000",
+			"total_gram": "3000",
 			"created_at": "2023-10-18T21:07:28.338832+07:00",
 			"updated_at": "2023-10-18T21:28:06.109172+07:00"
 		}
@@ -981,9 +1136,9 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 
 - **Access-Token** (string, required): Token akses yang sah untuk mengotentikasi pengguna.
 
-#### Parameter
+#### Parameters
 
-- **Item Id** (string): ID item dalam keranjang yang ingin dihapus.
+- **8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0** (string): ID item dalam keranjang yang ingin dihapus.
 
 #### Response
 
@@ -995,6 +1150,420 @@ DELETE http://localhost:5000/api/cart/item/8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0
 	"code": 200,
 	"status": "Success Delete Item With Id '8239ad03-ea2c-4ba5-b2a5-e3360c0d8ac0'",
 	"data": []
+}
+```
+
+##
+
+### Get Cart
+
+Mengambil keranjang belanja pengguna saat ini.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/cart/get
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "cart_id": "682f3ca8-9519-4b05-8463-700a383264cb",
+      "store": {
+        "store_name": "Toko Anime",
+        "description": "contoh deskripsi",
+        "category": "hiburan",
+        "image_url": ""
+      },
+			"items":[
+				{
+					"id":"c162d728-3c49-4a8f-9d8a-a90dc86137b9",
+          "amount": "2",
+					"product":{
+						"product_name": "Komik Naruto",
+          	"description": "Contoh Deskripsi",
+          	"category": "Pendidikan",
+						"weight_on_gram":1000,
+						"price": "50000",
+          	"image_url": ""
+					}
+				},...
+			],
+      "total_price": "100000",
+      "total_gram": "2000",
+      "created_at": "2023-10-21T05:56:47.377428+07:00",
+      "updated_at": "2023-10-21T05:56:47.38139+07:00"
+    },...
+  ]
+}
+```
+
+##
+
+Berikut adalah dokumentasi untuk permintaan (request) dan respons yang Anda berikan:
+
+markdown
+Copy code
+
+### Cek Ongkir
+
+Menghitung biaya pengiriman (ongkir) antara alamat pengiriman dan alamat tujuan menggunakan layanan ekspedisi tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81a8fe7?expedition=jne
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **e39eecaa-828e-45b1-9447-56aae81a8fe7** (string,required): ID keranjang belanja.
+- **expedition** (string,required) : Nama ekspedisi yang digunakan untuk menghitung ongkir.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"origin_details": {
+			"city_id": "151",
+			"city_name": "Jakarta Barat",
+			"postal_code": "11220",
+			"province": "DKI Jakarta",
+			"province_id": "6",
+			"type": "Kota"
+		},
+		"destination_details": {
+			"city_id": "153",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230",
+			"province": "DKI Jakarta",
+			"province_id": "6",
+			"type": "Kota"
+		},
+		"weight_on_gram": "2000",
+		"services": [
+			{
+				"service": "CTC",
+				"description": "JNE City Courier",
+				"value": 20000,
+				"etd": "1-2",
+				"note": ""
+			},
+			{
+				"service": "CTCYES",
+				"description": "JNE City Courier",
+				"value": 36000,
+				"etd": "1-1",
+				"note": ""
+			}
+		]
+	}
+}
+```
+
+> [!NOTE]
+> untuk expedition hanya tersedia option jne, pos, tiki, menggunakan selain itu akan terkena error BAD REQUEST
+
+##
+
+### Checkout
+
+Melakukan proses checkout untuk menyelesaikan pembelian dengan memilih metode pembayaran dan menghitung biaya pengiriman.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/transaction/checkout/e39eecaa-828e-45b1-9447-56aae81a8fe7?payment=bca
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **e39eecaa-828e-45b1-9447-56aae81a8fe7** (string,required): ID keranjang belanja.
+- **payment** (string,required): Metode pembayaran yang digunakan
+
+#### Request Body
+
+```json
+{
+	"origin_city": "Jakarta Barat",
+	"destination_city": "Jakarta Selatan",
+	"courier": "tiki",
+	"weight_on_gram": "2000",
+	"service": "ECO",
+	"description": "Economy Service",
+	"price": 16000
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"transaction_id": "8d2449b6-a26b-4b98-994f-df86da92134f",
+	"order_id": "TRX-e39eecaa",
+	"gross_amount": "116000.00",
+	"payment_type": "bank_transfer",
+	"transaction_time": "2023-10-23 00:29:18",
+	"transaction_status": "pending",
+	"fraud_status": "accept",
+	"masked_card": "",
+	"status_code": "201",
+	"bank": "",
+	"status_message": "Success, Bank Transfer transaction is created",
+	"approval_code": "",
+	"channel_response_code": "",
+	"channel_response_message": "",
+	"currency": "IDR",
+	"card_type": "",
+	"redirect_url": "",
+	"id": "",
+	"validation_messages": null,
+	"installment_term": "",
+	"eci": "",
+	"saved_token_id": "",
+	"saved_token_id_expired_at": "",
+	"point_redeem_amount": 0,
+	"point_redeem_quantity": 0,
+	"point_balance_amount": "",
+	"permata_va_number": "",
+	"va_numbers": [
+		{
+			"bank": "bca",
+			"va_number": "77855188791"
+		}
+	],
+	"bill_key": "",
+	"biller_code": "",
+	"acquirer": "",
+	"actions": null,
+	"payment_code": "",
+	"store": "",
+	"qr_string": "",
+	"on_us": false,
+	"three_ds_version": "",
+	"expiry_time": "2023-10-24 00:29:17"
+}
+```
+
+> [!NOTE]
+> Untuk metode pembayaran saat ini hanya tersedia bca, bni, dan bri selain itu maka akan mengembalikan response BAD REQUEST
+
+##
+
+### Get Transaction By User Id
+
+Mengambil Semua transaksi berdasarkan ID pengguna.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4f53
+```
+
+#### Request Header
+
+- **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **4e9497c1-fb82-4301-94a8-7d0b4d6c4f53** (string,required): User ID.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "id": "5654e222-c384-4dff-b8b2-f0cfe3a49914",
+      "user": {
+        "id": "4e9497c1-fb82-4301-94a8-7d0b4d6c4f53",
+        "username": "sendi",
+        "email": "sendi@gmail.com",
+        "phone_number": "",
+        "address": "",
+        "image_url": "",
+        "region": {
+          "id": "153",
+          "type": "Kota",
+          "city_name": "Jakarta Selatan",
+          "postal_code": "12230"
+        }
+      },
+      "store": {
+        "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+        "region": {
+          "id": "151",
+          "type": "Kota",
+          "city_name": "Jakarta Barat",
+          "postal_code": "11220"
+        },
+        "store_name": "Toko Buku",
+        "description": "contoh deskripsi",
+        "category": "pendidikan",
+        "image_url": "",
+        "created_at": "2023-10-14T02:11:56.344211+07:00",
+        "updated_at": "2023-10-14T02:38:15.126789+07:00"
+      },
+      "item": [
+        {
+          "id": "3f281685-16e9-40cf-a54c-9dea65853d5c",
+          "product": {
+            "product_name": "Komik Detektif Conan",
+            "description": "Contoh Deskripsi",
+            "category": "Pendidikan",
+            "weight_on_gram": 1000,
+            "price": "50000",
+            "image_url": ""
+          },
+          "amount": "2"
+        },...
+      ],
+      "expedition": {
+        "id": "ca36ca9d-c7d0-4efb-9c03-54ac235a37cf",
+        "origin_city": "Jakarta Barat",
+        "destination_city": "Jakarta Selatan",
+        "courier": "tiki",
+        "weight_on_gram": "2000",
+        "service": "ECO",
+        "description": "Economy Service",
+        "price": 16000
+      },
+      "transaction_status": "pending",
+      "total_product_price": "100000",
+      "total_price": "116000",
+      "created_at": "2023-10-23T00:29:20.255491+07:00",
+      "updated_at": "2023-10-23T00:29:20.255491+07:00"
+    },...
+  ]
+}
+```
+
+##
+
+### Get Transaction By Store Id
+
+Mengambil Semua transaksi berdasarkan ID Toko.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010728e
+```
+
+#### Request Header
+
+- **Access-Token**: Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **8bae8813-c361-4b1a-8c20-59f78010728e** (string,required): Store ID.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "id": "5654e222-c384-4dff-b8b2-f0cfe3a49914",
+      "user": {
+        "id": "4e9497c1-fb82-4301-94a8-7d0b4d6c4f53",
+        "username": "sendi",
+        "email": "sendi@gmail.com",
+        "phone_number": "",
+        "address": "",
+        "image_url": "",
+        "region": {
+          "id": "153",
+          "type": "Kota",
+          "city_name": "Jakarta Selatan",
+          "postal_code": "12230"
+        }
+      },
+      "store": {
+        "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+        "region": {
+          "id": "151",
+          "type": "Kota",
+          "city_name": "Jakarta Barat",
+          "postal_code": "11220"
+        },
+        "store_name": "Toko Buku",
+        "description": "contoh deskripsi",
+        "category": "pendidikan",
+        "image_url": "",
+        "created_at": "2023-10-14T02:11:56.344211+07:00",
+        "updated_at": "2023-10-14T02:38:15.126789+07:00"
+      },
+      "item": [
+        {
+          "id": "3f281685-16e9-40cf-a54c-9dea65853d5c",
+          "product": {
+            "product_name": "Komik Detektif Conan",
+            "description": "Contoh Deskripsi",
+            "category": "Pendidikan",
+            "weight_on_gram": 1000,
+            "price": "50000",
+            "image_url": ""
+          },
+          "amount": "2"
+        },...
+      ],
+      "expedition": {
+        "id": "ca36ca9d-c7d0-4efb-9c03-54ac235a37cf",
+        "origin_city": "Jakarta Barat",
+        "destination_city": "Jakarta Selatan",
+        "courier": "tiki",
+        "weight_on_gram": "2000",
+        "service": "ECO",
+        "description": "Economy Service",
+        "price": 16000
+      },
+      "transaction_status": "pending",
+      "total_product_price": "100000",
+      "total_price": "116000",
+      "created_at": "2023-10-23T00:29:20.255491+07:00",
+      "updated_at": "2023-10-23T00:29:20.255491+07:00"
+    },...
+  ]
 }
 ```
 

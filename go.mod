@@ -8,6 +8,7 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/jackc/pgx/v5 v5.4.3
 	github.com/joho/godotenv v1.5.1
+	github.com/midtrans/midtrans-go v1.3.7
 	golang.org/x/crypto v0.14.0
 	gorm.io/driver/postgres v1.5.3
 	gorm.io/gorm v1.25.5

@@ -70,6 +70,7 @@ func (c *cartServiceImpl) Add(productId string, amount string, userId string) er
 			cart.UserId = uuid.MustParse(userId)
 			cart.StoreId = product.StoreId
 			cart.Total = "0"
+			cart.TotalGram = "0"
 			if err := tx.Model(cart).WithContext(c.ctx).Create(&cart).Error; err != nil {
 				return err
 			}
@@ -96,11 +97,13 @@ func (c *cartServiceImpl) Add(productId string, amount string, userId string) er
 		}
 
 		// hitung ulang total cart
-		var total int
-		if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cart.Id).Scan(&total).Error; err != nil {
+		var total domain.UpdateCart
+		if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) as total_price,sum(cd.amount*p.weight_gram) as total_gram from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cart.Id).Scan(&total).Error; err != nil {
 			return err
 		}
-		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cart.Id).Update("total", total).Error; err != nil {
+		cart.Total = strconv.Itoa(total.TotalPrice)
+		cart.TotalGram = strconv.Itoa(total.TotalGram)
+		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cart.Id).Updates(cart).Error; err != nil {
 			return err
 		}
 		return nil
@@ -112,7 +115,7 @@ func (c *cartServiceImpl) Add(productId string, amount string, userId string) er
 func (c *cartServiceImpl) Get(userId string) ([]web.GetCartResponse, error) {
 	var cart domain.Cart
 	var response []web.GetCartResponse
-	err := database.DB.Model(cart).WithContext(c.ctx).Where("user_id = ?", userId).Preload("Store").Preload("Products.Detail").Find(&response).Error
+	err := database.DB.Model(cart).WithContext(c.ctx).Where("user_id = ?", userId).Preload("Store").Preload("Items.Product").Find(&response).Error
 	return response, err
 }
 
@@ -144,12 +147,14 @@ func (c *cartServiceImpl) UpdateCartItem(itemId string, qty int) error {
 			return err
 		}
 		// hitung ulang total cart
-		var total int
-		if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cartDetail.CartId).Scan(&total).Error; err != nil {
+		var total domain.UpdateCart
+		if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) as total_price,sum(cd.amount*p.weight_gram) as total_gram from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cartDetail.CartId).Scan(&total).Error; err != nil {
 			return err
 		}
 		var cart domain.Cart
-		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartDetail.CartId).Update("total", total).Error; err != nil {
+		cart.Total = strconv.Itoa(total.TotalPrice)
+		cart.TotalGram = strconv.Itoa(total.TotalGram)
+		if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartDetail.CartId).Updates(cart).Error; err != nil {
 			return err
 		}
 		return nil
@@ -177,16 +182,13 @@ func (c *cartServiceImpl) DeleteCartItem(itemId string) error {
 
 		if cartDetail.Id != uuid.Nil {
 			// hitung ulang total cart
-			var total int
-			if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cartDetail.CartId).Scan(&total).Error; err != nil {
+			var total domain.UpdateCart
+			if err := tx.WithContext(c.ctx).Raw("select sum(cd.amount*p.price) as total_price,sum(cd.amount*p.weight_gram) as total_gram from cart_details cd join products p ON cd.product_id =p.id where cd.cart_id = ?", cartDetail.CartId).Scan(&total).Error; err != nil {
 				return err
 			}
-
-			if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartDetail.CartId).Update("total", total).Error; err != nil {
-				return err
-			}
-		} else {
-			if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cart.Id).Delete(&cart).Error; err != nil {
+			cart.Total = strconv.Itoa(total.TotalPrice)
+			cart.TotalGram = strconv.Itoa(total.TotalGram)
+			if err := tx.Model(cart).WithContext(c.ctx).Where("id = ?", cartDetail.CartId).Updates(cart).Error; err != nil {
 				return err
 			}
 		}

@@ -11,6 +11,7 @@ type Cart struct {
 	UserId    uuid.UUID `gorm:"foreignkey;not null"`
 	StoreId   uuid.UUID `gorm:"foreignkey;not null"`
 	Total     string    `gorm:"type:numeric;not null"`
+	TotalGram string    `gorm:"type:numeric"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	// Association
@@ -24,4 +25,9 @@ type CartDetail struct {
 	Amount    string    `gorm:"type:numeric;not null"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+type UpdateCart struct {
+	TotalPrice int
+	TotalGram  int
 }
