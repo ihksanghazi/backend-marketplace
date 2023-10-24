@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/database"
+	"github.com/ihksanghazi/backend-marketplace/model/domain"
 	"github.com/ihksanghazi/backend-marketplace/routers"
 	"github.com/joho/godotenv"
 )
@@ -21,7 +22,7 @@ func main() {
 	}
 
 	database.ConnectDB()
-	// database.DB.AutoMigrate(domain.Transaction{})
+	database.DB.AutoMigrate(domain.User{}, domain.Product{}, domain.Review{})
 	// database.Seeder()
 
 	routers.TestRouter(r.Group("/api/test"))
@@ -31,6 +32,7 @@ func main() {
 	routers.ProductRouter(r.Group("/api/product"))
 	routers.CartRouter(r.Group("/api/cart"))
 	routers.TransactionRouter(r.Group("/api/transaction"))
+	routers.ReviewRouter(r.Group("/api/review"))
 
 	r.Run(":5000")
 }

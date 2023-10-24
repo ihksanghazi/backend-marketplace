@@ -23,4 +23,5 @@ type Product struct {
 	// Association
 	CartDetail        []CartDetail        `gorm:"foreignKey:ProductId"`
 	TransactionDetail []TransactionDetail `gorm:"foreignKey:ProductId"`
+	Review            []Review            `gorm:"foreignKey:ProductId"`
 }

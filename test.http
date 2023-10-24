@@ -193,3 +193,11 @@ Access-Token:
 ### Get Transaction By Store Id
 GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010728e
 Access-Token:
+
+### Create Review By Product Id
+POST http://localhost:5000/api/review/create/misalnyaproductid
+Access-Token:
+
+{
+	"comment":"Product bagus dan murah"
+}
