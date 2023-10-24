@@ -97,11 +97,35 @@ func (t *transactionControllerImpl) Checkout(c *gin.Context) {
 func (t *transactionControllerImpl) GetByUserId(c *gin.Context) {
 	userId := c.Param("id")
 
-	c.JSON(200, gin.H{"user_id": userId})
+	result, err := t.TrxService.GetByUserId(userId)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 }
 
 func (t *transactionControllerImpl) GetByStoreId(c *gin.Context) {
 	storeId := c.Param("id")
 
-	c.JSON(200, gin.H{"store_id": storeId})
+	result, err := t.TrxService.GetByStoreId(storeId)
+	if err != nil {
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "OK",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 }

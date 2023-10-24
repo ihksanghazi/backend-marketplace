@@ -20,6 +20,8 @@ import (
 type TransactionService interface {
 	CekOngkir(cartId string, userId string, expedition string) (web.ExpeditionWebResponse, error)
 	Checkout(cartId string, req web.CheckoutRequest, payment string) (*coreapi.ChargeResponse, error)
+	GetByUserId(userId string) ([]web.GetTransactionResponse, error)
+	GetByStoreId(storeId string) ([]web.GetTransactionResponse, error)
 }
 
 type transactionServiceImpl struct {
@@ -175,4 +177,16 @@ func (t *transactionServiceImpl) Checkout(cartId string, req web.CheckoutRequest
 	})
 
 	return chargeResponse, err
+}
+
+func (t *transactionServiceImpl) GetByUserId(userId string) ([]web.GetTransactionResponse, error) {
+	var transaction []web.GetTransactionResponse
+	err := database.DB.WithContext(t.ctx).Where("user_id = ?", userId).Preload("User.Region").Preload("Store.Region").Preload("Items.Product").Preload("Expedition").Find(&transaction).Error
+	return transaction, err
+}
+
+func (t *transactionServiceImpl) GetByStoreId(storeId string) ([]web.GetTransactionResponse, error) {
+	var transaction []web.GetTransactionResponse
+	err := database.DB.WithContext(t.ctx).Where("store_id = ?", storeId).Preload("User.Region").Preload("Store.Region").Preload("Items.Product").Preload("Expedition").Find(&transaction).Error
+	return transaction, err
 }
