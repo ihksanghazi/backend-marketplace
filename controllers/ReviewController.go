@@ -105,7 +105,7 @@ func (r *reviewControllerImpl) Update(c *gin.Context) {
 			c.JSON(404, gin.H{"error": err.Error()})
 			return
 		} else {
-			c.JSON(404, gin.H{"error": err.Error()})
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
 	}
@@ -121,5 +121,16 @@ func (r *reviewControllerImpl) Update(c *gin.Context) {
 
 func (r *reviewControllerImpl) Delete(c *gin.Context) {
 	reviewId := c.Param("reviewId")
-	c.JSON(200, gin.H{"id": reviewId})
+
+	if err := r.service.Delete(reviewId); err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		} else {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	c.JSON(200, gin.H{"msg": "Success Delete Review with id '" + reviewId + "'"})
 }
