@@ -1614,14 +1614,17 @@ GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?pa
 ```
 
 #### Request Header
+
 - **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
 #### Parameters
+
 - **190fce26-fd07-48df-9283-84759abbefae** (string,required): ID produk yang ulasan produknya akan diambil.
-- **page** (int,required): Nomor halaman yang diinginkan dalam hasil ulasan.
-- **limit** (int,required): Jumlah ulasan yang ingin ditampilkan dalam satu halaman.
+- **page** (integer,optional): Nomor halaman yang diinginkan dalam hasil ulasan (opsional, default: 1).
+- **limit** (integer,optional): Jumlah ulasan yang ingin ditampilkan dalam satu halaman (opsional, default: 10).
 
 #### Response
+
 - **HTTP Status**: 200 OK
 - **Content-Type**: application/json; charset=utf-8
 
@@ -1639,6 +1642,49 @@ GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?pa
       "updated_at": "2023-10-25T00:44:10.92995+07:00"
     }... // (data product review lainnya)
   ]
+}
+```
+
+##
+
+### Update Product Review
+
+Mengubah ulasan produk yang sudah ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **c18b0b9e-fcf4-4863-8f33-f361f95c24f1** (string,required): ID ulasan yang akan di ubah.
+
+#### Request Body
+
+```json
+{
+	"comment": "Product bagus dan murah banget"
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Review With Id 'c18b0b9e-fcf4-4863-8f33-f361f95c24f1'",
+	"data": {
+		"comment": "Product bagus dan murah banget"
+	}
 }
 ```
 

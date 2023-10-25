@@ -8,11 +8,13 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/services"
 	"github.com/ihksanghazi/backend-marketplace/utils"
+	"gorm.io/gorm"
 )
 
 type ReviewController interface {
 	Create(c *gin.Context)
 	Get(c *gin.Context)
+	Update(c *gin.Context)
 }
 
 type reviewControllerImpl struct {
@@ -85,4 +87,34 @@ func (r *reviewControllerImpl) Get(c *gin.Context) {
 	}
 
 	c.JSON(200, response)
+}
+
+func (r *reviewControllerImpl) Update(c *gin.Context) {
+	reviewId := c.Param("reviewId")
+
+	var req web.UpdateReviewRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	result, err := r.service.Update(reviewId, req)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		} else {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "Success Update Review With Id '" + reviewId + "'",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
+
 }

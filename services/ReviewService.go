@@ -13,6 +13,7 @@ import (
 type ReviewService interface {
 	Create(userId string, productId string, req web.CreateReviewRequest) error
 	Get(productId string, page int, limit int) (result []web.GetReviewResponse, totalPage int, err error)
+	Update(reviewId string, req web.UpdateReviewRequest) (web.UpdateReviewRequest, error)
 }
 
 type reviewServiceImpl struct {
@@ -55,4 +56,15 @@ func (r *reviewServiceImpl) Get(productId string, page int, limit int) (result [
 	Err := database.DB.Model(model).WithContext(r.ctx).Where("product_id = ?", productId).Count(&totalData).Limit(limit).Offset(offset).Find(&review).Error
 	TotalPage := (int(totalData) + limit - 1) / limit
 	return review, TotalPage, Err
+}
+
+func (r *reviewServiceImpl) Update(reviewId string, req web.UpdateReviewRequest) (web.UpdateReviewRequest, error) {
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var model domain.Review
+		if err := tx.Model(model).WithContext(r.ctx).Where("id = ?", reviewId).Update("comment", req.Comment).First(&req).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return req, err
 }
