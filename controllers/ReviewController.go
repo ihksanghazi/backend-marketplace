@@ -13,6 +13,7 @@ import (
 type ReviewController interface {
 	Create(c *gin.Context)
 	Get(c *gin.Context)
+	Update(c *gin.Context)
 }
 
 type reviewControllerImpl struct {
@@ -85,4 +86,17 @@ func (r *reviewControllerImpl) Get(c *gin.Context) {
 	}
 
 	c.JSON(200, response)
+}
+
+func (r *reviewControllerImpl) Update(c *gin.Context) {
+	reviewId := c.Param("reviewId")
+
+	var req web.UpdateReviewRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{"review_id": reviewId, "req": req})
+
 }

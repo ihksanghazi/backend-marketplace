@@ -1614,14 +1614,17 @@ GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?pa
 ```
 
 #### Request Header
+
 - **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
 
 #### Parameters
+
 - **190fce26-fd07-48df-9283-84759abbefae** (string,required): ID produk yang ulasan produknya akan diambil.
-- **page** (int,required): Nomor halaman yang diinginkan dalam hasil ulasan.
-- **limit** (int,required): Jumlah ulasan yang ingin ditampilkan dalam satu halaman.
+- **page** (integer,optional): Nomor halaman yang diinginkan dalam hasil ulasan (opsional, default: 1).
+- **limit** (integer,optional): Jumlah ulasan yang ingin ditampilkan dalam satu halaman (opsional, default: 10).
 
 #### Response
+
 - **HTTP Status**: 200 OK
 - **Content-Type**: application/json; charset=utf-8
 
