@@ -17,4 +17,5 @@ func ReviewRouter(r *gin.RouterGroup) {
 	r.POST("/create/:productId", controller.Create)
 	r.GET("/get/:productId", controller.Get)
 	r.PUT("/:reviewId", controller.Update)
+	r.DELETE("/:reviewId", controller.Delete)
 }

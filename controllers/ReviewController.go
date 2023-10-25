@@ -15,6 +15,7 @@ type ReviewController interface {
 	Create(c *gin.Context)
 	Get(c *gin.Context)
 	Update(c *gin.Context)
+	Delete(c *gin.Context)
 }
 
 type reviewControllerImpl struct {
@@ -116,5 +117,9 @@ func (r *reviewControllerImpl) Update(c *gin.Context) {
 	}
 
 	c.JSON(200, response)
+}
 
+func (r *reviewControllerImpl) Delete(c *gin.Context) {
+	reviewId := c.Param("reviewId")
+	c.JSON(200, gin.H{"id": reviewId})
 }
