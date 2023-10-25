@@ -1646,3 +1646,46 @@ GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?pa
 ```
 
 ##
+
+### Update Product Review
+
+Mengubah ulasan produk yang sudah ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **c18b0b9e-fcf4-4863-8f33-f361f95c24f1** (string,required): ID ulasan yang akan di ubah.
+
+#### Request Body
+
+```json
+{
+	"comment": "Product bagus dan murah banget"
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Review With Id 'c18b0b9e-fcf4-4863-8f33-f361f95c24f1'",
+	"data": {
+		"comment": "Product bagus dan murah banget"
+	}
+}
+```
+
+##
