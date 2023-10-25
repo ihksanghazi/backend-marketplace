@@ -138,7 +138,7 @@ DELETE http://localhost:5000/api/product/5aaa787d-02d3-4487-bc75-b543da26c897
 Access-Token:
 
 ### Find Product
-GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
+GET http://localhost:5000/api/product/find?search=8bae8813-c361-4b1a-8c20-59f78010728e&page=1&limit=5
 Access-Token:
 
 ### Get Product
@@ -192,4 +192,28 @@ Access-Token:
 
 ### Get Transaction By Store Id
 GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010728e
+Access-Token:
+
+### Create Product Review
+POST http://localhost:5000/api/review/create/190fce26-fd07-48df-9283-84759abbefae
+Access-Token:
+
+{
+	"comment":"Product bagus dan murah"
+}
+
+### Get Product Review
+GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?page=1&limit=10
+Access-Token:
+
+### Update Product Review
+PUT http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+Access-Token:
+
+{
+	"comment":"Product bagus dan murah banget"
+}
+
+### Delete Product Review
+DELETE http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
 Access-Token:

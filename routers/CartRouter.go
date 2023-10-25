@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/ihksanghazi/backend-marketplace/controllers"
+	"github.com/ihksanghazi/backend-marketplace/middleware"
 	"github.com/ihksanghazi/backend-marketplace/services"
 )
 
@@ -13,7 +14,10 @@ func CartRouter(r *gin.RouterGroup) {
 	var ctx context.Context
 	cartService := services.NewCartService(ctx)
 	controller := controllers.NewCartController(cartService)
+	middleware := middleware.NewMiddleware(ctx)
 
+	// must login
+	r.Use(middleware.MustLogin())
 	r.POST("/add/:product_id", controller.Add)
 	r.DELETE("/:id", controller.DeleteCart)
 	r.PUT("/item/:id", controller.UpdateItem)

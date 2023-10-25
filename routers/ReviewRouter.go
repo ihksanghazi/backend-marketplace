@@ -9,18 +9,16 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/services"
 )
 
-func ProductRouter(r *gin.RouterGroup) {
+func ReviewRouter(r *gin.RouterGroup) {
 
 	var ctx context.Context
-	service := services.NewProductService(ctx)
-	controller := controllers.NewProductController(service)
+	service := services.NewReviewService(ctx)
+	controller := controllers.NewReviewController(service)
 	middleware := middleware.NewMiddleware(ctx)
 
 	r.Use(middleware.MustLogin())
-	r.POST("/create", controller.Create)
-	r.PUT("/:id", controller.Update)
-	r.DELETE("/:id", controller.Delete)
-	r.GET("/find", controller.Find)
-	r.GET("/:id", controller.Get)
-
+	r.POST("/create/:productId", controller.Create)
+	r.GET("/get/:productId", controller.Get)
+	r.PUT("/:reviewId", controller.Update)
+	r.DELETE("/:reviewId", controller.Delete)
 }

@@ -81,7 +81,7 @@ GET http://localhost:5000/api/region/city/6
 			"city_name": "Jakarta Selatan",
 			"postal_code": "12230"
 		}
-		// ... (data provinsi lainnya)
+		// ... (data city lainnya)
 	]
 }
 ```
@@ -365,7 +365,7 @@ GET http://localhost:5000/api/user/find?page=1&limit=5&search=a
 			"created_at": "2023-10-13T20:49:08.295375+07:00",
 			"updated_at": "2023-10-13T20:49:08.295375+07:00"
 		},
-		...
+		... // (data user lainnya)
 	]
 }
 ```
@@ -612,7 +612,7 @@ GET http://localhost:5000/api/store/find?page=1&limit=2&search=bu
       "created_at": "2023-10-14T02:11:56.344211+07:00",
       "updated_at": "2023-10-14T02:38:15.126789+07:00"
     },
-    ...
+    ... // (data store lainnya)
   ]
 }
 ```
@@ -644,36 +644,23 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 ```json
 {
-  "code": 200,
-  "status": "OK",
-  "data": {
-    "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
 		"region": {
-      "id": "153",
-      "type": "Kota",
-      "city_name": "Jakarta Selatan",
-      "postal_code": "12230"
-    },
-    "products": [
-      {
-        "id": "5aaa787d-02d3-4487-bc75-b543da26c897",
-        "product_name": "Buku Politik",
-        "category": "Pendidikan",
-        "stock": "99",
-        "price": "50000",
-        "image_url": "",
-        "created_at": "2023-10-14T16:41:21.190663+07:00",
-        "updated_at": "2023-10-14T19:26:54.898163+07:00"
-      },
-      ...
-    ],
-    "store_name": "Toko Buku",
-    "description": "contoh deskripsi",
-    "category": "pendidikan",
-    "image_url": "",
-    "created_at": "2023-10-14T02:11:56.344211+07:00",
-    "updated_at": "2023-10-14T02:38:15.126789+07:00"
-  }
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		},
+		"store_name": "Toko Buku",
+		"description": "contoh deskripsi",
+		"category": "pendidikan",
+		"image_url": "",
+		"created_at": "2023-10-14T02:11:56.344211+07:00",
+		"updated_at": "2023-10-14T02:38:15.126789+07:00"
+	}
 }
 ```
 
@@ -695,7 +682,7 @@ GET http://localhost:5000/api/store/report/8bae8813-c361-4b1a-8c20-59f78010728e?
 
 #### Parameters
 
-- **8bae8813-c361-4b1a-8c20-59f78010728e**: ID toko.
+- **8bae8813-c361-4b1a-8c20-59f78010728e** (string,required): ID toko.
 - **startDate**: Tanggal awal periode laporan.
 - **endDate**: Tanggal akhir periode laporan.
 
@@ -882,7 +869,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
-- **search** (string, optional): Kriteria pencarian untuk nama produk (opsional).
+- **search** (string, optional): Kriteria pencarian untuk nama produk, category, & store ID (opsional).
 
 #### Response
 
@@ -908,7 +895,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 			"created_at": "2023-10-14T16:41:21.190663+07:00",
 			"updated_at": "2023-10-14T19:26:54.898163+07:00"
 		},
-		...
+		... // (data product lainnya)
 	]
 }
 ```
@@ -1014,13 +1001,13 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
 						"price": "50000",
           	"image_url": ""
 					}
-				},...
+				},... // (data item lainnya)
       ],
       "total_price": "100000",
       "total_gram": "1000",
       "created_at": "2023-10-17T10:22:59.801696+07:00",
       "updated_at": "2023-10-17T10:22:59.838224+07:00"
-    },...
+    },... // (data keranjang lainnya)
   ]
 }
 ```
@@ -1109,13 +1096,13 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 						"price": "50000",
 						"image_url": ""
 					}
-				},...
+				},... // (data item lainnya)
 			],
 			"total_price": "150000",
 			"total_gram": "3000",
 			"created_at": "2023-10-18T21:07:28.338832+07:00",
 			"updated_at": "2023-10-18T21:28:06.109172+07:00"
-		}
+		},... // (data keranjang lainnya)
 	]
 }
 ```
@@ -1199,23 +1186,18 @@ GET http://localhost:5000/api/cart/get
 						"price": "50000",
           	"image_url": ""
 					}
-				},...
+				},... // (data item lainnya)
 			],
       "total_price": "100000",
       "total_gram": "2000",
       "created_at": "2023-10-21T05:56:47.377428+07:00",
       "updated_at": "2023-10-21T05:56:47.38139+07:00"
-    },...
+    },... // (data keranjang lainnya)
   ]
 }
 ```
 
 ##
-
-Berikut adalah dokumentasi untuk permintaan (request) dan respons yang Anda berikan:
-
-markdown
-Copy code
 
 ### Cek Ongkir
 
@@ -1277,7 +1259,7 @@ GET http://localhost:5000/api/transaction/ongkir/e39eecaa-828e-45b1-9447-56aae81
 				"value": 36000,
 				"etd": "1-1",
 				"note": ""
-			}
+			},... // (data service lainnya)
 		]
 	}
 }
@@ -1450,7 +1432,7 @@ GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4
             "image_url": ""
           },
           "amount": "2"
-        },...
+        },... // (data item lainnya)
       ],
       "expedition": {
         "id": "ca36ca9d-c7d0-4efb-9c03-54ac235a37cf",
@@ -1467,7 +1449,7 @@ GET http://localhost:5000/api/transaction/user/4e9497c1-fb82-4301-94a8-7d0b4d6c4
       "total_price": "116000",
       "created_at": "2023-10-23T00:29:20.255491+07:00",
       "updated_at": "2023-10-23T00:29:20.255491+07:00"
-    },...
+    },... // (data transaksi lainnya)
   ]
 }
 ```
@@ -1545,7 +1527,7 @@ GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010
             "image_url": ""
           },
           "amount": "2"
-        },...
+        },... // (data item lainnya)
       ],
       "expedition": {
         "id": "ca36ca9d-c7d0-4efb-9c03-54ac235a37cf",
@@ -1562,8 +1544,165 @@ GET http://localhost:5000/api/transaction/store/8bae8813-c361-4b1a-8c20-59f78010
       "total_price": "116000",
       "created_at": "2023-10-23T00:29:20.255491+07:00",
       "updated_at": "2023-10-23T00:29:20.255491+07:00"
-    },...
+    },... // (data transaksi lainnya)
   ]
+}
+```
+
+##
+
+### Create Product Review
+
+Membuat ulasan produk baru untuk produk tertentu.
+
+#### Endpoint
+
+```http
+POST http://localhost:5000/api/review/create/190fce26-fd07-48df-9283-84759abbefae
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **190fce26-fd07-48df-9283-84759abbefae** (string,required): ID produk yang akan ditinjau.
+
+#### Request Body
+
+```json
+{
+	"comment": "Product bagus dan murah"
+}
+```
+
+#### Response
+
+- **HTTP Status**: 201 Created
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Create Product Review"
+}
+```
+
+##
+
+### Get Product Review
+
+Mengambil ulasan produk untuk produk tertentu.
+
+#### Endpoint
+
+```http
+GET http://localhost:5000/api/review/get/190fce26-fd07-48df-9283-84759abbefae?page=1&limit=10
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **190fce26-fd07-48df-9283-84759abbefae** (string,required): ID produk yang ulasan produknya akan diambil.
+- **page** (integer,optional): Nomor halaman yang diinginkan dalam hasil ulasan (opsional, default: 1).
+- **limit** (integer,optional): Jumlah ulasan yang ingin ditampilkan dalam satu halaman (opsional, default: 10).
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+  "code": 200,
+  "status": "OK",
+  "current_page": "1",
+  "total_page": 1,
+  "data": [
+    {
+      "id": "c18b0b9e-fcf4-4863-8f33-f361f95c24f1",
+      "comment": "Product bagus dan murah",
+      "created_at": "2023-10-25T00:44:10.92995+07:00",
+      "updated_at": "2023-10-25T00:44:10.92995+07:00"
+    }... // (data product review lainnya)
+  ]
+}
+```
+
+##
+
+### Update Product Review
+
+Mengubah ulasan produk yang sudah ada.
+
+#### Endpoint
+
+```http
+PUT http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **c18b0b9e-fcf4-4863-8f33-f361f95c24f1** (string,required): ID ulasan yang akan di ubah.
+
+#### Request Body
+
+```json
+{
+	"comment": "Product bagus dan murah banget"
+}
+```
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"code": 200,
+	"status": "Success Update Review With Id 'c18b0b9e-fcf4-4863-8f33-f361f95c24f1'",
+	"data": {
+		"comment": "Product bagus dan murah banget"
+	}
+}
+```
+
+##
+
+### Delete Product Review
+
+Menghapus ulasan produk.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **c18b0b9e-fcf4-4863-8f33-f361f95c24f1** (string,required): ID ulasan yang akan di hapus.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Delete Review with id 'c18b0b9e-fcf4-4863-8f33-f361f95c24f1'"
 }
 ```
 

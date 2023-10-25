@@ -104,7 +104,7 @@ func (p *productServiceImpl) Find(search string, page int, limit int) (result []
 	var totalData int64
 	var response []web.FindProductResponse
 	offset := (page - 1) * limit
-	Err := database.DB.Model(product).WithContext(p.ctx).Where("product_name ILIKE ? OR category ILIKE ?", "%"+search+"%", "%"+search+"%").Count(&totalData).Limit(limit).Offset(offset).Find(&response).Error
+	Err := database.DB.Model(product).WithContext(p.ctx).Where("product_name ILIKE ? OR category ILIKE ? OR store_id = ?", "%"+search+"%", "%"+search+"%", search).Count(&totalData).Limit(limit).Offset(offset).Find(&response).Error
 	TotalPage := (int(totalData) + limit - 1) / limit
 	return response, TotalPage, Err
 }

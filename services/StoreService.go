@@ -96,7 +96,7 @@ func (s *storeServiceImpl) Find(page int, limit int, search string) (result []we
 func (s *storeServiceImpl) Get(storeId string) (web.GetStoreResponse, error) {
 	var store domain.Store
 	var response web.GetStoreResponse
-	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Preload("Region").Preload("Products").First(&response).Error
+	err := database.DB.Model(store).WithContext(s.ctx).Where("id = ?", storeId).Preload("Region").First(&response).Error
 	return response, err
 }
 
