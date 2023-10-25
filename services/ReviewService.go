@@ -14,6 +14,7 @@ type ReviewService interface {
 	Create(userId string, productId string, req web.CreateReviewRequest) error
 	Get(productId string, page int, limit int) (result []web.GetReviewResponse, totalPage int, err error)
 	Update(reviewId string, req web.UpdateReviewRequest) (web.UpdateReviewRequest, error)
+	Delete(reviewId string) error
 }
 
 type reviewServiceImpl struct {
@@ -67,4 +68,18 @@ func (r *reviewServiceImpl) Update(reviewId string, req web.UpdateReviewRequest)
 		return nil
 	})
 	return req, err
+}
+
+func (r *reviewServiceImpl) Delete(reviewId string) error {
+	err := database.DB.Transaction(func(tx *gorm.DB) error {
+		var review domain.Review
+		if err := tx.Model(review).WithContext(r.ctx).Where("id = ?", reviewId).First(&review).Error; err != nil {
+			return err
+		}
+		if err := tx.Model(review).WithContext(r.ctx).Where("id = ?", reviewId).Delete(&review).Error; err != nil {
+			return err
+		}
+		return nil
+	})
+	return err
 }

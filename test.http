@@ -213,3 +213,7 @@ Access-Token:
 {
 	"comment":"Product bagus dan murah banget"
 }
+
+### Delete Product Review
+DELETE http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+Access-Token:

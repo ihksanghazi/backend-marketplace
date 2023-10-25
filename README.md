@@ -1689,3 +1689,34 @@ PUT http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
 ```
 
 ##
+
+### Delete Product Review
+
+Menghapus ulasan produk.
+
+#### Endpoint
+
+```http
+DELETE http://localhost:5000/api/review/c18b0b9e-fcf4-4863-8f33-f361f95c24f1
+```
+
+#### Request Header
+
+- **Access-Token** (string,required): Token akses yang digunakan untuk mengidentifikasi pengguna yang terautentikasi.
+
+#### Parameters
+
+- **c18b0b9e-fcf4-4863-8f33-f361f95c24f1** (string,required): ID ulasan yang akan di hapus.
+
+#### Response
+
+- **HTTP Status**: 200 OK
+- **Content-Type**: application/json; charset=utf-8
+
+```json
+{
+	"msg": "Success Delete Review with id 'c18b0b9e-fcf4-4863-8f33-f361f95c24f1'"
+}
+```
+
+##
