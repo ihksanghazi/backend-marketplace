@@ -8,6 +8,7 @@ import (
 	"github.com/ihksanghazi/backend-marketplace/model/web"
 	"github.com/ihksanghazi/backend-marketplace/services"
 	"github.com/ihksanghazi/backend-marketplace/utils"
+	"gorm.io/gorm"
 )
 
 type ReviewController interface {
@@ -97,6 +98,23 @@ func (r *reviewControllerImpl) Update(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"review_id": reviewId, "req": req})
+	result, err := r.service.Update(reviewId, req)
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		} else {
+			c.JSON(404, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	response := web.BasicResponse{
+		Code:   200,
+		Status: "Success Update Review With Id '" + reviewId + "'",
+		Data:   result,
+	}
+
+	c.JSON(200, response)
 
 }
