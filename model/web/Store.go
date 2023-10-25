@@ -33,16 +33,15 @@ type FindStoreResponse struct {
 }
 
 type GetStoreResponse struct {
-	Id          uuid.UUID                 `json:"id"`
-	CityId      string                    `json:"-"`
-	Region      getStoreRegion            `json:"region" gorm:"foreignKey:CityId"`
-	Products    []getStoreProductResponse `json:"products" gorm:"foreignKey:StoreId"`
-	StoreName   string                    `json:"store_name"`
-	Description string                    `json:"description"`
-	Category    string                    `json:"category"`
-	ImageUrl    string                    `json:"image_url"`
-	CreatedAt   time.Time                 `json:"created_at"`
-	UpdatedAt   time.Time                 `json:"updated_at"`
+	Id          uuid.UUID      `json:"id"`
+	CityId      string         `json:"-"`
+	Region      getStoreRegion `json:"region" gorm:"foreignKey:CityId"`
+	StoreName   string         `json:"store_name"`
+	Description string         `json:"description"`
+	Category    string         `json:"category"`
+	ImageUrl    string         `json:"image_url"`
+	CreatedAt   time.Time      `json:"created_at"`
+	UpdatedAt   time.Time      `json:"updated_at"`
 }
 
 type getStoreRegion struct {

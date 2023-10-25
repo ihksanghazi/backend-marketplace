@@ -14,7 +14,7 @@ func ProductRouter(r *gin.RouterGroup) {
 	var ctx context.Context
 	service := services.NewProductService(ctx)
 	controller := controllers.NewProductController(service)
-	middleware:=middleware.NewMiddleware(ctx)
+	middleware := middleware.NewMiddleware(ctx)
 
 	r.Use(middleware.MustLogin())
 	r.POST("/create", controller.Create)

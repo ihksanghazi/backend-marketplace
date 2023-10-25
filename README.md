@@ -644,36 +644,23 @@ GET http://localhost:5000/api/store/8bae8813-c361-4b1a-8c20-59f78010728e
 
 ```json
 {
-  "code": 200,
-  "status": "OK",
-  "data": {
-    "id": "8bae8813-c361-4b1a-8c20-59f78010728e",
+	"code": 200,
+	"status": "OK",
+	"data": {
+		"id": "8bae8813-c361-4b1a-8c20-59f78010728e",
 		"region": {
-      "id": "153",
-      "type": "Kota",
-      "city_name": "Jakarta Selatan",
-      "postal_code": "12230"
-    },
-    "products": [
-      {
-        "id": "5aaa787d-02d3-4487-bc75-b543da26c897",
-        "product_name": "Buku Politik",
-        "category": "Pendidikan",
-        "stock": "99",
-        "price": "50000",
-        "image_url": "",
-        "created_at": "2023-10-14T16:41:21.190663+07:00",
-        "updated_at": "2023-10-14T19:26:54.898163+07:00"
-      },
-      ... // (data product lainnya)
-    ],
-    "store_name": "Toko Buku",
-    "description": "contoh deskripsi",
-    "category": "pendidikan",
-    "image_url": "",
-    "created_at": "2023-10-14T02:11:56.344211+07:00",
-    "updated_at": "2023-10-14T02:38:15.126789+07:00"
-  }
+			"id": "153",
+			"type": "Kota",
+			"city_name": "Jakarta Selatan",
+			"postal_code": "12230"
+		},
+		"store_name": "Toko Buku",
+		"description": "contoh deskripsi",
+		"category": "pendidikan",
+		"image_url": "",
+		"created_at": "2023-10-14T02:11:56.344211+07:00",
+		"updated_at": "2023-10-14T02:38:15.126789+07:00"
+	}
 }
 ```
 
@@ -882,7 +869,7 @@ GET http://localhost:5000/api/product/find?search=a&page=1&limit=5
 
 - **page** (integer, optional): Nomor halaman yang diinginkan (opsional, default: 1).
 - **limit** (integer, optional): Jumlah data per halaman (opsional, default: 10).
-- **search** (string, optional): Kriteria pencarian untuk nama produk (opsional).
+- **search** (string, optional): Kriteria pencarian untuk nama produk, category, & store ID (opsional).
 
 #### Response
 
