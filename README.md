@@ -984,37 +984,37 @@ POST http://localhost:5000/api/cart/add/5aaa787d-02d3-4487-bc75-b543da26c897?qty
 
 ```json
 {
-  "code": 201,
-  "status": "Success Add Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897' To Your Cart",
-  "data": [
-    {
-      "cart_id": "177f95e3-2080-43d5-abdf-87030f313555",
-      "store": {
-        "store_name": "Toko Buku",
-        "description": "contoh deskripsi",
-        "category": "pendidikan",
-        "image_url": ""
-      },
-			"items": [
-				{
-					"id":"8ff0034e-3507-43b0-8fee-6277c11347e0",
-          "amount": "2",
-					"product":{
-						"product_name": "Buku Politik",
-          	"description": "Contoh Deskripsi",
-          	"category": "Pendidikan",
-						"weight_on_gram":1000,
-						"price": "50000",
-          	"image_url": ""
-					}
-				},... // (data item lainnya)
-      ],
-      "total_price": "100000",
-      "total_gram": "1000",
-      "created_at": "2023-10-17T10:22:59.801696+07:00",
-      "updated_at": "2023-10-17T10:22:59.838224+07:00"
-    },... // (data keranjang lainnya)
-  ]
+   "code": 201,
+   "status": "Success Add Product With Id '5aaa787d-02d3-4487-bc75-b543da26c897' To Your Cart",
+   "data": [
+      {
+         "cart_id": "177f95e3-2080-43d5-abdf-87030f313555",
+         "store": {
+            "store_name": "Toko Buku",
+            "description": "contoh deskripsi",
+            "category": "pendidikan",
+            "image_url": ""
+         },
+         "items": [
+            {
+               "id":"8ff0034e-3507-43b0-8fee-6277c11347e0",
+               "amount": "2",
+               "product":{
+                  "product_name": "Buku Politik",
+                  "description": "Contoh Deskripsi",
+                  "category": "Pendidikan",
+                  "weight_on_gram":1000,
+                  "price": "50000",
+                  "image_url": ""
+               }
+            },... // (data item lainnya)
+         ],
+         "total_price": "100000",
+         "total_gram": "1000",
+         "created_at": "2023-10-17T10:22:59.801696+07:00",
+         "updated_at": "2023-10-17T10:22:59.838224+07:00"
+      },... // (data keranjang lainnya)
+   ]
 }
 ```
 
@@ -1079,37 +1079,37 @@ PUT http://localhost:5000/api/cart/item/f3aea3b7-e2be-47fd-b0a2-a3496537a3e1?qty
 
 ```json
 {
-	"code": 200,
-	"status": "Success Update Item 'f3aea3b7-e2be-47fd-b0a2-a3496537a3e1' With qty 3",
-	"data": [
-		{
-			"cart_id": "109ed563-b36f-4784-8ff5-7b580da1939d",
-			"store": {
-				"store_name": "Toko Buku",
-				"description": "contoh deskripsi",
-				"category": "pendidikan",
-				"image_url": ""
-			},
-			"items": [
-				{
-					"id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
-					"amount": "3",
-					"product": {
-						"product_name": "Buku Politik",
-						"description": "Contoh Deskripsi",
-						"category": "Pendidikan",
-						"weight_on_gram":1000,
-						"price": "50000",
-						"image_url": ""
-					}
-				},... // (data item lainnya)
-			],
-			"total_price": "150000",
-			"total_gram": "3000",
-			"created_at": "2023-10-18T21:07:28.338832+07:00",
-			"updated_at": "2023-10-18T21:28:06.109172+07:00"
-		},... // (data keranjang lainnya)
-	]
+   "code": 200,
+   "status": "Success Update Item 'f3aea3b7-e2be-47fd-b0a2-a3496537a3e1' With qty 3",
+   "data": [
+      {
+         "cart_id": "109ed563-b36f-4784-8ff5-7b580da1939d",
+         "store": {
+            "store_name": "Toko Buku",
+            "description": "contoh deskripsi",
+            "category": "pendidikan",
+            "image_url": ""
+         },
+         "items": [
+            {
+               "id": "f3aea3b7-e2be-47fd-b0a2-a3496537a3e1",
+               "amount": "3",
+               "product": {
+                  "product_name": "Buku Politik",
+                  "description": "Contoh Deskripsi",
+                  "category": "Pendidikan",
+                  "weight_on_gram":1000,
+                  "price": "50000",
+                  "image_url": ""
+               }
+            },... // (data item lainnya)
+         ],
+         "total_price": "150000",
+         "total_gram": "3000",
+         "created_at": "2023-10-18T21:07:28.338832+07:00",
+         "updated_at": "2023-10-18T21:28:06.109172+07:00"
+      },... // (data keranjang lainnya)
+   ]
 }
 ```
 
@@ -1169,37 +1169,37 @@ GET http://localhost:5000/api/cart/get
 
 ```json
 {
-  "code": 200,
-  "status": "OK",
-  "data": [
-    {
-      "cart_id": "682f3ca8-9519-4b05-8463-700a383264cb",
-      "store": {
-        "store_name": "Toko Anime",
-        "description": "contoh deskripsi",
-        "category": "hiburan",
-        "image_url": ""
-      },
-			"items":[
-				{
-					"id":"c162d728-3c49-4a8f-9d8a-a90dc86137b9",
-          "amount": "2",
-					"product":{
-						"product_name": "Komik Naruto",
-          	"description": "Contoh Deskripsi",
-          	"category": "Pendidikan",
-						"weight_on_gram":1000,
-						"price": "50000",
-          	"image_url": ""
-					}
-				},... // (data item lainnya)
-			],
-      "total_price": "100000",
-      "total_gram": "2000",
-      "created_at": "2023-10-21T05:56:47.377428+07:00",
-      "updated_at": "2023-10-21T05:56:47.38139+07:00"
-    },... // (data keranjang lainnya)
-  ]
+   "code": 200,
+   "status": "OK",
+   "data": [
+      {
+         "cart_id": "682f3ca8-9519-4b05-8463-700a383264cb",
+         "store": {
+            "store_name": "Toko Anime",
+            "description": "contoh deskripsi",
+            "category": "hiburan",
+            "image_url": ""
+         },
+         "items":[
+            {
+               "id":"c162d728-3c49-4a8f-9d8a-a90dc86137b9",
+               "amount": "2",
+               "product":{
+                  "product_name": "Komik Naruto",
+          	  "description": "Contoh Deskripsi",
+          	  "category": "Pendidikan",
+                  "weight_on_gram":1000,
+                  "price": "50000",
+          	  "image_url": ""
+               }
+            },... // (data item lainnya)
+         ],
+         "total_price": "100000",
+         "total_gram": "2000",
+         "created_at": "2023-10-21T05:56:47.377428+07:00",
+         "updated_at": "2023-10-21T05:56:47.38139+07:00"
+      },... // (data keranjang lainnya)
+   ]
 }
 ```
 
